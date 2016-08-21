@@ -5,6 +5,5 @@
   "js/dependencies.bundle.js": "js/dependencies-a50301560b.bundle.js",
   "js/dist-systemjs.config.js": "js/dist-systemjs-36719a839b.config.js",
   "js/polyfills.js": "js/polyfills-9e3fd751f6.js",
-  "sw-5cf67b0737.js": "sw-5cf67b0737-5cf67b0737.js",
-  "sw.js": "sw-5cf67b0737.js"
+  "sw.js": "sw-a8284f74f4.js"
 }
