@@ -213,17 +213,18 @@ input.form-control:focus, textarea.form-control:focus {
     background: black;
     border: 1px solid white; }
 
-.side-nav__container {
+.side-nav__container, .side-nav-xl {
   background-color: #202020; }
-  .side-nav__container .side-nav__content li a {
-    color: white; }
-  .side-nav__container .side-nav__content li:hover, .side-nav__container .side-nav__content li.active {
+  .side-nav__container .side-nav__content li a, .side-nav-xl .side-nav__content li a {
+    color: white;
+    outline: none; }
+  .side-nav__container .side-nav__content li:hover, .side-nav__container .side-nav__content li.active, .side-nav-xl .side-nav__content li:hover, .side-nav-xl .side-nav__content li.active {
     background-color: rgba(255, 255, 255, 0.05); }
-  .side-nav__container .side-nav__content .search-bar input {
+  .side-nav__container .side-nav__content .search-bar input, .side-nav-xl .side-nav__content .search-bar input {
     color: white;
     background: black;
     border: 1px solid white; }
-  .side-nav__container .side-nav__content .search-bar .input-group-addon {
+  .side-nav__container .side-nav__content .search-bar .input-group-addon, .side-nav-xl .side-nav__content .search-bar .input-group-addon {
     color: white; }
 
 .list-group-item:nth-child(2n+1) {
@@ -273,3 +274,13 @@ input.form-control:focus, textarea.form-control:focus {
     background: black; }
   #nowPlaying #position-indicator {
     background: black; }
+
+@media only screen and (min-width: 1200px) {
+  .main-content {
+    margin-left: 78px;
+    width: calc(100% - 78px); } }
+
+.tooltip .tooltip-inner {
+  border-color: rgba(255, 255, 255, 0.6);
+  background-color: #202020;
+  color: white; }
