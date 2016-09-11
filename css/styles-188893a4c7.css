@@ -11753,12 +11753,13 @@ code .number {
 body {
   padding-top: 55px;
   padding-bottom: 80px;
-  -moz-user-select: none;
-  -khtml-user-select: none;
   -webkit-user-select: none;
+  -moz-user-select: none;
   -ms-user-select: none;
+  user-select: none;
   background: white;
-  color: black; }
+  color: black;
+  transition: color 0.15s ease-in, background-color 0.15s ease-in; }
   @media only screen and (min-width: 768px) {
     body {
       padding-top: 110px; } }
