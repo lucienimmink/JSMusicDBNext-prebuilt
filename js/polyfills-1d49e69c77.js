@@ -8,8 +8,19 @@
 try{var f=[7][d]();f["return"]=function(){e=!0},Array.from(f,function(){throw 2})}catch(g){}a.exports=function(a,b){if(!b&&!e)return!1;var c=!1;try{var f=[7],g=f[d]();g.next=function(){return{done:c=!0}},f[d]=function(){return g},a(f)}catch(h){}return c}},function(a,b,c){var d=c(6),e=c(155);d(d.S+d.F*c(5)(function(){function F(){}return!(Array.of.call(F)instanceof F)}),"Array",{of:function of(){for(var a=0,b=arguments.length,c=new("function"==typeof this?this:Array)(b);b>a;)e(c,a,arguments[a++]);return c.length=b,c}})},function(a,b,d){var e=d(6),f=d(30),g=[].join;e(e.P+e.F*(d(31)!=Object||!d(160)(g)),"Array",{join:function join(a){return g.call(f(this),a===c?",":a)}})},function(a,b,c){var d=c(5);a.exports=function(a,b){return!!a&&d(function(){b?a.call(null,function(){},1):a.call(null)})}},function(a,b,d){var e=d(6),f=d(46),g=d(32),h=d(37),i=d(35),j=[].slice;e(e.P+e.F*d(5)(function(){f&&j.call(f)}),"Array",{slice:function slice(a,b){var d=i(this.length),e=g(this);if(b=b===c?d:b,"Array"==e)return j.call(this,a,b);for(var f=h(a,d),k=h(b,d),l=i(k-f),m=Array(l),n=0;n<l;n++)m[n]="String"==e?this.charAt(f+n):this[f+n];return m}})},function(a,b,d){var e=d(6),f=d(19),g=d(56),h=d(5),i=[].sort,j=[1,2,3];e(e.P+e.F*(h(function(){j.sort(c)})||!h(function(){j.sort(null)})||!d(160)(i)),"Array",{sort:function sort(a){return a===c?i.call(g(this)):i.call(g(this),f(a))}})},function(a,b,c){var d=c(6),e=c(164)(0),f=c(160)([].forEach,!0);d(d.P+d.F*!f,"Array",{forEach:function forEach(a){return e(this,a,arguments[1])}})},function(a,b,d){var e=d(18),f=d(31),g=d(56),h=d(35),i=d(165);a.exports=function(a,b){var d=1==a,j=2==a,k=3==a,l=4==a,m=6==a,n=5==a||m,o=b||i;return function(b,i,p){for(var q,r,s=g(b),t=f(s),u=e(i,p,3),v=h(t.length),w=0,x=d?o(b,v):j?o(b,0):c;v>w;w++)if((n||w in t)&&(q=t[w],r=u(q,w,s),a))if(d)x[w]=r;else if(r)switch(a){case 3:return!0;case 5:return q;case 6:return w;case 2:x.push(q)}else if(l)return!1;return m?-1:k||l?l:x}}},function(a,b,c){var d=c(166);a.exports=function(a,b){return new(d(a))(b)}},function(a,b,d){var e=d(11),f=d(43),g=d(23)("species");a.exports=function(a){var b;return f(a)&&(b=a.constructor,"function"!=typeof b||b!==Array&&!f(b.prototype)||(b=c),e(b)&&(b=b[g],null===b&&(b=c))),b===c?Array:b}},function(a,b,c){var d=c(6),e=c(164)(1);d(d.P+d.F*!c(160)([].map,!0),"Array",{map:function map(a){return e(this,a,arguments[1])}})},function(a,b,c){var d=c(6),e=c(164)(2);d(d.P+d.F*!c(160)([].filter,!0),"Array",{filter:function filter(a){return e(this,a,arguments[1])}})},function(a,b,c){var d=c(6),e=c(164)(3);d(d.P+d.F*!c(160)([].some,!0),"Array",{some:function some(a){return e(this,a,arguments[1])}})},function(a,b,c){var d=c(6),e=c(164)(4);d(d.P+d.F*!c(160)([].every,!0),"Array",{every:function every(a){return e(this,a,arguments[1])}})},function(a,b,c){var d=c(6),e=c(172);d(d.P+d.F*!c(160)([].reduce,!0),"Array",{reduce:function reduce(a){return e(this,a,arguments.length,arguments[1],!1)}})},function(a,b,c){var d=c(19),e=c(56),f=c(31),g=c(35);a.exports=function(a,b,c,h,i){d(b);var j=e(a),k=f(j),l=g(j.length),m=i?l-1:0,n=i?-1:1;if(c<2)for(;;){if(m in k){h=k[m],m+=n;break}if(m+=n,i?m<0:l<=m)throw TypeError("Reduce of empty array with no initial value")}for(;i?m>=0:l>m;m+=n)m in k&&(h=b(h,k[m],m,j));return h}},function(a,b,c){var d=c(6),e=c(172);d(d.P+d.F*!c(160)([].reduceRight,!0),"Array",{reduceRight:function reduceRight(a){return e(this,a,arguments.length,arguments[1],!0)}})},function(a,b,c){var d=c(6),e=c(34)(!1),f=[].indexOf,g=!!f&&1/[1].indexOf(1,-0)<0;d(d.P+d.F*(g||!c(160)(f)),"Array",{indexOf:function indexOf(a){return g?f.apply(this,arguments)||0:e(this,a,arguments[1])}})},function(a,b,c){var d=c(6),e=c(30),f=c(36),g=c(35),h=[].lastIndexOf,i=!!h&&1/[1].lastIndexOf(1,-0)<0;d(d.P+d.F*(i||!c(160)(h)),"Array",{lastIndexOf:function lastIndexOf(a){if(i)return h.apply(this,arguments)||0;var b=e(this),c=g(b.length),d=c-1;for(arguments.length>1&&(d=Math.min(d,f(arguments[1]))),d<0&&(d=c+d);d>=0;d--)if(d in b&&b[d]===a)return d||0;return-1}})},function(a,b,c){var d=c(6);d(d.P,"Array",{copyWithin:c(177)}),c(178)("copyWithin")},function(a,b,d){var e=d(56),f=d(37),g=d(35);a.exports=[].copyWithin||function copyWithin(a,b){var d=e(this),h=g(d.length),i=f(a,h),j=f(b,h),k=arguments.length>2?arguments[2]:c,l=Math.min((k===c?h:f(k,h))-j,h-i),m=1;for(j<i&&i<j+l&&(m=-1,j+=l-1,i+=l-1);l-- >0;)j in d?d[i]=d[j]:delete d[i],i+=m,j+=m;return d}},function(a,b,d){var e=d(23)("unscopables"),f=Array.prototype;f[e]==c&&d(8)(f,e,{}),a.exports=function(a){f[e][a]=!0}},function(a,b,c){var d=c(6);d(d.P,"Array",{fill:c(180)}),c(178)("fill")},function(a,b,d){var e=d(56),f=d(37),g=d(35);a.exports=function fill(a){for(var b=e(this),d=g(b.length),h=arguments.length,i=f(h>1?arguments[1]:c,d),j=h>2?arguments[2]:c,k=j===c?d:f(j,d);k>i;)b[i++]=a;return b}},function(a,b,d){var e=d(6),f=d(164)(5),g="find",h=!0;g in[]&&Array(1)[g](function(){h=!1}),e(e.P+e.F*h,"Array",{find:function find(a){return f(this,a,arguments.length>1?arguments[1]:c)}}),d(178)(g)},function(a,b,d){var e=d(6),f=d(164)(6),g="findIndex",h=!0;g in[]&&Array(1)[g](function(){h=!1}),e(e.P+e.F*h,"Array",{findIndex:function findIndex(a){return f(this,a,arguments.length>1?arguments[1]:c)}}),d(178)(g)},function(a,b,d){var e=d(178),f=d(184),g=d(135),h=d(30);a.exports=d(134)(Array,"Array",function(a,b){this._t=h(a),this._i=0,this._k=b},function(){var a=this._t,b=this._k,d=this._i++;return!a||d>=a.length?(this._t=c,f(1)):"keys"==b?f(0,d):"values"==b?f(0,a[d]):f(0,[d,a[d]])},"values"),g.Arguments=g.Array,e("keys"),e("values"),e("entries")},function(a,b){a.exports=function(a,b){return{value:b,done:!!a}}},function(a,b,c){c(186)("Array")},function(a,b,c){var d=c(2),e=c(9),f=c(4),g=c(23)("species");a.exports=function(a){var b=d[a];f&&b&&!b[g]&&e.f(b,g,{configurable:!0,get:function(){return this}})}},function(a,b,d){var e=d(2),f=d(80),g=d(9).f,h=d(48).f,i=d(128),j=d(188),k=e.RegExp,l=k,m=k.prototype,n=/a/g,o=/a/g,p=new k(n)!==n;if(d(4)&&(!p||d(5)(function(){return o[d(23)("match")]=!1,k(n)!=n||k(o)==o||"/a/i"!=k(n,"i")}))){k=function RegExp(a,b){var d=this instanceof k,e=i(a),g=b===c;return!d&&e&&a.constructor===k&&g?a:f(p?new l(e&&!g?a.source:a,b):l((e=a instanceof k)?a.source:a,e&&g?j.call(a):b),d?this:m,k)};for(var q=(function(a){a in k||g(k,a,{configurable:!0,get:function(){return l[a]},set:function(b){l[a]=b}})}),r=h(l),s=0;r.length>s;)q(r[s++]);m.constructor=k,k.prototype=m,d(16)(e,"RegExp",k)}d(186)("RegExp")},function(a,b,c){var d=c(10);a.exports=function(){var a=d(this),b="";return a.global&&(b+="g"),a.ignoreCase&&(b+="i"),a.multiline&&(b+="m"),a.unicode&&(b+="u"),a.sticky&&(b+="y"),b}},function(a,b,d){d(190);var e=d(10),f=d(188),g=d(4),h="toString",i=/./[h],j=function(a){d(16)(RegExp.prototype,h,a,!0)};d(5)(function(){return"/a/b"!=i.call({source:"a",flags:"b"})})?j(function toString(){var a=e(this);return"/".concat(a.source,"/","flags"in a?a.flags:!g&&a instanceof RegExp?f.call(a):c)}):i.name!=h&&j(function toString(){return i.call(this)})},function(a,b,c){c(4)&&"g"!=/./g.flags&&c(9).f(RegExp.prototype,"flags",{configurable:!0,get:c(188)})},function(a,b,d){d(192)("match",1,function(a,b,d){return[function match(d){var e=a(this),f=d==c?c:d[b];return f!==c?f.call(d,e):new RegExp(d)[b](String(e))},d]})},function(a,b,c){var d=c(8),e=c(16),f=c(5),g=c(33),h=c(23);a.exports=function(a,b,c){var i=h(a),j=c(g,i,""[a]),k=j[0],l=j[1];f(function(){var b={};return b[i]=function(){return 7},7!=""[a](b)})&&(e(String.prototype,a,k),d(RegExp.prototype,i,2==b?function(a,b){return l.call(a,this,b)}:function(a){return l.call(a,this)}))}},function(a,b,d){d(192)("replace",2,function(a,b,d){return[function replace(e,f){var g=a(this),h=e==c?c:e[b];return h!==c?h.call(e,g,f):d.call(String(g),e,f)},d]})},function(a,b,d){d(192)("search",1,function(a,b,d){return[function search(d){var e=a(this),f=d==c?c:d[b];return f!==c?f.call(d,e):new RegExp(d)[b](String(e))},d]})},function(a,b,d){d(192)("split",2,function(a,b,e){var f=d(128),g=e,h=[].push,i="split",j="length",k="lastIndex";if("c"=="abbc"[i](/(b)*/)[1]||4!="test"[i](/(?:)/,-1)[j]||2!="ab"[i](/(?:ab)*/)[j]||4!="."[i](/(.?)(.?)/)[j]||"."[i](/()()/)[j]>1||""[i](/.?/)[j]){var l=/()??/.exec("")[1]===c;e=function(a,b){var d=String(this);if(a===c&&0===b)return[];if(!f(a))return g.call(d,a,b);var e,i,m,n,o,p=[],q=(a.ignoreCase?"i":"")+(a.multiline?"m":"")+(a.unicode?"u":"")+(a.sticky?"y":""),r=0,s=b===c?4294967295:b>>>0,t=new RegExp(a.source,q+"g");for(l||(e=new RegExp("^"+t.source+"$(?!\\s)",q));(i=t.exec(d))&&(m=i.index+i[0][j],!(m>r&&(p.push(d.slice(r,i.index)),!l&&i[j]>1&&i[0].replace(e,function(){for(o=1;o<arguments[j]-2;o++)arguments[o]===c&&(i[o]=c)}),i[j]>1&&i.index<d[j]&&h.apply(p,i.slice(1)),n=i[0][j],r=m,p[j]>=s)));)t[k]===i.index&&t[k]++;return r===d[j]?!n&&t.test("")||p.push(""):p.push(d.slice(r)),p[j]>s?p.slice(0,s):p}}else"0"[i](c,0)[j]&&(e=function(a,b){return a===c&&0===b?[]:g.call(this,a,b)});return[function split(d,f){var g=a(this),h=d==c?c:d[b];return h!==c?h.call(d,g,f):e.call(String(g),d,f)},e]})},function(a,b,d){var e,f,g,h=d(26),i=d(2),j=d(18),k=d(73),l=d(6),m=d(11),n=d(19),o=d(197),p=d(198),q=d(199),r=d(200).set,s=d(201)(),t="Promise",u=i.TypeError,v=i.process,w=i[t],v=i.process,x="process"==k(v),y=function(){},z=!!function(){try{var a=w.resolve(1),b=(a.constructor={})[d(23)("species")]=function(a){a(y,y)};return(x||"function"==typeof PromiseRejectionEvent)&&a.then(y)instanceof b}catch(c){}}(),A=function(a,b){return a===b||a===w&&b===g},B=function(a){var b;return!(!m(a)||"function"!=typeof(b=a.then))&&b},C=function(a){return A(w,a)?new D(a):new f(a)},D=f=function(a){var b,d;this.promise=new a(function(a,e){if(b!==c||d!==c)throw u("Bad Promise constructor");b=a,d=e}),this.resolve=n(b),this.reject=n(d)},E=function(a){try{a()}catch(b){return{error:b}}},F=function(a,b){if(!a._n){a._n=!0;var c=a._c;s(function(){for(var d=a._v,e=1==a._s,f=0,g=function(b){var c,f,g=e?b.ok:b.fail,h=b.resolve,i=b.reject,j=b.domain;try{g?(e||(2==a._h&&I(a),a._h=1),g===!0?c=d:(j&&j.enter(),c=g(d),j&&j.exit()),c===b.promise?i(u("Promise-chain cycle")):(f=B(c))?f.call(c,h,i):h(c)):i(d)}catch(k){i(k)}};c.length>f;)g(c[f++]);a._c=[],a._n=!1,b&&!a._h&&G(a)})}},G=function(a){r.call(i,function(){var b,d,e,f=a._v;if(H(a)&&(b=E(function(){x?v.emit("unhandledRejection",f,a):(d=i.onunhandledrejection)?d({promise:a,reason:f}):(e=i.console)&&e.error&&e.error("Unhandled promise rejection",f)}),a._h=x||H(a)?2:1),a._a=c,b)throw b.error})},H=function(a){if(1==a._h)return!1;for(var b,c=a._a||a._c,d=0;c.length>d;)if(b=c[d++],b.fail||!H(b.promise))return!1;return!0},I=function(a){r.call(i,function(){var b;x?v.emit("rejectionHandled",a):(b=i.onrejectionhandled)&&b({promise:a,reason:a._v})})},J=function(a){var b=this;b._d||(b._d=!0,b=b._w||b,b._v=a,b._s=2,b._a||(b._a=b._c.slice()),F(b,!0))},K=function(a){var b,c=this;if(!c._d){c._d=!0,c=c._w||c;try{if(c===a)throw u("Promise can't be resolved itself");(b=B(a))?s(function(){var d={_w:c,_d:!1};try{b.call(a,j(K,d,1),j(J,d,1))}catch(e){J.call(d,e)}}):(c._v=a,c._s=1,F(c,!1))}catch(d){J.call({_w:c,_d:!1},d)}}};z||(w=function Promise(a){o(this,w,t,"_h"),n(a),e.call(this);try{a(j(K,this,1),j(J,this,1))}catch(b){J.call(this,b)}},e=function Promise(a){this._c=[],this._a=c,this._s=0,this._d=!1,this._v=c,this._h=0,this._n=!1},e.prototype=d(202)(w.prototype,{then:function then(a,b){var d=C(q(this,w));return d.ok="function"!=typeof a||a,d.fail="function"==typeof b&&b,d.domain=x?v.domain:c,this._c.push(d),this._a&&this._a.push(d),this._s&&F(this,!1),d.promise},"catch":function(a){return this.then(c,a)}}),D=function(){var a=new e;this.promise=a,this.resolve=j(K,a,1),this.reject=j(J,a,1)}),l(l.G+l.W+l.F*!z,{Promise:w}),d(22)(w,t),d(186)(t),g=d(7)[t],l(l.S+l.F*!z,t,{reject:function reject(a){var b=C(this),c=b.reject;return c(a),b.promise}}),l(l.S+l.F*(h||!z),t,{resolve:function resolve(a){if(a instanceof w&&A(a.constructor,this))return a;var b=C(this),c=b.resolve;return c(a),b.promise}}),l(l.S+l.F*!(z&&d(157)(function(a){w.all(a)["catch"](y)})),t,{all:function all(a){var b=this,d=C(b),e=d.resolve,f=d.reject,g=E(function(){var d=[],g=0,h=1;p(a,!1,function(a){var i=g++,j=!1;d.push(c),h++,b.resolve(a).then(function(a){j||(j=!0,d[i]=a,--h||e(d))},f)}),--h||e(d)});return g&&f(g.error),d.promise},race:function race(a){var b=this,c=C(b),d=c.reject,e=E(function(){p(a,!1,function(a){b.resolve(a).then(c.resolve,d)})});return e&&d(e.error),c.promise}})},function(a,b){a.exports=function(a,b,d,e){if(!(a instanceof b)||e!==c&&e in a)throw TypeError(d+": incorrect invocation!");return a}},function(a,b,c){var d=c(18),e=c(153),f=c(154),g=c(10),h=c(35),i=c(156),j={},k={},b=a.exports=function(a,b,c,l,m){var n,o,p,q,r=m?function(){return a}:i(a),s=d(c,l,b?2:1),t=0;if("function"!=typeof r)throw TypeError(a+" is not iterable!");if(f(r)){for(n=h(a.length);n>t;t++)if(q=b?s(g(o=a[t])[0],o[1]):s(a[t]),q===j||q===k)return q}else for(p=r.call(a);!(o=p.next()).done;)if(q=e(p,s,o.value,b),q===j||q===k)return q};b.BREAK=j,b.RETURN=k},function(a,b,d){var e=d(10),f=d(19),g=d(23)("species");a.exports=function(a,b){var d,h=e(a).constructor;return h===c||(d=e(h)[g])==c?b:f(d)}},function(a,b,c){var d,e,f,g=c(18),h=c(76),i=c(46),j=c(13),k=c(2),l=k.process,m=k.setImmediate,n=k.clearImmediate,o=k.MessageChannel,p=0,q={},r="onreadystatechange",s=function(){var a=+this;if(q.hasOwnProperty(a)){var b=q[a];delete q[a],b()}},t=function(a){s.call(a.data)};m&&n||(m=function setImmediate(a){for(var b=[],c=1;arguments.length>c;)b.push(arguments[c++]);return q[++p]=function(){h("function"==typeof a?a:Function(a),b)},d(p),p},n=function clearImmediate(a){delete q[a]},"process"==c(32)(l)?d=function(a){l.nextTick(g(s,a,1))}:o?(e=new o,f=e.port2,e.port1.onmessage=t,d=g(f.postMessage,f,1)):k.addEventListener&&"function"==typeof postMessage&&!k.importScripts?(d=function(a){k.postMessage(a+"","*")},k.addEventListener("message",t,!1)):d=r in j("script")?function(a){i.appendChild(j("script"))[r]=function(){i.removeChild(this),s.call(a)}}:function(a){setTimeout(g(s,a,1),0)}),a.exports={set:m,clear:n}},function(a,b,d){var e=d(2),f=d(200).set,g=e.MutationObserver||e.WebKitMutationObserver,h=e.process,i=e.Promise,j="process"==d(32)(h);a.exports=function(){var a,b,d,k=function(){var e,f;for(j&&(e=h.domain)&&e.exit();a;){f=a.fn,a=a.next;try{f()}catch(g){throw a?d():b=c,g}}b=c,e&&e.enter()};if(j)d=function(){h.nextTick(k)};else if(g){var l=!0,m=document.createTextNode("");new g(k).observe(m,{characterData:!0}),d=function(){m.data=l=!l}}else if(i&&i.resolve){var n=i.resolve();d=function(){n.then(k)}}else d=function(){f.call(e,k)};return function(e){var f={fn:e,next:c};b&&(b.next=f),a||(a=f,d()),b=f}}},function(a,b,c){var d=c(16);a.exports=function(a,b,c){for(var e in b)d(a,e,b[e],c);return a}},function(a,b,d){var e=d(204);a.exports=d(205)("Map",function(a){return function Map(){return a(this,arguments.length>0?arguments[0]:c)}},{get:function get(a){var b=e.getEntry(this,a);return b&&b.v},set:function set(a,b){return e.def(this,0===a?0:a,b)}},e,!0)},function(a,b,d){var e=d(9).f,f=d(44),g=d(202),h=d(18),i=d(197),j=d(33),k=d(198),l=d(134),m=d(184),n=d(186),o=d(4),p=d(20).fastKey,q=o?"_s":"size",r=function(a,b){var c,d=p(b);if("F"!==d)return a._i[d];for(c=a._f;c;c=c.n)if(c.k==b)return c};a.exports={getConstructor:function(a,b,d,l){var m=a(function(a,e){i(a,m,b,"_i"),a._i=f(null),a._f=c,a._l=c,a[q]=0,e!=c&&k(e,d,a[l],a)});return g(m.prototype,{clear:function clear(){for(var a=this,b=a._i,d=a._f;d;d=d.n)d.r=!0,d.p&&(d.p=d.p.n=c),delete b[d.i];a._f=a._l=c,a[q]=0},"delete":function(a){var b=this,c=r(b,a);if(c){var d=c.n,e=c.p;delete b._i[c.i],c.r=!0,e&&(e.n=d),d&&(d.p=e),b._f==c&&(b._f=d),b._l==c&&(b._l=e),b[q]--}return!!c},forEach:function forEach(a){i(this,m,"forEach");for(var b,d=h(a,arguments.length>1?arguments[1]:c,3);b=b?b.n:this._f;)for(d(b.v,b.k,this);b&&b.r;)b=b.p},has:function has(a){return!!r(this,a)}}),o&&e(m.prototype,"size",{get:function(){return j(this[q])}}),m},def:function(a,b,d){var e,f,g=r(a,b);return g?g.v=d:(a._l=g={i:f=p(b,!0),k:b,v:d,p:e=a._l,n:c,r:!1},a._f||(a._f=g),e&&(e.n=g),a[q]++,"F"!==f&&(a._i[f]=g)),a},getEntry:r,setStrong:function(a,b,d){l(a,b,function(a,b){this._t=a,this._k=b,this._l=c},function(){for(var a=this,b=a._k,d=a._l;d&&d.r;)d=d.p;return a._t&&(a._l=d=d?d.n:a._t._f)?"keys"==b?m(0,d.k):"values"==b?m(0,d.v):m(0,[d.k,d.v]):(a._t=c,m(1))},d?"entries":"values",!d,!0),n(b)}}},function(a,b,d){var e=d(2),f=d(6),g=d(16),h=d(202),i=d(20),j=d(198),k=d(197),l=d(11),m=d(5),n=d(157),o=d(22),p=d(80);a.exports=function(a,b,d,q,r,s){var t=e[a],u=t,v=r?"set":"add",w=u&&u.prototype,x={},y=function(a){var b=w[a];g(w,a,"delete"==a?function(a){return!(s&&!l(a))&&b.call(this,0===a?0:a)}:"has"==a?function has(a){return!(s&&!l(a))&&b.call(this,0===a?0:a)}:"get"==a?function get(a){return s&&!l(a)?c:b.call(this,0===a?0:a)}:"add"==a?function add(a){return b.call(this,0===a?0:a),this}:function set(a,c){return b.call(this,0===a?0:a,c),this})};if("function"==typeof u&&(s||w.forEach&&!m(function(){(new u).entries().next()}))){var z=new u,A=z[v](s?{}:-0,1)!=z,B=m(function(){z.has(1)}),C=n(function(a){new u(a)}),D=!s&&m(function(){for(var a=new u,b=5;b--;)a[v](b,b);return!a.has(-0)});C||(u=b(function(b,d){k(b,u,a);var e=p(new t,b,u);return d!=c&&j(d,r,e[v],e),e}),u.prototype=w,w.constructor=u),(B||D)&&(y("delete"),y("has"),r&&y("get")),(D||A)&&y(v),s&&w.clear&&delete w.clear}else u=q.getConstructor(b,a,r,v),h(u.prototype,d),i.NEED=!0;return o(u,a),x[a]=u,f(f.G+f.W+f.F*(u!=t),x),s||q.setStrong(u,a,r),u}},function(a,b,d){var e=d(204);a.exports=d(205)("Set",function(a){return function Set(){return a(this,arguments.length>0?arguments[0]:c)}},{add:function add(a){return e.def(this,a=0===a?0:a,a)}},e)},function(a,b,d){var e,f=d(164)(0),g=d(16),h=d(20),i=d(67),j=d(208),k=d(11),l=h.getWeak,m=Object.isExtensible,n=j.ufstore,o={},p=function(a){return function WeakMap(){return a(this,arguments.length>0?arguments[0]:c)}},q={get:function get(a){if(k(a)){var b=l(a);return b===!0?n(this).get(a):b?b[this._i]:c}},set:function set(a,b){return j.def(this,a,b)}},r=a.exports=d(205)("WeakMap",p,q,j,!0,!0);7!=(new r).set((Object.freeze||Object)(o),7).get(o)&&(e=j.getConstructor(p),i(e.prototype,q),h.NEED=!0,f(["delete","has","get","set"],function(a){var b=r.prototype,c=b[a];g(b,a,function(b,d){if(k(b)&&!m(b)){this._f||(this._f=new e);var f=this._f[a](b,d);return"set"==a?this:f}return c.call(this,b,d)})}))},function(a,b,d){var e=d(202),f=d(20).getWeak,g=d(10),h=d(11),i=d(197),j=d(198),k=d(164),l=d(3),m=k(5),n=k(6),o=0,p=function(a){return a._l||(a._l=new q)},q=function(){this.a=[]},r=function(a,b){return m(a.a,function(a){return a[0]===b})};q.prototype={get:function(a){var b=r(this,a);if(b)return b[1]},has:function(a){return!!r(this,a)},set:function(a,b){var c=r(this,a);c?c[1]=b:this.a.push([a,b])},"delete":function(a){var b=n(this.a,function(b){return b[0]===a});return~b&&this.a.splice(b,1),!!~b}},a.exports={getConstructor:function(a,b,d,g){var k=a(function(a,e){i(a,k,b,"_i"),a._i=o++,a._l=c,e!=c&&j(e,d,a[g],a)});return e(k.prototype,{"delete":function(a){if(!h(a))return!1;var b=f(a);return b===!0?p(this)["delete"](a):b&&l(b,this._i)&&delete b[this._i]},has:function has(a){if(!h(a))return!1;var b=f(a);return b===!0?p(this).has(a):b&&l(b,this._i)}}),k},def:function(a,b,c){var d=f(g(b),!0);return d===!0?p(a).set(b,c):d[a._i]=c,a},ufstore:p}},function(a,b,d){var e=d(208);d(205)("WeakSet",function(a){return function WeakSet(){return a(this,arguments.length>0?arguments[0]:c)}},{add:function add(a){return e.def(this,a,!0)}},e,!1,!0)},function(a,b,c){var d=c(6),e=c(19),f=c(10),g=(c(2).Reflect||{}).apply,h=Function.apply;d(d.S+d.F*!c(5)(function(){g(function(){})}),"Reflect",{apply:function apply(a,b,c){var d=e(a),i=f(c);return g?g(d,b,i):h.call(d,b,i)}})},function(a,b,c){var d=c(6),e=c(44),f=c(19),g=c(10),h=c(11),i=c(5),j=c(75),k=(c(2).Reflect||{}).construct,l=i(function(){function F(){}return!(k(function(){},[],F)instanceof F)}),m=!i(function(){k(function(){})});d(d.S+d.F*(l||m),"Reflect",{construct:function construct(a,b){f(a),g(b);var c=arguments.length<3?a:f(arguments[2]);if(m&&!l)return k(a,b,c);if(a==c){switch(b.length){case 0:return new a;case 1:return new a(b[0]);case 2:return new a(b[0],b[1]);case 3:return new a(b[0],b[1],b[2]);case 4:return new a(b[0],b[1],b[2],b[3])}var d=[null];return d.push.apply(d,b),new(j.apply(a,d))}var i=c.prototype,n=e(h(i)?i:Object.prototype),o=Function.apply.call(a,n,b);return h(o)?o:n}})},function(a,b,c){var d=c(9),e=c(6),f=c(10),g=c(14);e(e.S+e.F*c(5)(function(){Reflect.defineProperty(d.f({},1,{value:1}),1,{value:2})}),"Reflect",{defineProperty:function defineProperty(a,b,c){f(a),b=g(b,!0),f(c);try{return d.f(a,b,c),!0}catch(e){return!1}}})},function(a,b,c){var d=c(6),e=c(49).f,f=c(10);d(d.S,"Reflect",{deleteProperty:function deleteProperty(a,b){var c=e(f(a),b);return!(c&&!c.configurable)&&delete a[b]}})},function(a,b,d){var e=d(6),f=d(10),g=function(a){this._t=f(a),this._i=0;var b,c=this._k=[];for(b in a)c.push(b)};d(136)(g,"Object",function(){var a,b=this,d=b._k;do if(b._i>=d.length)return{value:c,done:!0};while(!((a=d[b._i++])in b._t));return{value:a,done:!1}}),e(e.S,"Reflect",{enumerate:function enumerate(a){return new g(a)}})},function(a,b,d){function get(a,b){var d,h,k=arguments.length<3?a:arguments[2];return j(a)===k?a[b]:(d=e.f(a,b))?g(d,"value")?d.value:d.get!==c?d.get.call(k):c:i(h=f(a))?get(h,b,k):void 0}var e=d(49),f=d(57),g=d(3),h=d(6),i=d(11),j=d(10);h(h.S,"Reflect",{get:get})},function(a,b,c){var d=c(49),e=c(6),f=c(10);e(e.S,"Reflect",{getOwnPropertyDescriptor:function getOwnPropertyDescriptor(a,b){return d.f(f(a),b)}})},function(a,b,c){var d=c(6),e=c(57),f=c(10);d(d.S,"Reflect",{getPrototypeOf:function getPrototypeOf(a){return e(f(a))}})},function(a,b,c){var d=c(6);d(d.S,"Reflect",{has:function has(a,b){return b in a}})},function(a,b,c){var d=c(6),e=c(10),f=Object.isExtensible;d(d.S,"Reflect",{isExtensible:function isExtensible(a){return e(a),!f||f(a)}})},function(a,b,c){var d=c(6);d(d.S,"Reflect",{ownKeys:c(221)})},function(a,b,c){var d=c(48),e=c(41),f=c(10),g=c(2).Reflect;a.exports=g&&g.ownKeys||function ownKeys(a){var b=d.f(f(a)),c=e.f;return c?b.concat(c(a)):b}},function(a,b,c){var d=c(6),e=c(10),f=Object.preventExtensions;d(d.S,"Reflect",{preventExtensions:function preventExtensions(a){e(a);try{return f&&f(a),!0}catch(b){return!1}}})},function(a,b,d){function set(a,b,d){var i,m,n=arguments.length<4?a:arguments[3],o=f.f(k(a),b);if(!o){if(l(m=g(a)))return set(m,b,d,n);o=j(0)}return h(o,"value")?!(o.writable===!1||!l(n))&&(i=f.f(n,b)||j(0),i.value=d,e.f(n,b,i),!0):o.set!==c&&(o.set.call(n,d),!0)}var e=d(9),f=d(49),g=d(57),h=d(3),i=d(6),j=d(15),k=d(10),l=d(11);i(i.S,"Reflect",{set:set})},function(a,b,c){var d=c(6),e=c(71);e&&d(d.S,"Reflect",{setPrototypeOf:function setPrototypeOf(a,b){e.check(a,b);try{return e.set(a,b),!0}catch(c){return!1}}})},function(a,b,c){var d=c(6);d(d.S,"Date",{now:function(){return(new Date).getTime()}})},function(a,b,c){var d=c(6),e=c(56),f=c(14);d(d.P+d.F*c(5)(function(){return null!==new Date(NaN).toJSON()||1!==Date.prototype.toJSON.call({toISOString:function(){return 1}})}),"Date",{toJSON:function toJSON(a){var b=e(this),c=f(b);return"number"!=typeof c||isFinite(c)?b.toISOString():null}})},function(a,b,c){var d=c(6),e=c(5),f=Date.prototype.getTime,g=function(a){return a>9?a:"0"+a};d(d.P+d.F*(e(function(){return"0385-07-25T07:06:39.999Z"!=new Date(-5e13-1).toISOString()})||!e(function(){new Date(NaN).toISOString()})),"Date",{toISOString:function toISOString(){if(!isFinite(f.call(this)))throw RangeError("Invalid time value");var a=this,b=a.getUTCFullYear(),c=a.getUTCMilliseconds(),d=b<0?"-":b>9999?"+":"";return d+("00000"+Math.abs(b)).slice(d?-6:-4)+"-"+g(a.getUTCMonth()+1)+"-"+g(a.getUTCDate())+"T"+g(a.getUTCHours())+":"+g(a.getUTCMinutes())+":"+g(a.getUTCSeconds())+"."+(c>99?c:"0"+g(c))+"Z"}})},function(a,b,c){var d=Date.prototype,e="Invalid Date",f="toString",g=d[f],h=d.getTime;new Date(NaN)+""!=e&&c(16)(d,f,function toString(){var a=h.call(this);return a===a?g.call(this):e})},function(a,b,c){var d=c(23)("toPrimitive"),e=Date.prototype;d in e||c(8)(e,d,c(230))},function(a,b,c){var d=c(10),e=c(14),f="number";a.exports=function(a){if("string"!==a&&a!==f&&"default"!==a)throw TypeError("Incorrect hint");return e(d(this),a!=f)}},function(a,b,d){var e=d(6),f=d(232),g=d(233),h=d(10),i=d(37),j=d(35),k=d(11),l=d(2).ArrayBuffer,m=d(199),n=g.ArrayBuffer,o=g.DataView,p=f.ABV&&l.isView,q=n.prototype.slice,r=f.VIEW,s="ArrayBuffer";e(e.G+e.W+e.F*(l!==n),{ArrayBuffer:n}),e(e.S+e.F*!f.CONSTR,s,{isView:function isView(a){return p&&p(a)||k(a)&&r in a}}),e(e.P+e.U+e.F*d(5)(function(){return!new n(2).slice(1,c).byteLength}),s,{slice:function slice(a,b){if(q!==c&&b===c)return q.call(h(this),a);for(var d=h(this).byteLength,e=i(a,d),f=i(b===c?d:b,d),g=new(m(this,n))(j(f-e)),k=new o(this),l=new o(g),p=0;e<f;)l.setUint8(p++,k.getUint8(e++));return g}}),d(186)(s)},function(a,b,c){for(var d,e=c(2),f=c(8),g=c(17),h=g("typed_array"),i=g("view"),j=!(!e.ArrayBuffer||!e.DataView),k=j,l=0,m=9,n="Int8Array,Uint8Array,Uint8ClampedArray,Int16Array,Uint16Array,Int32Array,Uint32Array,Float32Array,Float64Array".split(",");l<m;)(d=e[n[l++]])?(f(d.prototype,h,!0),f(d.prototype,i,!0)):k=!1;a.exports={ABV:j,CONSTR:k,TYPED:h,VIEW:i}},function(a,b,d){var e=d(2),f=d(4),g=d(26),h=d(232),i=d(8),j=d(202),k=d(5),l=d(197),m=d(36),n=d(35),o=d(48).f,p=d(9).f,q=d(180),r=d(22),s="ArrayBuffer",t="DataView",u="prototype",v="Wrong length!",w="Wrong index!",x=e[s],y=e[t],z=e.Math,A=e.RangeError,B=e.Infinity,C=x,D=z.abs,E=z.pow,F=z.floor,G=z.log,H=z.LN2,I="buffer",J="byteLength",K="byteOffset",L=f?"_b":I,M=f?"_l":J,N=f?"_o":K,O=function(a,b,c){var d,e,f,g=Array(c),h=8*c-b-1,i=(1<<h)-1,j=i>>1,k=23===b?E(2,-24)-E(2,-77):0,l=0,m=a<0||0===a&&1/a<0?1:0;for(a=D(a),a!=a||a===B?(e=a!=a?1:0,d=i):(d=F(G(a)/H),a*(f=E(2,-d))<1&&(d--,f*=2),a+=d+j>=1?k/f:k*E(2,1-j),a*f>=2&&(d++,f/=2),d+j>=i?(e=0,d=i):d+j>=1?(e=(a*f-1)*E(2,b),d+=j):(e=a*E(2,j-1)*E(2,b),d=0));b>=8;g[l++]=255&e,e/=256,b-=8);for(d=d<<b|e,h+=b;h>0;g[l++]=255&d,d/=256,h-=8);return g[--l]|=128*m,g},P=function(a,b,c){var d,e=8*c-b-1,f=(1<<e)-1,g=f>>1,h=e-7,i=c-1,j=a[i--],k=127&j;for(j>>=7;h>0;k=256*k+a[i],i--,h-=8);for(d=k&(1<<-h)-1,k>>=-h,h+=b;h>0;d=256*d+a[i],i--,h-=8);if(0===k)k=1-g;else{if(k===f)return d?NaN:j?-B:B;d+=E(2,b),k-=g}return(j?-1:1)*d*E(2,k-b)},Q=function(a){return a[3]<<24|a[2]<<16|a[1]<<8|a[0]},R=function(a){return[255&a]},S=function(a){return[255&a,a>>8&255]},T=function(a){return[255&a,a>>8&255,a>>16&255,a>>24&255]},U=function(a){return O(a,52,8)},V=function(a){return O(a,23,4)},W=function(a,b,c){p(a[u],b,{get:function(){return this[c]}})},X=function(a,b,c,d){var e=+c,f=m(e);if(e!=f||f<0||f+b>a[M])throw A(w);var g=a[L]._b,h=f+a[N],i=g.slice(h,h+b);return d?i:i.reverse()},Y=function(a,b,c,d,e,f){var g=+c,h=m(g);if(g!=h||h<0||h+b>a[M])throw A(w);for(var i=a[L]._b,j=h+a[N],k=d(+e),l=0;l<b;l++)i[j+l]=k[f?l:b-l-1]},Z=function(a,b){l(a,x,s);var c=+b,d=n(c);if(c!=d)throw A(v);return d};if(h.ABV){if(!k(function(){new x})||!k(function(){new x(.5)})){x=function ArrayBuffer(a){return new C(Z(this,a))};for(var $,_=x[u]=C[u],aa=o(C),ba=0;aa.length>ba;)($=aa[ba++])in x||i(x,$,C[$]);g||(_.constructor=x)}var ca=new y(new x(2)),da=y[u].setInt8;ca.setInt8(0,2147483648),ca.setInt8(1,2147483649),!ca.getInt8(0)&&ca.getInt8(1)||j(y[u],{setInt8:function setInt8(a,b){da.call(this,a,b<<24>>24)},setUint8:function setUint8(a,b){da.call(this,a,b<<24>>24)}},!0)}else x=function ArrayBuffer(a){var b=Z(this,a);this._b=q.call(Array(b),0),this[M]=b},y=function DataView(a,b,d){l(this,y,t),l(a,x,t);var e=a[M],f=m(b);if(f<0||f>e)throw A("Wrong offset!");if(d=d===c?e-f:n(d),f+d>e)throw A(v);this[L]=a,this[N]=f,this[M]=d},f&&(W(x,J,"_l"),W(y,I,"_b"),W(y,J,"_l"),W(y,K,"_o")),j(y[u],{getInt8:function getInt8(a){return X(this,1,a)[0]<<24>>24},getUint8:function getUint8(a){return X(this,1,a)[0]},getInt16:function getInt16(a){var b=X(this,2,a,arguments[1]);return(b[1]<<8|b[0])<<16>>16},getUint16:function getUint16(a){var b=X(this,2,a,arguments[1]);return b[1]<<8|b[0]},getInt32:function getInt32(a){return Q(X(this,4,a,arguments[1]))},getUint32:function getUint32(a){return Q(X(this,4,a,arguments[1]))>>>0},getFloat32:function getFloat32(a){return P(X(this,4,a,arguments[1]),23,4)},getFloat64:function getFloat64(a){return P(X(this,8,a,arguments[1]),52,8)},setInt8:function setInt8(a,b){Y(this,1,a,R,b)},setUint8:function setUint8(a,b){Y(this,1,a,R,b)},setInt16:function setInt16(a,b){Y(this,2,a,S,b,arguments[2])},setUint16:function setUint16(a,b){Y(this,2,a,S,b,arguments[2])},setInt32:function setInt32(a,b){Y(this,4,a,T,b,arguments[2])},setUint32:function setUint32(a,b){Y(this,4,a,T,b,arguments[2])},setFloat32:function setFloat32(a,b){Y(this,4,a,V,b,arguments[2])},setFloat64:function setFloat64(a,b){Y(this,8,a,U,b,arguments[2])}});r(x,s),r(y,t),i(y[u],h.VIEW,!0),b[s]=x,b[t]=y},function(a,b,c){var d=c(6);d(d.G+d.W+d.F*!c(232).ABV,{DataView:c(233).DataView})},function(a,b,c){c(236)("Int8",1,function(a){return function Int8Array(b,c,d){return a(this,b,c,d)}})},function(a,b,d){if(d(4)){var e=d(26),f=d(2),g=d(5),h=d(6),i=d(232),j=d(233),k=d(18),l=d(197),m=d(15),n=d(8),o=d(202),p=d(36),q=d(35),r=d(37),s=d(14),t=d(3),u=d(69),v=d(73),w=d(11),x=d(56),y=d(154),z=d(44),A=d(57),B=d(48).f,C=d(156),D=d(17),E=d(23),F=d(164),G=d(34),H=d(199),I=d(183),J=d(135),K=d(157),L=d(186),M=d(180),N=d(177),O=d(9),P=d(49),Q=O.f,R=P.f,S=f.RangeError,T=f.TypeError,U=f.Uint8Array,V="ArrayBuffer",W="Shared"+V,X="BYTES_PER_ELEMENT",Y="prototype",Z=Array[Y],$=j.ArrayBuffer,_=j.DataView,aa=F(0),ba=F(2),ca=F(3),da=F(4),ea=F(5),fa=F(6),ga=G(!0),ha=G(!1),ia=I.values,ja=I.keys,ka=I.entries,la=Z.lastIndexOf,ma=Z.reduce,na=Z.reduceRight,oa=Z.join,pa=Z.sort,qa=Z.slice,ra=Z.toString,sa=Z.toLocaleString,ta=E("iterator"),ua=E("toStringTag"),va=D("typed_constructor"),wa=D("def_constructor"),xa=i.CONSTR,ya=i.TYPED,za=i.VIEW,Aa="Wrong length!",Ba=F(1,function(a,b){return Ha(H(a,a[wa]),b)}),Ca=g(function(){return 1===new U(new Uint16Array([1]).buffer)[0]}),Da=!!U&&!!U[Y].set&&g(function(){new U(1).set({})}),Ea=function(a,b){if(a===c)throw T(Aa);var d=+a,e=q(a);if(b&&!u(d,e))throw S(Aa);return e},Fa=function(a,b){var c=p(a);if(c<0||c%b)throw S("Wrong offset!");return c},Ga=function(a){if(w(a)&&ya in a)return a;throw T(a+" is not a typed array!")},Ha=function(a,b){if(!(w(a)&&va in a))throw T("It is not a typed array constructor!");return new a(b)},Ia=function(a,b){return Ja(H(a,a[wa]),b)},Ja=function(a,b){for(var c=0,d=b.length,e=Ha(a,d);d>c;)e[c]=b[c++];return e},Ka=function(a,b,c){Q(a,b,{get:function(){return this._d[c]}})},La=function from(a){var b,d,e,f,g,h,i=x(a),j=arguments.length,l=j>1?arguments[1]:c,m=l!==c,n=C(i);if(n!=c&&!y(n)){for(h=n.call(i),e=[],b=0;!(g=h.next()).done;b++)e.push(g.value);i=e}for(m&&j>2&&(l=k(l,arguments[2],2)),b=0,d=q(i.length),f=Ha(this,d);d>b;b++)f[b]=m?l(i[b],b):i[b];return f},Ma=function of(){for(var a=0,b=arguments.length,c=Ha(this,b);b>a;)c[a]=arguments[a++];return c},Na=!!U&&g(function(){sa.call(new U(1))}),Oa=function toLocaleString(){return sa.apply(Na?qa.call(Ga(this)):Ga(this),arguments)},Pa={copyWithin:function copyWithin(a,b){return N.call(Ga(this),a,b,arguments.length>2?arguments[2]:c)},every:function every(a){return da(Ga(this),a,arguments.length>1?arguments[1]:c)},fill:function fill(a){return M.apply(Ga(this),arguments)},filter:function filter(a){return Ia(this,ba(Ga(this),a,arguments.length>1?arguments[1]:c))},find:function find(a){return ea(Ga(this),a,arguments.length>1?arguments[1]:c)},findIndex:function findIndex(a){return fa(Ga(this),a,arguments.length>1?arguments[1]:c)},forEach:function forEach(a){aa(Ga(this),a,arguments.length>1?arguments[1]:c)},indexOf:function indexOf(a){return ha(Ga(this),a,arguments.length>1?arguments[1]:c)},includes:function includes(a){return ga(Ga(this),a,arguments.length>1?arguments[1]:c)},join:function join(a){return oa.apply(Ga(this),arguments)},lastIndexOf:function lastIndexOf(a){
 return la.apply(Ga(this),arguments)},map:function map(a){return Ba(Ga(this),a,arguments.length>1?arguments[1]:c)},reduce:function reduce(a){return ma.apply(Ga(this),arguments)},reduceRight:function reduceRight(a){return na.apply(Ga(this),arguments)},reverse:function reverse(){for(var a,b=this,c=Ga(b).length,d=Math.floor(c/2),e=0;e<d;)a=b[e],b[e++]=b[--c],b[c]=a;return b},some:function some(a){return ca(Ga(this),a,arguments.length>1?arguments[1]:c)},sort:function sort(a){return pa.call(Ga(this),a)},subarray:function subarray(a,b){var d=Ga(this),e=d.length,f=r(a,e);return new(H(d,d[wa]))(d.buffer,d.byteOffset+f*d.BYTES_PER_ELEMENT,q((b===c?e:r(b,e))-f))}},Qa=function slice(a,b){return Ia(this,qa.call(Ga(this),a,b))},Ra=function set(a){Ga(this);var b=Fa(arguments[1],1),c=this.length,d=x(a),e=q(d.length),f=0;if(e+b>c)throw S(Aa);for(;f<e;)this[b+f]=d[f++]},Sa={entries:function entries(){return ka.call(Ga(this))},keys:function keys(){return ja.call(Ga(this))},values:function values(){return ia.call(Ga(this))}},Ta=function(a,b){return w(a)&&a[ya]&&"symbol"!=typeof b&&b in a&&String(+b)==String(b)},Ua=function getOwnPropertyDescriptor(a,b){return Ta(a,b=s(b,!0))?m(2,a[b]):R(a,b)},Va=function defineProperty(a,b,c){return!(Ta(a,b=s(b,!0))&&w(c)&&t(c,"value"))||t(c,"get")||t(c,"set")||c.configurable||t(c,"writable")&&!c.writable||t(c,"enumerable")&&!c.enumerable?Q(a,b,c):(a[b]=c.value,a)};xa||(P.f=Ua,O.f=Va),h(h.S+h.F*!xa,"Object",{getOwnPropertyDescriptor:Ua,defineProperty:Va}),g(function(){ra.call({})})&&(ra=sa=function toString(){return oa.call(this)});var Wa=o({},Pa);o(Wa,Sa),n(Wa,ta,Sa.values),o(Wa,{slice:Qa,set:Ra,constructor:function(){},toString:ra,toLocaleString:Oa}),Ka(Wa,"buffer","b"),Ka(Wa,"byteOffset","o"),Ka(Wa,"byteLength","l"),Ka(Wa,"length","e"),Q(Wa,ua,{get:function(){return this[ya]}}),a.exports=function(a,b,d,j){j=!!j;var k=a+(j?"Clamped":"")+"Array",m="Uint8Array"!=k,o="get"+a,p="set"+a,r=f[k],s=r||{},t=r&&A(r),u=!r||!i.ABV,x={},y=r&&r[Y],C=function(a,c){var d=a._d;return d.v[o](c*b+d.o,Ca)},D=function(a,c,d){var e=a._d;j&&(d=(d=Math.round(d))<0?0:d>255?255:255&d),e.v[p](c*b+e.o,d,Ca)},E=function(a,b){Q(a,b,{get:function(){return C(this,b)},set:function(a){return D(this,b,a)},enumerable:!0})};u?(r=d(function(a,d,e,f){l(a,r,k,"_d");var g,h,i,j,m=0,o=0;if(w(d)){if(!(d instanceof $||(j=v(d))==V||j==W))return ya in d?Ja(r,d):La.call(r,d);g=d,o=Fa(e,b);var p=d.byteLength;if(f===c){if(p%b)throw S(Aa);if(h=p-o,h<0)throw S(Aa)}else if(h=q(f)*b,h+o>p)throw S(Aa);i=h/b}else i=Ea(d,!0),h=i*b,g=new $(h);for(n(a,"_d",{b:g,o:o,l:h,e:i,v:new _(g)});m<i;)E(a,m++)}),y=r[Y]=z(Wa),n(y,"constructor",r)):K(function(a){new r(null),new r(a)},!0)||(r=d(function(a,d,e,f){l(a,r,k);var g;return w(d)?d instanceof $||(g=v(d))==V||g==W?f!==c?new s(d,Fa(e,b),f):e!==c?new s(d,Fa(e,b)):new s(d):ya in d?Ja(r,d):La.call(r,d):new s(Ea(d,m))}),aa(t!==Function.prototype?B(s).concat(B(t)):B(s),function(a){a in r||n(r,a,s[a])}),r[Y]=y,e||(y.constructor=r));var F=y[ta],G=!!F&&("values"==F.name||F.name==c),H=Sa.values;n(r,va,!0),n(y,ya,k),n(y,za,!0),n(y,wa,r),(j?new r(1)[ua]==k:ua in y)||Q(y,ua,{get:function(){return k}}),x[k]=r,h(h.G+h.W+h.F*(r!=s),x),h(h.S,k,{BYTES_PER_ELEMENT:b,from:La,of:Ma}),X in y||n(y,X,b),h(h.P,k,Pa),L(k),h(h.P+h.F*Da,k,{set:Ra}),h(h.P+h.F*!G,k,Sa),h(h.P+h.F*(y.toString!=ra),k,{toString:ra}),h(h.P+h.F*g(function(){new r(1).slice()}),k,{slice:Qa}),h(h.P+h.F*(g(function(){return[1,2].toLocaleString()!=new r([1,2]).toLocaleString()})||!g(function(){y.toLocaleString.call([1,2])})),k,{toLocaleString:Oa}),J[k]=G?F:H,e||G||n(y,ta,H)}}else a.exports=function(){}},function(a,b,c){c(236)("Uint8",1,function(a){return function Uint8Array(b,c,d){return a(this,b,c,d)}})},function(a,b,c){c(236)("Uint8",1,function(a){return function Uint8ClampedArray(b,c,d){return a(this,b,c,d)}},!0)},function(a,b,c){c(236)("Int16",2,function(a){return function Int16Array(b,c,d){return a(this,b,c,d)}})},function(a,b,c){c(236)("Uint16",2,function(a){return function Uint16Array(b,c,d){return a(this,b,c,d)}})},function(a,b,c){c(236)("Int32",4,function(a){return function Int32Array(b,c,d){return a(this,b,c,d)}})},function(a,b,c){c(236)("Uint32",4,function(a){return function Uint32Array(b,c,d){return a(this,b,c,d)}})},function(a,b,c){c(236)("Float32",4,function(a){return function Float32Array(b,c,d){return a(this,b,c,d)}})},function(a,b,c){c(236)("Float64",8,function(a){return function Float64Array(b,c,d){return a(this,b,c,d)}})},function(a,b,d){var e=d(6),f=d(34)(!0);e(e.P,"Array",{includes:function includes(a){return f(this,a,arguments.length>1?arguments[1]:c)}}),d(178)("includes")},function(a,b,c){var d=c(6),e=c(125)(!0);d(d.P,"String",{at:function at(a){return e(this,a)}})},function(a,b,d){var e=d(6),f=d(248);e(e.P,"String",{padStart:function padStart(a){return f(this,a,arguments.length>1?arguments[1]:c,!0)}})},function(a,b,d){var e=d(35),f=d(85),g=d(33);a.exports=function(a,b,d,h){var i=String(g(a)),j=i.length,k=d===c?" ":String(d),l=e(b);if(l<=j||""==k)return i;var m=l-j,n=f.call(k,Math.ceil(m/k.length));return n.length>m&&(n=n.slice(0,m)),h?n+i:i+n}},function(a,b,d){var e=d(6),f=d(248);e(e.P,"String",{padEnd:function padEnd(a){return f(this,a,arguments.length>1?arguments[1]:c,!1)}})},function(a,b,c){c(81)("trimLeft",function(a){return function trimLeft(){return a(this,1)}},"trimStart")},function(a,b,c){c(81)("trimRight",function(a){return function trimRight(){return a(this,2)}},"trimEnd")},function(a,b,c){var d=c(6),e=c(33),f=c(35),g=c(128),h=c(188),i=RegExp.prototype,j=function(a,b){this._r=a,this._s=b};c(136)(j,"RegExp String",function next(){var a=this._r.exec(this._s);return{value:a,done:null===a}}),d(d.P,"String",{matchAll:function matchAll(a){if(e(this),!g(a))throw TypeError(a+" is not a regexp!");var b=String(this),c="flags"in i?String(a.flags):h.call(a),d=new RegExp(a.source,~c.indexOf("g")?c:"g"+c);return d.lastIndex=f(a.lastIndex),new j(d,b)}})},function(a,b,c){c(25)("asyncIterator")},function(a,b,c){c(25)("observable")},function(a,b,c){var d=c(6),e=c(221),f=c(30),g=c(49),h=c(155);d(d.S,"Object",{getOwnPropertyDescriptors:function getOwnPropertyDescriptors(a){for(var b,c=f(a),d=g.f,i=e(c),j={},k=0;i.length>k;)h(j,b=i[k++],d(c,b));return j}})},function(a,b,c){var d=c(6),e=c(257)(!1);d(d.S,"Object",{values:function values(a){return e(a)}})},function(a,b,c){var d=c(28),e=c(30),f=c(42).f;a.exports=function(a){return function(b){for(var c,g=e(b),h=d(g),i=h.length,j=0,k=[];i>j;)f.call(g,c=h[j++])&&k.push(a?[c,g[c]]:g[c]);return k}}},function(a,b,c){var d=c(6),e=c(257)(!0);d(d.S,"Object",{entries:function entries(a){return e(a)}})},function(a,b,c){var d=c(6),e=c(56),f=c(19),g=c(9);c(4)&&d(d.P+c(260),"Object",{__defineGetter__:function __defineGetter__(a,b){g.f(e(this),a,{get:f(b),enumerable:!0,configurable:!0})}})},function(a,b,c){a.exports=c(26)||!c(5)(function(){var a=Math.random();__defineSetter__.call(null,a,function(){}),delete c(2)[a]})},function(a,b,c){var d=c(6),e=c(56),f=c(19),g=c(9);c(4)&&d(d.P+c(260),"Object",{__defineSetter__:function __defineSetter__(a,b){g.f(e(this),a,{set:f(b),enumerable:!0,configurable:!0})}})},function(a,b,c){var d=c(6),e=c(56),f=c(14),g=c(57),h=c(49).f;c(4)&&d(d.P+c(260),"Object",{__lookupGetter__:function __lookupGetter__(a){var b,c=e(this),d=f(a,!0);do if(b=h(c,d))return b.get;while(c=g(c))}})},function(a,b,c){var d=c(6),e=c(56),f=c(14),g=c(57),h=c(49).f;c(4)&&d(d.P+c(260),"Object",{__lookupSetter__:function __lookupSetter__(a){var b,c=e(this),d=f(a,!0);do if(b=h(c,d))return b.set;while(c=g(c))}})},function(a,b,c){var d=c(6);d(d.P+d.R,"Map",{toJSON:c(265)("Map")})},function(a,b,c){var d=c(73),e=c(266);a.exports=function(a){return function toJSON(){if(d(this)!=a)throw TypeError(a+"#toJSON isn't generic");return e(this)}}},function(a,b,c){var d=c(198);a.exports=function(a,b){var c=[];return d(a,!1,c.push,c,b),c}},function(a,b,c){var d=c(6);d(d.P+d.R,"Set",{toJSON:c(265)("Set")})},function(a,b,c){var d=c(6);d(d.S,"System",{global:c(2)})},function(a,b,c){var d=c(6),e=c(32);d(d.S,"Error",{isError:function isError(a){return"Error"===e(a)}})},function(a,b,c){var d=c(6);d(d.S,"Math",{iaddh:function iaddh(a,b,c,d){var e=a>>>0,f=b>>>0,g=c>>>0;return f+(d>>>0)+((e&g|(e|g)&~(e+g>>>0))>>>31)|0}})},function(a,b,c){var d=c(6);d(d.S,"Math",{isubh:function isubh(a,b,c,d){var e=a>>>0,f=b>>>0,g=c>>>0;return f-(d>>>0)-((~e&g|~(e^g)&e-g>>>0)>>>31)|0}})},function(a,b,c){var d=c(6);d(d.S,"Math",{imulh:function imulh(a,b){var c=65535,d=+a,e=+b,f=d&c,g=e&c,h=d>>16,i=e>>16,j=(h*g>>>0)+(f*g>>>16);return h*i+(j>>16)+((f*i>>>0)+(j&c)>>16)}})},function(a,b,c){var d=c(6);d(d.S,"Math",{umulh:function umulh(a,b){var c=65535,d=+a,e=+b,f=d&c,g=e&c,h=d>>>16,i=e>>>16,j=(h*g>>>0)+(f*g>>>16);return h*i+(j>>>16)+((f*i>>>0)+(j&c)>>>16)}})},function(a,b,c){var d=c(275),e=c(10),f=d.key,g=d.set;d.exp({defineMetadata:function defineMetadata(a,b,c,d){g(a,b,e(c),f(d))}})},function(a,b,d){var e=d(203),f=d(6),g=d(21)("metadata"),h=g.store||(g.store=new(d(207))),i=function(a,b,d){var f=h.get(a);if(!f){if(!d)return c;h.set(a,f=new e)}var g=f.get(b);if(!g){if(!d)return c;f.set(b,g=new e)}return g},j=function(a,b,d){var e=i(b,d,!1);return e!==c&&e.has(a)},k=function(a,b,d){var e=i(b,d,!1);return e===c?c:e.get(a)},l=function(a,b,c,d){i(c,d,!0).set(a,b)},m=function(a,b){var c=i(a,b,!1),d=[];return c&&c.forEach(function(a,b){d.push(b)}),d},n=function(a){return a===c||"symbol"==typeof a?a:String(a)},o=function(a){f(f.S,"Reflect",a)};a.exports={store:h,map:i,has:j,get:k,set:l,keys:m,key:n,exp:o}},function(a,b,d){var e=d(275),f=d(10),g=e.key,h=e.map,i=e.store;e.exp({deleteMetadata:function deleteMetadata(a,b){var d=arguments.length<3?c:g(arguments[2]),e=h(f(b),d,!1);if(e===c||!e["delete"](a))return!1;if(e.size)return!0;var j=i.get(b);return j["delete"](d),!!j.size||i["delete"](b)}})},function(a,b,d){var e=d(275),f=d(10),g=d(57),h=e.has,i=e.get,j=e.key,k=function(a,b,d){var e=h(a,b,d);if(e)return i(a,b,d);var f=g(b);return null!==f?k(a,f,d):c};e.exp({getMetadata:function getMetadata(a,b){return k(a,f(b),arguments.length<3?c:j(arguments[2]))}})},function(a,b,d){var e=d(206),f=d(266),g=d(275),h=d(10),i=d(57),j=g.keys,k=g.key,l=function(a,b){var c=j(a,b),d=i(a);if(null===d)return c;var g=l(d,b);return g.length?c.length?f(new e(c.concat(g))):g:c};g.exp({getMetadataKeys:function getMetadataKeys(a){return l(h(a),arguments.length<2?c:k(arguments[1]))}})},function(a,b,d){var e=d(275),f=d(10),g=e.get,h=e.key;e.exp({getOwnMetadata:function getOwnMetadata(a,b){return g(a,f(b),arguments.length<3?c:h(arguments[2]))}})},function(a,b,d){var e=d(275),f=d(10),g=e.keys,h=e.key;e.exp({getOwnMetadataKeys:function getOwnMetadataKeys(a){return g(f(a),arguments.length<2?c:h(arguments[1]))}})},function(a,b,d){var e=d(275),f=d(10),g=d(57),h=e.has,i=e.key,j=function(a,b,c){var d=h(a,b,c);if(d)return!0;var e=g(b);return null!==e&&j(a,e,c)};e.exp({hasMetadata:function hasMetadata(a,b){return j(a,f(b),arguments.length<3?c:i(arguments[2]))}})},function(a,b,d){var e=d(275),f=d(10),g=e.has,h=e.key;e.exp({hasOwnMetadata:function hasOwnMetadata(a,b){return g(a,f(b),arguments.length<3?c:h(arguments[2]))}})},function(a,b,d){var e=d(275),f=d(10),g=d(19),h=e.key,i=e.set;e.exp({metadata:function metadata(a,b){return function decorator(d,e){i(a,b,(e!==c?f:g)(d),h(e))}}})},function(a,b,c){var d=c(6),e=c(201)(),f=c(2).process,g="process"==c(32)(f);d(d.G,{asap:function asap(a){var b=g&&f.domain;e(b?b.bind(a):a)}})},function(a,b,d){var e=d(6),f=d(2),g=d(7),h=d(201)(),i=d(23)("observable"),j=d(19),k=d(10),l=d(197),m=d(202),n=d(8),o=d(198),p=o.RETURN,q=function(a){return null==a?c:j(a)},r=function(a){var b=a._c;b&&(a._c=c,b())},s=function(a){return a._o===c},t=function(a){s(a)||(a._o=c,r(a))},u=function(a,b){k(a),this._c=c,this._o=a,a=new v(this);try{var d=b(a),e=d;null!=d&&("function"==typeof d.unsubscribe?d=function(){e.unsubscribe()}:j(d),this._c=d)}catch(f){return void a.error(f)}s(this)&&r(this)};u.prototype=m({},{unsubscribe:function unsubscribe(){t(this)}});var v=function(a){this._s=a};v.prototype=m({},{next:function next(a){var b=this._s;if(!s(b)){var c=b._o;try{var d=q(c.next);if(d)return d.call(c,a)}catch(e){try{t(b)}finally{throw e}}}},error:function error(a){var b=this._s;if(s(b))throw a;var d=b._o;b._o=c;try{var e=q(d.error);if(!e)throw a;a=e.call(d,a)}catch(f){try{r(b)}finally{throw f}}return r(b),a},complete:function complete(a){var b=this._s;if(!s(b)){var d=b._o;b._o=c;try{var e=q(d.complete);a=e?e.call(d,a):c}catch(f){try{r(b)}finally{throw f}}return r(b),a}}});var w=function Observable(a){l(this,w,"Observable","_f")._f=j(a)};m(w.prototype,{subscribe:function subscribe(a){return new u(a,this._f)},forEach:function forEach(a){var b=this;return new(g.Promise||f.Promise)(function(c,d){j(a);var e=b.subscribe({next:function(b){try{return a(b)}catch(c){d(c),e.unsubscribe()}},error:d,complete:c})})}}),m(w,{from:function from(a){var b="function"==typeof this?this:w,c=q(k(a)[i]);if(c){var d=k(c.call(a));return d.constructor===b?d:new b(function(a){return d.subscribe(a)})}return new b(function(b){var c=!1;return h(function(){if(!c){try{if(o(a,!1,function(a){if(b.next(a),c)return p})===p)return}catch(d){if(c)throw d;return void b.error(d)}b.complete()}}),function(){c=!0}})},of:function of(){for(var a=0,b=arguments.length,c=Array(b);a<b;)c[a]=arguments[a++];return new("function"==typeof this?this:w)(function(a){var b=!1;return h(function(){if(!b){for(var d=0;d<c.length;++d)if(a.next(c[d]),b)return;a.complete()}}),function(){b=!0}})}}),n(w.prototype,i,function(){return this}),e(e.G,{Observable:w}),d(186)("Observable")},function(a,b,c){var d=c(6),e=c(200);d(d.G+d.B,{setImmediate:e.set,clearImmediate:e.clear})},function(a,b,c){for(var d=c(183),e=c(16),f=c(2),g=c(8),h=c(135),i=c(23),j=i("iterator"),k=i("toStringTag"),l=h.Array,m=["NodeList","DOMTokenList","MediaList","StyleSheetList","CSSRuleList"],n=0;n<5;n++){var o,p=m[n],q=f[p],r=q&&q.prototype;if(r){r[j]||g(r,j,l),r[k]||g(r,k,p),h[p]=l;for(o in d)r[o]||e(r,o,d[o],!0)}}},function(a,b,c){var d=c(2),e=c(6),f=c(76),g=c(289),h=d.navigator,i=!!h&&/MSIE .\./.test(h.userAgent),j=function(a){return i?function(b,c){return a(f(g,[].slice.call(arguments,2),"function"==typeof b?b:Function(b)),c)}:a};e(e.G+e.B+e.F*i,{setTimeout:j(d.setTimeout),setInterval:j(d.setInterval)})},function(a,b,c){var d=c(290),e=c(76),f=c(19);a.exports=function(){for(var a=f(this),b=arguments.length,c=Array(b),g=0,h=d._,i=!1;b>g;)(c[g]=arguments[g++])===h&&(i=!0);return function(){var d,f=this,g=arguments.length,j=0,k=0;if(!i&&!g)return e(a,c,f);if(d=c.slice(),i)for(;b>j;j++)d[j]===h&&(d[j]=arguments[k++]);for(;g>k;)d.push(arguments[k++]);return e(a,d,f)}}},function(a,b,c){a.exports=c(2)}]),"undefined"!=typeof module&&module.exports?module.exports=a:"function"==typeof define&&define.amd?define(function(){return a}):b.core=a}(1,1);
 //# sourceMappingURL=shim.min.js.map
-;
-;
+/**
+* @license
+* Copyright Google Inc. All Rights Reserved.
+*
+* Use of this source code is governed by an MIT-style license that can be
+* found in the LICENSE file at https://angular.io/license
+*/
+(function (global, factory) {
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory() :
+    typeof define === 'function' && define.amd ? define(factory) :
+    (factory());
+}(this, (function () { 'use strict';
+
 var Zone$1 = (function (global) {
     if (global.Zone) {
         throw new Error('Zone already loaded.');
@@ -36,25 +47,25 @@ var Zone$1 = (function (global) {
             enumerable: true,
             configurable: true
         });
-        ;
+        
         Object.defineProperty(Zone, "currentTask", {
             get: function () { return _currentTask; },
             enumerable: true,
             configurable: true
         });
-        ;
+        
         Object.defineProperty(Zone.prototype, "parent", {
             get: function () { return this._parent; },
             enumerable: true,
             configurable: true
         });
-        ;
+        
         Object.defineProperty(Zone.prototype, "name", {
             get: function () { return this._name; },
             enumerable: true,
             configurable: true
         });
-        ;
+        
         Zone.prototype.get = function (key) {
             var zone = this.getZoneWith(key);
             if (zone)
@@ -163,7 +174,7 @@ var Zone$1 = (function (global) {
         Zone.__symbol__ = __symbol__;
         return Zone;
     }());
-    ;
+    
     var ZoneDelegate = (function () {
         function ZoneDelegate(zone, parentDelegate, zoneSpec) {
             this._taskCounts = { microTask: 0, macroTask: 0, eventTask: 0 };
@@ -321,7 +332,7 @@ var Zone$1 = (function (global) {
         return ZoneTask;
     }());
     function __symbol__(name) { return '__zone_symbol__' + name; }
-    ;
+    
     var symbolSetTimeout = __symbol__('setTimeout');
     var symbolPromise = __symbol__('Promise');
     var symbolThen = __symbol__('then');
@@ -428,12 +439,12 @@ var Zone$1 = (function (global) {
                         throw new Error("Uncaught (in promise): " + value);
                     }
                     catch (e) {
-                        var error = e;
-                        error.rejection = value;
-                        error.promise = promise;
-                        error.zone = Zone.current;
-                        error.task = Zone.currentTask;
-                        _uncaughtPromiseErrors.push(error);
+                        var error_1 = e;
+                        error_1.rejection = value;
+                        error_1.promise = promise;
+                        error_1.zone = Zone.current;
+                        error_1.task = Zone.currentTask;
+                        _uncaughtPromiseErrors.push(error_1);
                         scheduleQueueDrain();
                     }
                 }
@@ -563,7 +574,15 @@ var Zone$1 = (function (global) {
     if (NativePromise) {
         patchThen(NativePromise);
         if (typeof global['fetch'] !== 'undefined') {
-            var fetchPromise = global['fetch']();
+            var fetchPromise = void 0;
+            try {
+                // In MS Edge this throws
+                fetchPromise = global['fetch']();
+            }
+            catch (e) {
+                // In Chrome this throws instead.
+                fetchPromise = global['fetch']('about:blank');
+            }
             // ignore output to prevent error;
             fetchPromise.then(function () { return null; }, function () { return null; });
             if (fetchPromise.constructor != NativePromise) {
@@ -591,7 +610,7 @@ function bindArguments(args, source) {
     }
     return args;
 }
-;
+
 function patchPrototype(prototype, fnNames) {
     var source = prototype.constructor['name'];
     var _loop_1 = function(i) {
@@ -609,7 +628,7 @@ function patchPrototype(prototype, fnNames) {
         _loop_1(i);
     }
 }
-;
+
 var isWebWorker = (typeof WorkerGlobalScope !== 'undefined' && self instanceof WorkerGlobalScope);
 var isNode = (typeof process !== 'undefined' && {}.toString.call(process) === '[object process]');
 var isBrowser = !isNode && !isWebWorker && !!(typeof window !== 'undefined' && window['HTMLElement']);
@@ -652,7 +671,7 @@ function patchProperty(obj, prop) {
     };
     Object.defineProperty(obj, prop, desc);
 }
-;
+
 function patchOnProperties(obj, properties) {
     var onProperties = [];
     for (var prop in obj) {
@@ -669,12 +688,11 @@ function patchOnProperties(obj, properties) {
         }
     }
 }
-;
+
 var EVENT_TASKS = zoneSymbol('eventTasks');
+// For EventTarget
 var ADD_EVENT_LISTENER = 'addEventListener';
 var REMOVE_EVENT_LISTENER = 'removeEventListener';
-var SYMBOL_ADD_EVENT_LISTENER = zoneSymbol(ADD_EVENT_LISTENER);
-var SYMBOL_REMOVE_EVENT_LISTENER = zoneSymbol(REMOVE_EVENT_LISTENER);
 function findExistingRegisteredTask(target, handler, name, capture, remove) {
     var eventTasks = target[EVENT_TASKS];
     if (eventTasks) {
@@ -700,78 +718,95 @@ function attachRegisteredEvent(target, eventTask) {
     }
     eventTasks.push(eventTask);
 }
-function scheduleEventListener(eventTask) {
-    var meta = eventTask.data;
-    attachRegisteredEvent(meta.target, eventTask);
-    return meta.target[SYMBOL_ADD_EVENT_LISTENER](meta.eventName, eventTask.invoke, meta.useCapturing);
-}
-function cancelEventListener(eventTask) {
-    var meta = eventTask.data;
-    findExistingRegisteredTask(meta.target, eventTask.invoke, meta.eventName, meta.useCapturing, true);
-    meta.target[SYMBOL_REMOVE_EVENT_LISTENER](meta.eventName, eventTask.invoke, meta.useCapturing);
-}
-function zoneAwareAddEventListener(self, args) {
-    var eventName = args[0];
-    var handler = args[1];
-    var useCapturing = args[2] || false;
-    // - Inside a Web Worker, `this` is undefined, the context is `global`
-    // - When `addEventListener` is called on the global context in strict mode, `this` is undefined
-    // see https://github.com/angular/zone.js/issues/190
-    var target = self || _global$1;
-    var delegate = null;
-    if (typeof handler == 'function') {
-        delegate = handler;
+function makeZoneAwareAddListener(addFnName, removeFnName, useCapturingParam, allowDuplicates) {
+    if (useCapturingParam === void 0) { useCapturingParam = true; }
+    if (allowDuplicates === void 0) { allowDuplicates = false; }
+    var addFnSymbol = zoneSymbol(addFnName);
+    var removeFnSymbol = zoneSymbol(removeFnName);
+    var defaultUseCapturing = useCapturingParam ? false : undefined;
+    function scheduleEventListener(eventTask) {
+        var meta = eventTask.data;
+        attachRegisteredEvent(meta.target, eventTask);
+        return meta.target[addFnSymbol](meta.eventName, eventTask.invoke, meta.useCapturing);
     }
-    else if (handler && handler.handleEvent) {
-        delegate = function (event) { return handler.handleEvent(event); };
+    function cancelEventListener(eventTask) {
+        var meta = eventTask.data;
+        findExistingRegisteredTask(meta.target, eventTask.invoke, meta.eventName, meta.useCapturing, true);
+        meta.target[removeFnSymbol](meta.eventName, eventTask.invoke, meta.useCapturing);
     }
-    var validZoneHandler = false;
-    try {
-        // In cross site contexts (such as WebDriver frameworks like Selenium),
-        // accessing the handler object here will cause an exception to be thrown which
-        // will fail tests prematurely.
-        validZoneHandler = handler && handler.toString() === "[object FunctionWrapper]";
-    }
-    catch (e) {
-        // Returning nothing here is fine, because objects in a cross-site context are unusable
-        return;
-    }
-    // Ignore special listeners of IE11 & Edge dev tools, see https://github.com/angular/zone.js/issues/150
-    if (!delegate || validZoneHandler) {
-        return target[SYMBOL_ADD_EVENT_LISTENER](eventName, handler, useCapturing);
-    }
-    var eventTask = findExistingRegisteredTask(target, handler, eventName, useCapturing, false);
-    if (eventTask) {
-        // we already registered, so this will have noop.
-        return target[SYMBOL_ADD_EVENT_LISTENER](eventName, eventTask.invoke, useCapturing);
-    }
-    var zone = Zone.current;
-    var source = target.constructor['name'] + '.addEventListener:' + eventName;
-    var data = {
-        target: target,
-        eventName: eventName,
-        name: eventName,
-        useCapturing: useCapturing,
-        handler: handler
+    return function zoneAwareAddListener(self, args) {
+        var eventName = args[0];
+        var handler = args[1];
+        var useCapturing = args[2] || defaultUseCapturing;
+        // - Inside a Web Worker, `this` is undefined, the context is `global`
+        // - When `addEventListener` is called on the global context in strict mode, `this` is undefined
+        // see https://github.com/angular/zone.js/issues/190
+        var target = self || _global$1;
+        var delegate = null;
+        if (typeof handler == 'function') {
+            delegate = handler;
+        }
+        else if (handler && handler.handleEvent) {
+            delegate = function (event) { return handler.handleEvent(event); };
+        }
+        var validZoneHandler = false;
+        try {
+            // In cross site contexts (such as WebDriver frameworks like Selenium),
+            // accessing the handler object here will cause an exception to be thrown which
+            // will fail tests prematurely.
+            validZoneHandler = handler && handler.toString() === "[object FunctionWrapper]";
+        }
+        catch (e) {
+            // Returning nothing here is fine, because objects in a cross-site context are unusable
+            return;
+        }
+        // Ignore special listeners of IE11 & Edge dev tools, see https://github.com/angular/zone.js/issues/150
+        if (!delegate || validZoneHandler) {
+            return target[addFnSymbol](eventName, handler, useCapturing);
+        }
+        if (!allowDuplicates) {
+            var eventTask = findExistingRegisteredTask(target, handler, eventName, useCapturing, false);
+            if (eventTask) {
+                // we already registered, so this will have noop.
+                return target[addFnSymbol](eventName, eventTask.invoke, useCapturing);
+            }
+        }
+        var zone = Zone.current;
+        var source = target.constructor['name'] + '.' + addFnName + ':' + eventName;
+        var data = {
+            target: target,
+            eventName: eventName,
+            name: eventName,
+            useCapturing: useCapturing,
+            handler: handler
+        };
+        zone.scheduleEventTask(source, delegate, data, scheduleEventListener, cancelEventListener);
     };
-    zone.scheduleEventTask(source, delegate, data, scheduleEventListener, cancelEventListener);
 }
-function zoneAwareRemoveEventListener(self, args) {
-    var eventName = args[0];
-    var handler = args[1];
-    var useCapturing = args[2] || false;
-    // - Inside a Web Worker, `this` is undefined, the context is `global`
-    // - When `addEventListener` is called on the global context in strict mode, `this` is undefined
-    // see https://github.com/angular/zone.js/issues/190
-    var target = self || _global$1;
-    var eventTask = findExistingRegisteredTask(target, handler, eventName, useCapturing, true);
-    if (eventTask) {
-        eventTask.zone.cancelTask(eventTask);
-    }
-    else {
-        target[SYMBOL_REMOVE_EVENT_LISTENER](eventName, handler, useCapturing);
-    }
+function makeZoneAwareRemoveListener(fnName, useCapturingParam) {
+    if (useCapturingParam === void 0) { useCapturingParam = true; }
+    var symbol = zoneSymbol(fnName);
+    var defaultUseCapturing = useCapturingParam ? false : undefined;
+    return function zoneAwareRemoveListener(self, args) {
+        var eventName = args[0];
+        var handler = args[1];
+        var useCapturing = args[2] || defaultUseCapturing;
+        // - Inside a Web Worker, `this` is undefined, the context is `global`
+        // - When `addEventListener` is called on the global context in strict mode, `this` is undefined
+        // see https://github.com/angular/zone.js/issues/190
+        var target = self || _global$1;
+        var eventTask = findExistingRegisteredTask(target, handler, eventName, useCapturing, true);
+        if (eventTask) {
+            eventTask.zone.cancelTask(eventTask);
+        }
+        else {
+            target[symbol](eventName, handler, useCapturing);
+        }
+    };
 }
+
+var zoneAwareAddEventListener = makeZoneAwareAddListener(ADD_EVENT_LISTENER, REMOVE_EVENT_LISTENER);
+var zoneAwareRemoveEventListener = makeZoneAwareRemoveListener(REMOVE_EVENT_LISTENER);
 function patchEventTargetMethods(obj) {
     if (obj && obj.addEventListener) {
         patchMethod(obj, ADD_EVENT_LISTENER, function () { return zoneAwareAddEventListener; });
@@ -782,7 +817,6 @@ function patchEventTargetMethods(obj) {
         return false;
     }
 }
-;
 var originalInstanceKey = zoneSymbol('originalInstance');
 // wrap some native API on `window`
 function patchClass(className) {
@@ -845,7 +879,7 @@ function patchClass(className) {
         }
     }
 }
-;
+
 function createNamedFn(name, delegate) {
     try {
         return (Function('f', "return function " + name + "(){return f(this, arguments)}"))(delegate);
@@ -940,13 +974,13 @@ function propertyPatch() {
         return desc;
     };
 }
-;
+
 function _redefineProperty(obj, prop, desc) {
     var originalConfigurableFlag = desc.configurable;
     desc = rewriteDescriptor(obj, prop, desc);
     return _tryDefineProperty(obj, prop, desc, originalConfigurableFlag);
 }
-;
+
 function isUnconfigurable(obj, prop) {
     return obj && obj[unconfigurablesKey] && obj[unconfigurablesKey][prop];
 }
@@ -1112,7 +1146,7 @@ function canPatchViaPropertyDescriptor() {
     Object.defineProperty(XMLHttpRequest.prototype, 'onreadystatechange', {});
     return result;
 }
-;
+
 var unboundKey = zoneSymbol('unbound');
 // Whenever any eventListener fires, we check the eventListener target and all parents
 // for `onwhatever` properties and replace them with zone-bound functions
@@ -1142,9 +1176,8 @@ function patchViaCapturingAllTheEvents() {
     for (var i = 0; i < eventNames.length; i++) {
         _loop_1(i);
     }
-    ;
+    
 }
-;
 
 function patchTimer(window, setName, cancelName, nameSuffix) {
     var setNative = null;
@@ -1300,6 +1333,9 @@ if (_global['navigator'] && _global['navigator'].geolocation) {
         'watchPosition'
     ]);
 }
+
+})));
+
 /*! *****************************************************************************
 Copyright (C) Microsoft. All rights reserved.
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use
@@ -2250,7 +2286,7 @@ var Reflect;
 })(Reflect || (Reflect = {}));
 //# sourceMappingURL=Reflect.js.map
 /*
- * SystemJS v0.19.27
+ * SystemJS v0.19.38
  */
 (function() {
 function bootstrap() {// from https://gist.github.com/Yaffle/1088850
@@ -2300,9 +2336,8 @@ function URLPolyfill(url, baseURL) {
       protocol = base.protocol;
   }
 
-  // convert windows file URLs to use /
-  if (protocol == 'file:')
-    pathname = pathname.replace(/\\/g, '/');
+  // convert URLs to use / always
+  pathname = pathname.replace(/\\/g, '/');
 
   this.origin = host ? protocol + (protocol !== "" || host !== "" ? "//" : "") + host : "";
   this.href = protocol + (protocol && host || protocol == "file:" ? "//" : "") + (username !== "" ? username + (password !== "" ? ":" + password : "") + "@" : "") + host + pathname + search + hash;
@@ -2357,7 +2392,7 @@ global.URLPolyfill = URLPolyfill;
   function addToError(err, msg) {
     // parse the stack removing loader code lines for simplification
     if (!err.originalErr) {
-      var stack = (err.stack || err.message || err).split('\n');
+      var stack = ((err.message || err) + (err.stack ? '\n' + err.stack : '')).toString().split('\n');
       var newStack = [];
       for (var i = 0; i < stack.length; i++) {
         if (typeof $__curScript == 'undefined' || stack[i].indexOf($__curScript.src) == -1)
@@ -2365,7 +2400,7 @@ global.URLPolyfill = URLPolyfill;
       }
     }
 
-    var newMsg = (newStack ? newStack.join('\n\t') : err.message) + '\n\t' + msg;
+    var newMsg = '(SystemJS) ' + (newStack ? newStack.join('\n\t') : err.message.substr(11)) + '\n\t' + msg;
 
     // Convert file:/// URLs to paths in Node
     if (!isBrowser)
@@ -2373,13 +2408,8 @@ global.URLPolyfill = URLPolyfill;
 
     var newErr = errArgs ? new Error(newMsg, err.fileName, err.lineNumber) : new Error(newMsg);
     
-    // Node needs stack adjustment for throw to show message
-    if (!isBrowser)
-      newErr.stack = newMsg;
-    // Clearing the stack stops unnecessary loader lines showing
-    else
-      newErr.stack = null;
-    
+    newErr.stack = newMsg;
+        
     // track the original error
     newErr.originalErr = err.originalErr || err;
 
@@ -2396,6 +2426,7 @@ global.URLPolyfill = URLPolyfill;
   }
 
   var baseURI;
+
   // environent baseURI detection
   if (typeof document != 'undefined' && document.getElementsByTagName) {
     baseURI = document.baseURI;
@@ -2404,8 +2435,13 @@ global.URLPolyfill = URLPolyfill;
       var bases = document.getElementsByTagName('base');
       baseURI = bases[0] && bases[0].href || window.location.href;
     }
+  }
+  else if (typeof location != 'undefined') {
+    baseURI = __global.location.href;
+  }
 
-    // sanitize out the hash and querystring
+  // sanitize out the hash and querystring
+  if (baseURI) {
     baseURI = baseURI.split('#')[0].split('?')[0];
     baseURI = baseURI.substr(0, baseURI.lastIndexOf('/') + 1);
   }
@@ -2413,9 +2449,6 @@ global.URLPolyfill = URLPolyfill;
     baseURI = 'file://' + (isWindows ? '/' : '') + process.cwd() + '/';
     if (isWindows)
       baseURI = baseURI.replace(/\\/g, '/');
-  }
-  else if (typeof location != 'undefined') {
-    baseURI = __global.location.href;
   }
   else {
     throw new TypeError('No environment baseURI');
@@ -2427,6 +2460,7 @@ global.URLPolyfill = URLPolyfill;
   catch(e) {}
 
   var URL = nativeURL ? __global.URL : __global.URLPolyfill;
+
 /*
 *********************************************************************************************
 
@@ -2572,11 +2606,13 @@ function logloads(loads) {
 
   // 15.2.3.2 Load Records and LoadRequest Objects
 
+  var anonCnt = 0;
+
   // 15.2.3.2.1
   function createLoad(name) {
     return {
       status: 'loading',
-      name: name,
+      name: name || '<Anonymous' + ++anonCnt + '>',
       linkSets: [],
       dependencies: [],
       metadata: {}
@@ -2621,7 +2657,6 @@ function logloads(loads) {
         load = loader.loads[i];
         if (load.name != name)
           continue;
-        console.assert(load.status == 'loading' || load.status == 'loaded', 'loading or loaded');
         return load;
       }
 
@@ -2661,8 +2696,6 @@ function logloads(loads) {
     );
   }
 
-  var anonCnt = 0;
-
   // 15.2.4.5
   function proceedToTranslate(loader, load, p) {
     p
@@ -2670,6 +2703,8 @@ function logloads(loads) {
     .then(function(source) {
       if (load.status != 'loading')
         return;
+
+      load.address = load.address || load.name;
 
       return Promise.resolve(loader.loaderObj.translate({ name: load.name, metadata: load.metadata, address: load.address, source: source }))
 
@@ -2681,38 +2716,14 @@ function logloads(loads) {
 
       // 15.2.4.5.3 InstantiateSucceeded
       .then(function(instantiateResult) {
-        if (instantiateResult === undefined) {
-          load.address = load.address || '<Anonymous Module ' + ++anonCnt + '>';
+        if (instantiateResult === undefined)
+          throw new TypeError('Declarative modules unsupported in the polyfill.');
+        
+        if (typeof instantiateResult != 'object')
+          throw new TypeError('Invalid instantiate return value');
 
-          // instead of load.kind, use load.isDeclarative
-          load.isDeclarative = true;
-          return transpile.call(loader.loaderObj, load)
-          .then(function(transpiled) {
-            // Hijack System.register to set declare function
-            var curSystem = __global.System;
-            var curRegister = curSystem.register;
-            curSystem.register = function(name, deps, declare) {
-              if (typeof name != 'string') {
-                declare = deps;
-                deps = name;
-              }
-              // store the registered declaration as load.declare
-              // store the deps as load.deps
-              load.declare = declare;
-              load.depsList = deps;
-            }
-            // empty {} context is closest to undefined 'this' we can get
-            __eval(transpiled, load.address, {});
-            curSystem.register = curRegister;
-          });
-        }
-        else if (typeof instantiateResult == 'object') {
-          load.depsList = instantiateResult.deps || [];
-          load.execute = instantiateResult.execute;
-          load.isDeclarative = false;
-        }
-        else
-          throw TypeError('Invalid instantiate return value');
+        load.depsList = instantiateResult.deps || [];
+        load.execute = instantiateResult.execute;
       })
       // 15.2.4.6 ProcessLoadDependencies
       .then(function() {
@@ -2753,8 +2764,6 @@ function logloads(loads) {
       .then(function() {
         // console.log('LoadSucceeded ' + load.name);
         // snapshot(loader);
-
-        console.assert(load.status == 'loading', 'is loading');
 
         load.status = 'loaded';
 
@@ -2858,8 +2867,6 @@ function logloads(loads) {
     if (load.status == 'failed')
       return;
 
-    console.assert(load.status == 'loading' || load.status == 'loaded', 'loading or loaded on link set');
-
     for (var i = 0, l = linkSet.loads.length; i < l; i++)
       if (linkSet.loads[i] == load)
         return;
@@ -2934,9 +2941,7 @@ function logloads(loads) {
       var loads = [].concat(linkSet.loads);
       for (var i = 0, l = loads.length; i < l; i++) {
         var load = loads[i];
-        load.module = !load.isDeclarative ? {
-          module: _newModule({})
-        } : {
+        load.module = {
           name: load.name,
           module: _newModule({}),
           evaluated: true
@@ -3024,13 +3029,12 @@ function logloads(loads) {
         depMap: depMap,
         address: load.address,
         metadata: load.metadata,
-        source: load.source,
-        kind: load.isDeclarative ? 'declarative' : 'dynamic'
+        source: load.source
       };
     }
     // if not anonymous, add to the module table
     if (load.name) {
-      console.assert(!loader.modules[load.name], 'load not in module table');
+      console.assert(!loader.modules[load.name] || loader.modules[load.name].module === load.module.module, 'load not in module table');
       loader.modules[load.name] = load.module;
     }
     var loadIndex = indexOf.call(loader.loads, load);
@@ -3104,7 +3108,6 @@ function logloads(loads) {
     get: function(key) {
       if (!this._loader.modules[key])
         return;
-      doEnsureEvaluated(this._loader.modules[key], [], this);
       return this._loader.modules[key].module;
     },
     // 26.3.3.7
@@ -3124,16 +3127,14 @@ function logloads(loads) {
       .then(function(name) {
         var loader = loaderObj._loader;
 
-        if (loader.modules[name]) {
-          doEnsureEvaluated(loader.modules[name], [], loader._loader);
+        if (loader.modules[name])
           return loader.modules[name].module;
-        }
 
         return loader.importPromises[name] || createImportPromise(loaderObj, name,
           loadModule(loader, name, {})
           .then(function(load) {
             delete loader.importPromises[name];
-            return evaluateLoadedModule(loader, load);
+            return load.module.module;
           }));
       });
     },
@@ -3163,7 +3164,7 @@ function logloads(loads) {
       var sourcePromise = Promise.resolve(source);
       var loader = this._loader;
       var p = linkSet.done.then(function() {
-        return evaluateLoadedModule(loader, load);
+        return load.module.module;
       });
       proceedToTranslate(loader, load, sourcePromise);
       return p;
@@ -3213,9 +3214,7 @@ function logloads(loads) {
     // 26.3.3.17 @@toStringTag not implemented
 
     // 26.3.3.18.1
-    normalize: function(name, referrerName, referrerAddress) {
-      return name;
-    },
+    normalize: function(name, referrerName, referrerAddress) {},
     // 26.3.3.18.2
     locate: function(load) {
       return load.name;
@@ -3233,8 +3232,9 @@ function logloads(loads) {
   };
 
   var _newModule = Loader.prototype.newModule;
+
 /*
- * ES6 Module Declarative Linking Code - Dev Build Only
+ * ES6 Module Declarative Linking Code
  */
   function link(linkSet, linkError) {
 
@@ -3261,79 +3261,10 @@ function logloads(loads) {
     }
   }
 
-  function evaluateLoadedModule(loader, load) {
-    console.assert(load.status == 'linked', 'is linked ' + load.name);
-    return load.module.module;
-  }
-
-  function doEnsureEvaluated() {}
-
-  function transpile() {
-    throw new TypeError('ES6 transpilation is only provided in the dev module loader build.');
-  }
-})();/*
-*********************************************************************************************
-
-  System Loader Implementation
-
-    - Implemented to https://github.com/jorendorff/js-loaders/blob/master/browser-loader.js
-
-    - <script type="module"> supported
-
-*********************************************************************************************
-*/
+})();
 
 var System;
 
-function SystemLoader() {
-  Loader.call(this);
-  this.paths = {};
-}
-
-// NB no specification provided for System.paths, used ideas discussed in https://github.com/jorendorff/js-loaders/issues/25
-function applyPaths(paths, name) {
-  // most specific (most number of slashes in path) match wins
-  var pathMatch = '', wildcard, maxWildcardPrefixLen = 0;
-
-  // check to see if we have a paths entry
-  for (var p in paths) {
-    var pathParts = p.split('*');
-    if (pathParts.length > 2)
-      throw new TypeError('Only one wildcard in a path is permitted');
-
-    // exact path match
-    if (pathParts.length == 1) {
-      if (name == p)
-        return paths[p];
-      
-      // support trailing / in paths rules
-      else if (name.substr(0, p.length - 1) == p.substr(0, p.length - 1) && (name.length < p.length || name[p.length - 1] == p[p.length - 1]) && paths[p][paths[p].length - 1] == '/')
-        return paths[p].substr(0, paths[p].length - 1) + (name.length > p.length ? '/' + name.substr(p.length) : '');
-    }
-    // wildcard path match
-    else {
-      var wildcardPrefixLen = pathParts[0].length;
-      if (wildcardPrefixLen >= maxWildcardPrefixLen &&
-          name.substr(0, pathParts[0].length) == pathParts[0] &&
-          name.substr(name.length - pathParts[1].length) == pathParts[1]) {
-            maxWildcardPrefixLen = wildcardPrefixLen;
-            pathMatch = p;
-            wildcard = name.substr(pathParts[0].length, name.length - pathParts[1].length - pathParts[0].length);
-          }
-    }
-  }
-
-  var outPath = paths[pathMatch];
-  if (typeof wildcard == 'string')
-    outPath = outPath.replace('*', wildcard);
-
-  return outPath;
-}
-
-// inline Object.create-style class extension
-function LoaderProto() {}
-LoaderProto.prototype = Loader.prototype;
-SystemLoader.prototype = new LoaderProto();
   var fetchTextFromURL;
   if (typeof XMLHttpRequest != 'undefined') {
     fetchTextFromURL = function(url, authorization, fulfill, reject) {
@@ -3459,12 +3390,6 @@ SystemLoader.prototype = new LoaderProto();
   else {
     throw new TypeError('No environment fetch API available.');
   }
-
-  SystemLoader.prototype.fetch = function(load) {
-    return new Promise(function(resolve, reject) {
-      fetchTextFromURL(load.address, undefined, resolve, reject);
-    });
-  };
 /*
  * Traceur, Babel and TypeScript transpile hook for Loader
  */
@@ -3552,21 +3477,20 @@ var transpile = (function() {
   return transpile;
 })();
 // SystemJS Loader Class and Extension helpers
-
 function SystemJSLoader() {
-  SystemLoader.call(this);
+  Loader.call(this);
+
+  this.paths = {};
+  this._loader.paths = {};
 
   systemJSConstructor.call(this);
 }
 
 // inline Object.create-style class extension
 function SystemProto() {};
-SystemProto.prototype = SystemLoader.prototype;
+SystemProto.prototype = Loader.prototype;
 SystemJSLoader.prototype = new SystemProto();
 SystemJSLoader.prototype.constructor = SystemJSLoader;
-
-// remove ESML instantiate
-SystemJSLoader.prototype.instantiate = function() {};
 
 var systemJSConstructor;
 
@@ -3575,6 +3499,87 @@ function hook(name, hook) {
 }
 function hookConstructor(hook) {
   systemJSConstructor = hook(systemJSConstructor || function() {});
+}
+
+
+var absURLRegEx = /^[^\/]+:\/\//;
+function isAbsolute(name) {
+  return name.match(absURLRegEx);
+}
+function isRel(name) {
+  return (name[0] == '.' && (!name[1] || name[1] == '/' || name[1] == '.')) || name[0] == '/';
+}
+function isPlain(name) {
+  return !isRel(name) && !isAbsolute(name);
+}
+
+var baseURIObj = new URL(baseURI);
+
+function urlResolve(name, parent) {
+  // url resolution shortpaths
+  if (name[0] == '.') {
+    // dot-relative url normalization
+    if (name[1] == '/' && name[2] != '.')
+      return (parent && parent.substr(0, parent.lastIndexOf('/') + 1) || baseURI) + name.substr(2);
+  }
+  else if (name[0] != '/' && name.indexOf(':') == -1) {
+    // plain parent normalization
+    return (parent && parent.substr(0, parent.lastIndexOf('/') + 1) || baseURI) + name;
+  }
+
+  return new URL(name, parent && parent.replace(/#/g, '%05') || baseURIObj).href.replace(/%05/g, '#');
+}
+
+// NB no specification provided for System.paths, used ideas discussed in https://github.com/jorendorff/js-loaders/issues/25
+function applyPaths(loader, name) {
+  // most specific (most number of slashes in path) match wins
+  var pathMatch = '', wildcard, maxWildcardPrefixLen = 0;
+
+  var paths = loader.paths;
+  var pathsCache = loader._loader.paths;
+
+  // check to see if we have a paths entry
+  for (var p in paths) {
+    if (paths.hasOwnProperty && !paths.hasOwnProperty(p))
+      continue;
+
+    // paths sanitization
+    var path = paths[p];
+    if (path !== pathsCache[p])
+      path = paths[p] = pathsCache[p] = urlResolve(paths[p], isRel(paths[p]) ? baseURI : loader.baseURL);
+
+    // exact path match
+    if (p.indexOf('*') === -1) {
+      if (name == p)
+        return paths[p];
+      
+      // support trailing / in paths rules
+      else if (name.substr(0, p.length - 1) == p.substr(0, p.length - 1) && (name.length < p.length || name[p.length - 1] == p[p.length - 1]) && (paths[p][paths[p].length - 1] == '/' || paths[p] == '')) {
+        return paths[p].substr(0, paths[p].length - 1) + (name.length > p.length ? (paths[p] && '/' || '') + name.substr(p.length) : '');
+      }
+    }
+    // wildcard path match
+    else {
+      var pathParts = p.split('*');
+      if (pathParts.length > 2)
+        throw new TypeError('Only one wildcard in a path is permitted');
+
+      var wildcardPrefixLen = pathParts[0].length;
+      if (wildcardPrefixLen >= maxWildcardPrefixLen &&
+          name.substr(0, pathParts[0].length) == pathParts[0] &&
+          name.substr(name.length - pathParts[1].length) == pathParts[1]) {
+            maxWildcardPrefixLen = wildcardPrefixLen;
+            pathMatch = p;
+            wildcard = name.substr(pathParts[0].length, name.length - pathParts[1].length - pathParts[0].length);
+          }
+    }
+  }
+
+  var outPath = paths[pathMatch];
+  if (typeof wildcard == 'string')
+    outPath = outPath.replace('*', wildcard);
+
+  return outPath;
 }
 
 function dedupe(deps) {
@@ -3613,18 +3618,18 @@ catch(e) {
 function getESModule(exports) {
   var esModule = {};
   // don't trigger getters/setters in environments that support them
-  if (typeof exports == 'object' || typeof exports == 'function') {
-    var hasOwnProperty = exports && exports.hasOwnProperty;
-    if (getOwnPropertyDescriptor) {
-      for (var p in exports) {
-        if (!trySilentDefineProperty(esModule, exports, p))
-          setPropertyIfHasOwnProperty(esModule, exports, p, hasOwnProperty);
+  if ((typeof exports == 'object' || typeof exports == 'function') && exports !== __global) {
+      if (getOwnPropertyDescriptor) {
+        for (var p in exports) {
+          // The default property is copied to esModule later on
+          if (p === 'default')
+            continue;
+          defineOrCopyProperty(esModule, exports, p);
+        }
       }
-    }
-    else {
-      for (var p in exports)
-        setPropertyIfHasOwnProperty(esModule, exports, p, hasOwnProperty);
-    }
+      else {
+        extend(esModule, exports);
+      }
   }
   esModule['default'] = exports;
   defineProperty(esModule, '__useDefault', {
@@ -3633,41 +3638,40 @@ function getESModule(exports) {
   return esModule;
 }
 
-function setPropertyIfHasOwnProperty(targetObj, sourceObj, propName, hasOwnProperty) {
-  if (!hasOwnProperty || sourceObj.hasOwnProperty(propName))
-    targetObj[propName] = sourceObj[propName];
-}
-
-function trySilentDefineProperty(targetObj, sourceObj, propName) {
+function defineOrCopyProperty(targetObj, sourceObj, propName) {
   try {
     var d;
     if (d = Object.getOwnPropertyDescriptor(sourceObj, propName))
       defineProperty(targetObj, propName, d);
-
-    return true;
-  } catch (ex) {
-    // Object.getOwnPropertyDescriptor threw an exception, fall back to normal set property.
+  }
+  catch (ex) {
+    // Object.getOwnPropertyDescriptor threw an exception, fall back to normal set property
+    // we dont need hasOwnProperty here because getOwnPropertyDescriptor would have returned undefined above
+    targetObj[propName] = sourceObj[propName];
     return false;
   }
 }
 
 function extend(a, b, prepend) {
+  var hasOwnProperty = b && b.hasOwnProperty;
   for (var p in b) {
+    if (hasOwnProperty && !b.hasOwnProperty(p))
+      continue;
     if (!prepend || !(p in a))
       a[p] = b[p];
   }
   return a;
 }
 
-// package configuration options
-var packageProperties = ['main', 'format', 'defaultExtension', 'meta', 'map', 'basePath', 'depCache'];
-
 // meta first-level extends where:
 // array + array appends
 // object + object extends
 // other properties replace
 function extendMeta(a, b, prepend) {
+  var hasOwnProperty = b && b.hasOwnProperty;
   for (var p in b) {
+    if (hasOwnProperty && !b.hasOwnProperty(p))
+      continue;
     var val = b[p];
     if (!(p in a))
       a[p] = val;
@@ -3680,6 +3684,62 @@ function extendMeta(a, b, prepend) {
   }
 }
 
+function extendPkgConfig(pkgCfgA, pkgCfgB, pkgName, loader, warnInvalidProperties) {
+  for (var prop in pkgCfgB) {
+    if (indexOf.call(['main', 'format', 'defaultExtension', 'basePath'], prop) != -1) {
+      pkgCfgA[prop] = pkgCfgB[prop];
+    }
+    else if (prop == 'map') {
+      extend(pkgCfgA.map = pkgCfgA.map || {}, pkgCfgB.map);
+    }
+    else if (prop == 'meta') {
+      extend(pkgCfgA.meta = pkgCfgA.meta || {}, pkgCfgB.meta);
+    }
+    else if (prop == 'depCache') {
+      for (var d in pkgCfgB.depCache) {
+        var dNormalized;
+
+        if (d.substr(0, 2) == './')
+          dNormalized = pkgName + '/' + d.substr(2);
+        else
+          dNormalized = coreResolve.call(loader, d);
+        loader.depCache[dNormalized] = (loader.depCache[dNormalized] || []).concat(pkgCfgB.depCache[d]);
+      }
+    }
+    else if (warnInvalidProperties && indexOf.call(['browserConfig', 'nodeConfig', 'devConfig', 'productionConfig'], prop) == -1 && 
+        (!pkgCfgB.hasOwnProperty || pkgCfgB.hasOwnProperty(prop))) {
+      warn.call(loader, '"' + prop + '" is not a valid package configuration option in package ' + pkgName);
+    }
+  }
+}
+
+// deeply-merge (to first level) config with any existing package config
+function setPkgConfig(loader, pkgName, cfg, prependConfig) {
+  var pkg;
+
+  // first package is config by reference for fast path, cloned after that
+  if (!loader.packages[pkgName]) {
+    pkg = loader.packages[pkgName] = cfg;
+  }
+  else {
+    var basePkg = loader.packages[pkgName];
+    pkg = loader.packages[pkgName] = {};
+
+    extendPkgConfig(pkg, prependConfig ? cfg : basePkg, pkgName, loader, prependConfig);
+    extendPkgConfig(pkg, prependConfig ? basePkg : cfg, pkgName, loader, !prependConfig);
+  }
+  
+  // main object becomes main map
+  if (typeof pkg.main == 'object') {
+    pkg.map = pkg.map || {};
+    pkg.map['./@main'] = pkg.main;
+    pkg.main['default'] = pkg.main['default'] || './';
+    pkg.main = '@main';
+  }
+
+  return pkg;
+}
+
 function warn(msg) {
   if (this.warnings && typeof console != 'undefined' && console.warn)
     console.warn(msg);
@@ -3690,13 +3750,31 @@ var __exec;
 
 (function() {
 
-  var hasBtoa = typeof btoa != 'undefined';
+  var hasBuffer = typeof Buffer != 'undefined';
+  try {
+    if (hasBuffer && new Buffer('a').toString('base64') != 'YQ==')
+      hasBuffer = false;
+  }
+  catch(e) {
+    hasBuffer = false;
+  }
 
-  function getSource(load) {
+  var sourceMapPrefix = '\n//# sourceMappingURL=data:application/json;base64,';
+  function inlineSourceMap(sourceMapString) {
+    if (hasBuffer)
+      return sourceMapPrefix + new Buffer(sourceMapString).toString('base64');
+    else if (typeof btoa != 'undefined')
+      return sourceMapPrefix + btoa(unescape(encodeURIComponent(sourceMapString)));
+    else
+      return '';
+  }
+
+  function getSource(load, wrap) {
     var lastLineIndex = load.source.lastIndexOf('\n');
 
     // wrap ES formats with a System closure for System global encapsulation
-    var wrap = load.metadata.format != 'global';
+    if (load.metadata.format == 'global')
+      wrap = false;
 
     var sourceMap = load.metadata.sourceMap;
     if (sourceMap) {
@@ -3711,7 +3789,7 @@ var __exec;
         + (load.source.substr(lastLineIndex, 15) != '\n//# sourceURL=' 
           ? '\n//# sourceURL=' + load.address + (sourceMap ? '!transpiled' : '') : '')
         // add sourceMappingURL if load.metadata.sourceMap is set
-        + (sourceMap && hasBtoa && '\n//# sourceMappingURL=data:application/json;base64,' + btoa(unescape(encodeURIComponent(sourceMap))) || '');
+        + (sourceMap && inlineSourceMap(sourceMap) || '');
   }
 
   var curLoad;
@@ -3743,6 +3821,7 @@ var __exec;
     curLoad = undefined;
   }
 
+  var useVm;
   var vm;
   __exec = function(load) {
     if (!load.source)
@@ -3753,13 +3832,14 @@ var __exec;
       preExec(this, load);
       curLoad = load;
       // global scoped eval for node (avoids require scope leak)
-      if (this._nodeRequire) {
-        vm = vm || this._nodeRequire('vm');
-        vm.runInThisContext(getSource(load));
+      if (!vm && this._nodeRequire) {
+        vm = this._nodeRequire('vm');
+        useVm = vm.runInThisContext("typeof System !== 'undefined' && System") === this;
       }
-      else {
-        (0, eval)(getSource(load));
-      }
+      if (useVm)
+        vm.runInThisContext(getSource(load, true), { filename: load.address + (load.metadata.sourceMap ? '!transpiled' : '') });
+      else
+        (0, eval)(getSource(load, true));
       postExec();
     }
     catch(e) {
@@ -3790,6 +3870,8 @@ var __exec;
     var e;
     window.onerror = function(_e) {
       e = addToError(_e, 'Evaluating ' + load.address);
+      if (onerror)
+        onerror.apply(this, arguments);
     }
     preExec(this, load);
 
@@ -3807,29 +3889,11 @@ var __exec;
   }
 
 })();
-var absURLRegEx = /^[^\/]+:\/\//;
-
 function readMemberExpression(p, value) {
   var pParts = p.split('.');
   while (pParts.length)
     value = value[pParts.shift()];
   return value;
-}
-
-var baseURLCache = {};
-function getBaseURLObj() {
-  if (baseURLCache[this.baseURL])
-    return baseURLCache[this.baseURL];
-
-  // normalize baseURL if not already
-  if (this.baseURL[this.baseURL.length - 1] != '/')
-    this.baseURL += '/';
-
-  var baseURL = new URL(this.baseURL, baseURI);
-
-  this.baseURL = baseURL.href;
-
-  return (baseURLCache[this.baseURL] = baseURL);
 }
 
 function getMapMatch(map, name) {
@@ -3848,27 +3912,41 @@ function getMapMatch(map, name) {
   return bestMatch;
 }
 
-function setProduction(isProduction) {
-  this.set('@system-env', this.newModule({
+function prepareBaseURL(loader) {
+  // ensure baseURl is fully normalized
+  if (this._loader.baseURL !== this.baseURL) {
+    if (this.baseURL[this.baseURL.length - 1] != '/')
+      this.baseURL += '/';
+    
+    this._loader.baseURL = this.baseURL = new URL(this.baseURL, baseURIObj).href;
+  }
+}
+
+var envModule;
+function setProduction(isProduction, isBuilder) {
+  this.set('@system-env', envModule = this.newModule({
     browser: isBrowser,
     node: !!this._nodeRequire,
-    production: isProduction,
+    production: !isBuilder && isProduction,
+    dev: isBuilder || !isProduction,
+    build: isBuilder,
     'default': true
   }));
 }
-
-var baseURIObj = new URL(baseURI);
 
 hookConstructor(function(constructor) {
   return function() {
     constructor.call(this);
 
     // support baseURL
-    this.baseURL = baseURI.substr(0, baseURI.lastIndexOf('/') + 1);
+    this.baseURL = baseURI;
 
     // support map and paths
     this.map = {};
-    this.paths = {};
+
+    // make the location of the system.js script accessible
+    if (typeof $__curScript != 'undefined')
+      this.scriptSrc = $__curScript.src;
 
     // global behaviour flags
     this.warnings = false;
@@ -3884,18 +3962,13 @@ hookConstructor(function(constructor) {
     // support the empty module, as a concept
     this.set('@empty', this.newModule({}));
 
-    setProduction.call(this, false);
+    setProduction.call(this, false, false);
   };
 });
 
 // include the node require since we're overriding it
 if (typeof require != 'undefined' && typeof process != 'undefined' && !process.browser)
   SystemJSLoader.prototype._nodeRequire = require;
-
-var nodeCoreModules = ['assert', 'buffer', 'child_process', 'cluster', 'console', 'constants', 
-    'crypto', 'dgram', 'dns', 'domain', 'events', 'fs', 'http', 'https', 'module', 'net', 'os', 'path', 
-    'process', 'punycode', 'querystring', 'readline', 'repl', 'stream', 'string_decoder', 'sys', 'timers', 
-    'tls', 'tty', 'url', 'util', 'vm', 'zlib'];
 
 /*
   Core SystemJS Normalization
@@ -3911,25 +3984,26 @@ var nodeCoreModules = ['assert', 'buffer', 'child_process', 'cluster', 'console'
   a URL.
  */
 
-function isPlain(name) {
-  return (name[0] != '.' || (!!name[1] && name[1] != '/' && name[1] != '.')) && name[0] != '/' && !name.match(absURLRegEx);
-}
+var parentModuleContext;
+function getNodeModule(name, baseURL) {
+  if (!isPlain(name))
+    throw new Error('Node module ' + name + ' can\'t be loaded as it is not a package require.');
 
-function urlResolve(name, parent) {
-  if (parent)
-    parent = parent.replace(/#/g, '%05');
-  return new URL(name, parent || baseURIObj).href.replace(/%05/g, '#');
-}
-
-// only applies to plain names
-function baseURLResolve(loader, name) {
-  return new URL(name, getBaseURLObj.call(loader)).href;
+  if (!parentModuleContext) {
+    var Module = this._nodeRequire('module');
+    var base = baseURL.substr(isWindows ? 8 : 7);
+    parentModuleContext = new Module(base);
+    parentModuleContext.paths = Module._nodeModulePaths(base);
+  }
+  return parentModuleContext.require(name);
 }
 
 function coreResolve(name, parentName) {
   // standard URL resolution
-  if (!isPlain(name))
+  if (isRel(name))
     return urlResolve(name, parentName);
+  else if (isAbsolute(name))
+    return name;
 
   // plain names not starting with './', '://' and '/' go through custom resolution
   var mapMatch = getMapMatch(this.map, name);
@@ -3937,32 +4011,36 @@ function coreResolve(name, parentName) {
   if (mapMatch) {
     name = this.map[mapMatch] + name.substr(mapMatch.length);
 
-    if (!isPlain(name))
+    if (isRel(name))
       return urlResolve(name);
+    else if (isAbsolute(name))
+      return name;
   }
 
   if (this.has(name))
     return name;
+  
   // dynamically load node-core modules when requiring `@node/fs` for example
-  if (name.substr(0, 6) == '@node/' && nodeCoreModules.indexOf(name.substr(6)) != -1) {
+  if (name.substr(0, 6) == '@node/') {
     if (!this._nodeRequire)
       throw new TypeError('Error loading ' + name + '. Can only load node core modules in Node.');
-    this.set(name, this.newModule(getESModule(this._nodeRequire(name.substr(6)))));
+    if (this.builder)
+      this.set(name, this.newModule({}));
+    else
+      this.set(name, this.newModule(getESModule(getNodeModule.call(this, name.substr(6), this.baseURL))));
     return name;
   }
 
-  var pathed = applyPaths(this.paths, name);
+  // prepare the baseURL to ensure it is normalized
+  prepareBaseURL.call(this);
 
-  if (pathed && !isPlain(pathed))
-    return urlResolve(pathed);
-
-  return baseURLResolve(this, pathed || name);
+  return applyPaths(this, name) || this.baseURL + name;
 }
 
 hook('normalize', function(normalize) {
   return function(name, parentName, skipExt) {
     var resolved = coreResolve.call(this, name, parentName);
-    if (!skipExt && this.defaultJSExtensions && resolved.substr(resolved.length - 3, 3) != '.js' && !isPlain(resolved))
+    if (this.defaultJSExtensions && !skipExt && resolved.substr(resolved.length - 3, 3) != '.js' && !isPlain(resolved))
       resolved += '.js';
     return resolved;
   };
@@ -4023,7 +4101,7 @@ hook('translate', function(systemTranslate) {
   return function(load) {
     if (load.metadata.format == 'detect')
       load.metadata.format = undefined;
-    return systemTranslate.call(this, load);
+    return systemTranslate.apply(this, arguments);
   };
 });
 
@@ -4100,10 +4178,34 @@ hook('instantiate', function(instantiate) {
   For easy normalization canonicalization with latest URL support.
 
 */
-SystemJSLoader.prototype.env = 'development';
+function envSet(loader, cfg, envCallback) {
+  if (envModule.browser && cfg.browserConfig)
+    envCallback(cfg.browserConfig);
+  if (envModule.node && cfg.nodeConfig)
+    envCallback(cfg.nodeConfig);
+  if (envModule.dev && cfg.devConfig)
+    envCallback(cfg.devConfig);
+  if (envModule.build && cfg.buildConfig)
+    envCallback(cfg.buildConfig);
+  if (envModule.production && cfg.productionConfig)
+    envCallback(cfg.productionConfig);
+}
+
+SystemJSLoader.prototype.getConfig = function(name) {
+  var cfg = {};
+  var loader = this;
+  for (var p in loader) {
+    if (loader.hasOwnProperty && !loader.hasOwnProperty(p) || p in SystemJSLoader.prototype && p != 'transpiler')
+      continue;
+    if (indexOf.call(['_loader', 'amdDefine', 'amdRequire', 'defined', 'failed', 'version', 'loads'], p) == -1)
+      cfg[p] = loader[p];
+  }
+  cfg.production = envModule.production;
+  return cfg;
+};
 
 var curCurScript;
-SystemJSLoader.prototype.config = function(cfg) {
+SystemJSLoader.prototype.config = function(cfg, isEnvConfig) {
   var loader = this;
 
   if ('loaderErrorStack' in cfg) {
@@ -4121,21 +4223,47 @@ SystemJSLoader.prototype.config = function(cfg) {
   if (cfg.transpilerRuntime === false)
     loader._loader.loadedTranspilerRuntime = true;
 
-  // always configure baseURL first
-  if (cfg.baseURL) {
-    var hasConfig = false;
-    function checkHasConfig(obj) {
-      for (var p in obj)
-        if (hasOwnProperty.call(obj, p))
-          return true;
+  if ('production' in cfg || 'build' in cfg)
+    setProduction.call(loader, !!cfg.production, !!(cfg.build || envModule && envModule.build));
+
+  if (!isEnvConfig) {
+    // if using nodeConfig / browserConfig / productionConfig, take baseURL from there
+    // these exceptions will be unnecessary when we can properly implement config queuings
+    var baseURL;
+    envSet(loader, cfg, function(cfg) {
+      baseURL = baseURL || cfg.baseURL;
+    });
+    baseURL = baseURL || cfg.baseURL;
+
+    // always configure baseURL first
+    if (baseURL) {
+      var hasConfig = false;
+      function checkHasConfig(obj) {
+        for (var p in obj)
+          if (obj.hasOwnProperty(p))
+            return true;
+      }
+      if (checkHasConfig(loader.packages) || checkHasConfig(loader.meta) || checkHasConfig(loader.depCache) || checkHasConfig(loader.bundles) || checkHasConfig(loader.packageConfigPaths))
+        throw new TypeError('Incorrect configuration order. The baseURL must be configured with the first SystemJS.config call.');
+
+      this.baseURL = baseURL;
+      prepareBaseURL.call(this);
     }
-    if (checkHasConfig(loader.packages) || checkHasConfig(loader.meta) || checkHasConfig(loader.depCache) || checkHasConfig(loader.bundles) || checkHasConfig(loader.packageConfigPaths))
-      throw new TypeError('Incorrect configuration order. The baseURL must be configured with the first SystemJS.config call.');
 
-    loader.baseURL = cfg.baseURL;
+    if (cfg.paths)
+      extend(loader.paths, cfg.paths);
 
-    // sanitize baseURL
-    getBaseURLObj.call(loader);
+    envSet(loader, cfg, function(cfg) {
+      if (cfg.paths)
+        extend(loader.paths, cfg.paths);
+    });
+
+    // warn on wildcard path deprecations
+    if (this.warnings) {
+      for (var p in loader.paths)
+        if (p.indexOf('*') != -1)
+          warn.call(loader, 'Paths configuration "' + p + '" -> "' + loader.paths[p] + '" uses wildcards which are being deprecated for simpler trailing "/" folder paths.');
+    }
   }
 
   if (cfg.defaultJSExtensions) {
@@ -4145,14 +4273,6 @@ SystemJSLoader.prototype.config = function(cfg) {
 
   if (cfg.pluginFirst)
     loader.pluginFirst = cfg.pluginFirst;
-
-  if (cfg.production)
-    setProduction.call(loader, true);
-
-  if (cfg.paths) {
-    for (var p in cfg.paths)
-      loader.paths[p] = cfg.paths[p];
-  }
 
   if (cfg.map) {
     var objMaps = '';
@@ -4195,10 +4315,7 @@ SystemJSLoader.prototype.config = function(cfg) {
     for (var i = 0; i < cfg.packageConfigPaths.length; i++) {
       var path = cfg.packageConfigPaths[i];
       var packageLength = Math.max(path.lastIndexOf('*') + 1, path.lastIndexOf('/'));
-      var defaultJSExtension = loader.defaultJSExtensions && path.substr(packageLength - 3, 3) != '.js';
-      var normalized = loader.decanonicalize(path.substr(0, packageLength));
-      if (defaultJSExtension && normalized.substr(normalized.length - 3, 3) == '.js')
-        normalized = normalized.substr(0, normalized.length - 3);
+      var normalized = coreResolve.call(loader, path.substr(0, packageLength));
       packageConfigPaths[i] = normalized + path.substr(packageLength);
     }
     loader.packageConfigPaths = packageConfigPaths;
@@ -4229,36 +4346,15 @@ SystemJSLoader.prototype.config = function(cfg) {
       if (prop[prop.length - 1] == '/')
         prop = prop.substr(0, prop.length - 1);
 
-      loader.packages[prop] = loader.packages[prop] || {};
-
-      var pkg = cfg.packages[p];
-
-      // meta backwards compatibility
-      if (pkg.modules) {
-        warn.call(loader, 'Package ' + p + ' is configured with "modules", which is deprecated as it has been renamed to "meta".');
-        pkg.meta = pkg.modules;
-        delete pkg.modules;
-      }
-
-      if (typeof pkg.main == 'object') {
-        pkg.map = pkg.map || {};
-        pkg.map['./@main'] = pkg.main;
-        pkg.main['default'] = pkg.main['default'] || './';
-        pkg.main = '@main';
-      }
-
-      for (var q in pkg)
-        if (indexOf.call(packageProperties, q) == -1)
-          warn.call(loader, '"' + q + '" is not a valid package configuration option in package ' + p);
-
-      extendMeta(loader.packages[prop], pkg);
+      setPkgConfig(loader, prop, cfg.packages[p], false);
     }
   }
 
   for (var c in cfg) {
     var v = cfg[c];
 
-    if (c == 'baseURL' || c == 'map' || c == 'packages' || c == 'bundles' || c == 'paths' || c == 'warnings' || c == 'packageConfigPaths' || c == 'loaderErrorStack')
+    if (indexOf.call(['baseURL', 'map', 'packages', 'bundles', 'paths', 'warnings', 'packageConfigPaths', 
+          'loaderErrorStack', 'browserConfig', 'nodeConfig', 'devConfig', 'buildConfig', 'productionConfig'], c) != -1)
       continue;
 
     if (typeof v != 'object' || v instanceof Array) {
@@ -4270,21 +4366,21 @@ SystemJSLoader.prototype.config = function(cfg) {
       for (var p in v) {
         // base-level wildcard meta does not normalize to retain catch-all quality
         if (c == 'meta' && p[0] == '*') {
-          loader[c][p] = v[p];
+          extend(loader[c][p] = loader[c][p] || {}, v[p]);
         }
         else if (c == 'meta') {
           // meta can go through global map, with defaultJSExtensions adding
           var resolved = coreResolve.call(loader, p);
           if (loader.defaultJSExtensions && resolved.substr(resolved.length - 3, 3) != '.js' && !isPlain(resolved))
             resolved += '.js';
-          loader[c][resolved] = v[p];
+          extend(loader[c][resolved] = loader[c][resolved] || {}, v[p]);
         }
         else if (c == 'depCache') {
           var defaultJSExtension = loader.defaultJSExtensions && p.substr(p.length - 3, 3) != '.js';
           var prop = loader.decanonicalize(p);
           if (defaultJSExtension && prop.substr(prop.length - 3, 3) == '.js')
             prop = prop.substr(0, prop.length - 3);
-          loader[c][prop] = v[p];
+          loader[c][prop] = [].concat(v[p]);
         }
         else {
           loader[c][p] = v[p];
@@ -4292,6 +4388,10 @@ SystemJSLoader.prototype.config = function(cfg) {
       }
     }
   }
+
+  envSet(loader, cfg, function(cfg) {
+    loader.config(cfg, true);
+  });
 };/*
  * Package Configuration Extension
  *
@@ -4320,7 +4420,8 @@ SystemJSLoader.prototype.config = function(cfg) {
  *
  *        // environment-specific map configurations
  *        './index.js': {
- *          '~browser': './index-node.js'
+ *          '~browser': './index-node.js',
+ *          './custom-condition.js|~export': './index-custom.js'
  *        }
  *     },
  *     // allows for setting package-prefixed depCache
@@ -4411,11 +4512,6 @@ SystemJSLoader.prototype.config = function(cfg) {
     if (!subPath || subPath[subPath.length - 1] == '/' || skipExtensions || pkg.defaultExtension === false)
       return subPath;
 
-    // NB are you sure about this?
-    // skip if we have interpolation conditional syntax in subPath?
-    if (subPath.match(interpolationRegEx))
-      return subPath;
-
     var metaMatch = false;
 
     // exact meta or meta with any content after the last wildcard skips extension
@@ -4468,36 +4564,40 @@ SystemJSLoader.prototype.config = function(cfg) {
         if (mapPath != './' + subPath)
           mapMatch = getMapMatch(pkg.map, mapPath);
       }
-      if (mapMatch)
-        return doMapSync(loader, pkg, pkgName, mapMatch, mapPath, skipExtensions);
+      if (mapMatch) {
+        var mapped = doMapSync(loader, pkg, pkgName, mapMatch, mapPath, skipExtensions);
+        if (mapped)
+          return mapped;
+      }
     }
 
     // normal package resolution
     return pkgName + '/' + addDefaultExtension(loader, pkg, pkgName, subPath, skipExtensions);
   }
 
-  function validateMapping(mapMatch, mapped, pkgName) {
+  function validMapping(mapMatch, mapped, pkgName, path) {
     // disallow internal to subpath maps
     if (mapMatch == '.')
       throw new Error('Package ' + pkgName + ' has a map entry for "." which is not permitted.');
-    // disallow internal ./x -> ./x/y recursive maps
-    else if (mapped.substr(0, mapMatch.length) == mapMatch && (mapMatch[mapMatch.length - 1] != '/' && mapped[mapMatch.length] == '/'))
-      throw new Error('Package ' + pkgName + ' has a recursive map for "' + mapMatch + '" which is not permitted.');
+    
+    // allow internal ./x -> ./x/y or ./x/ -> ./x/y recursive maps
+    // but only if the path is exactly ./x and not ./x/z
+    if (mapped.substr(0, mapMatch.length) == mapMatch && path.length > mapMatch.length)
+      return false;
+
+    return true;
   }
 
   function doMapSync(loader, pkg, pkgName, mapMatch, path, skipExtensions) {
+    if (path[path.length - 1] == '/')
+      path = path.substr(0, path.length - 1);
     var mapped = pkg.map[mapMatch];
 
     if (typeof mapped == 'object')
       throw new Error('Synchronous conditional normalization not supported sync normalizing ' + mapMatch + ' in ' + pkgName);
 
-    validateMapping(mapMatch, mapped, pkgName);
-
-    // ignore conditionals in sync
-    if (typeof mapped != 'string')
-      mapped = mapMatch = path;
-
-    validateMapping(mapMatch, mapped, pkgName);
+    if (!validMapping(mapMatch, mapped, pkgName, path) || typeof mapped != 'string')
+      return;
 
     // package map to main / base-level
     if (mapped == '.')
@@ -4550,7 +4650,6 @@ SystemJSLoader.prototype.config = function(cfg) {
 
   function doStringMap(loader, pkg, pkgName, mapMatch, mapped, path, skipExtensions) {
     // NB the interpolation cases should strictly skip subsequent interpolation
-
     // package map to main / base-level
     if (mapped == '.')
       mapped = pkgName;
@@ -4567,10 +4666,14 @@ SystemJSLoader.prototype.config = function(cfg) {
   }
 
   function doMap(loader, pkg, pkgName, mapMatch, path, skipExtensions) {
+    if (path[path.length - 1] == '/')
+      path = path.substr(0, path.length - 1);
+
     var mapped = pkg.map[mapMatch];
 
     if (typeof mapped == 'string') {
-      validateMapping(mapMatch, mapped, pkgName);
+      if (!validMapping(mapMatch, mapped, pkgName, path))
+        return Promise.resolve();
       return doStringMap(loader, pkg, pkgName, mapMatch, mapped, path, skipExtensions);
     }
 
@@ -4578,24 +4681,33 @@ SystemJSLoader.prototype.config = function(cfg) {
     if (loader.builder)
       return Promise.resolve(pkgName + '/#:' + path);
 
+    // we load all conditions upfront
+    var conditionPromises = [];
+    var conditions = [];
+    for (var e in mapped) {
+      var c = parseCondition(e);
+      conditions.push({
+        condition: c,
+        map: mapped[e]
+      });
+      conditionPromises.push(loader['import'](c.module, pkgName));
+    }
+
     // map object -> conditional map
-    return loader['import'](pkg.map['@env'] || '@system-env', pkgName)
-    .then(function(env) {
+    return Promise.all(conditionPromises)
+    .then(function(conditionValues) {
       // first map condition to match is used
-      for (var e in mapped) {
-        var negate = e[0] == '~';
-
-        var value = readMemberExpression(negate ? e.substr(1) : e, env);
-
-        if (!negate && value || negate && !value)
-          return mapped[e];
+      for (var i = 0; i < conditions.length; i++) {
+        var c = conditions[i].condition;
+        var value = readMemberExpression(c.prop, conditionValues[i]);
+        if (!c.negate && value || c.negate && !value)
+          return conditions[i].map;
       }
     })
     .then(function(mapped) {
       if (mapped) {
-        if (typeof mapped != 'string')
-          throw new Error('Unable to map a package conditional to a package conditional.');
-        validateMapping(mapMatch, mapped, pkgName);
+        if (!validMapping(mapMatch, mapped, pkgName, path))
+          return;
         return doStringMap(loader, pkg, pkgName, mapMatch, mapped, path, skipExtensions);
       }
 
@@ -4613,7 +4725,7 @@ SystemJSLoader.prototype.config = function(cfg) {
       if (this.builder)
         return decanonicalize.call(this, name, parentName, true);
 
-      var decanonicalized = decanonicalize.call(this, name, parentName);
+      var decanonicalized = decanonicalize.call(this, name, parentName, false);
 
       if (!this.defaultJSExtensions)
         return decanonicalized;
@@ -4640,8 +4752,6 @@ SystemJSLoader.prototype.config = function(cfg) {
 
   hook('normalizeSync', function(normalizeSync) {
     return function(name, parentName, isPlugin) {
-      warn.call(this, 'SystemJS.normalizeSync has been deprecated for SystemJS.decanonicalize.');
-
       var loader = this;
       isPlugin = isPlugin === true;
 
@@ -4659,14 +4769,17 @@ SystemJSLoader.prototype.config = function(cfg) {
         var parentMap = parentPackage.map;
         var parentMapMatch = parentMap && getMapMatch(parentMap, name);
 
-        if (parentMapMatch && typeof parentMap[parentMapMatch] == 'string')
-          return doMapSync(loader, parentPackage, parentPackageName, parentMapMatch, name, isPlugin);
+        if (parentMapMatch && typeof parentMap[parentMapMatch] == 'string') {
+          var mapped = doMapSync(loader, parentPackage, parentPackageName, parentMapMatch, name, isPlugin);      
+          if (mapped)
+            return mapped;
+        }
       }
 
       var defaultJSExtension = loader.defaultJSExtensions && name.substr(name.length - 3, 3) != '.js';
 
       // apply map, core, paths, contextual package map
-      var normalized = normalizeSync.call(loader, name, parentName);
+      var normalized = normalizeSync.call(loader, name, parentName, false);
 
       // undo defaultJSExtension
       if (defaultJSExtension && normalized.substr(normalized.length - 3, 3) != '.js')
@@ -4720,7 +4833,7 @@ SystemJSLoader.prototype.config = function(cfg) {
         var defaultJSExtension = loader.defaultJSExtensions && name.substr(name.length - 3, 3) != '.js';
 
         // apply map, core, paths, contextual package map
-        var normalized = normalize.call(loader, name, parentName);
+        var normalized = normalize.call(loader, name, parentName, false);
 
         // undo defaultJSExtension
         if (defaultJSExtension && normalized.substr(normalized.length - 3, 3) != '.js')
@@ -4809,39 +4922,7 @@ SystemJSLoader.prototype.config = function(cfg) {
         warn.call(loader, 'Package config file ' + pkgConfigPath + ' is configured with "modules", which is deprecated as it has been renamed to "meta".');
       }
 
-      // remove any non-system properties if generic config file (eg package.json)
-      for (var p in cfg) {
-        if (indexOf.call(packageProperties, p) == -1)
-          delete cfg[p];
-      }
-
-      // deeply-merge (to first level) config with any existing package config
-      var pkg = loader.packages[pkgName] = loader.packages[pkgName] || {};
-      extendMeta(pkg, cfg, true);
-
-      // support external depCache
-      if (cfg.depCache) {
-        for (var d in cfg.depCache) {
-          var dNormalized;
-
-          if (d.substr(0, 2) == './')
-            dNormalized = pkgName + '/' + d.substr(2);
-          else
-            dNormalized = coreResolve.call(loader, d);
-          loader.depCache[dNormalized] = (loader.depCache[dNormalized] || []).concat(cfg.depCache[d]);
-        }
-        delete cfg.depCache;
-      }
-
-      // main object becomes main map
-      if (typeof pkg.main == 'object') {
-        pkg.map = pkg.map || {};
-        pkg.map['./@main'] = pkg.main;
-        pkg.main['default'] = pkg.main['default'] || './';
-        pkg.main = '@main';
-      }
-
-      return pkg;
+      return setPkgConfig(loader, pkgName, cfg, true);
     });
   }
 
@@ -4882,10 +4963,6 @@ SystemJSLoader.prototype.config = function(cfg) {
           var pkg = loader.packages[pkgName];
           var subPath = load.name.substr(pkgName.length + 1);
 
-          // format
-          if (pkg.format)
-            load.metadata.format = load.metadata.format || pkg.format;
-
           var meta = {};
           if (pkg.meta) {
             var bestDepth = 0;
@@ -4899,6 +4976,10 @@ SystemJSLoader.prototype.config = function(cfg) {
 
             extendMeta(load.metadata, meta);
           }
+
+          // format
+          if (pkg.format && !load.metadata.loader)
+            load.metadata.format = load.metadata.format || pkg.format;
         }
 
         return address;
@@ -5000,7 +5081,7 @@ SystemJSLoader.prototype.config = function(cfg) {
 
       // if nothing registered, then something went wrong
       if (!load.metadata.entry)
-        reject(new Error(load.address + ' did not call System.register or AMD define'));
+        reject(new Error(load.address + ' did not call System.register or AMD define. If loading a global, ensure the meta format is set to global.'));
 
       resolve('');
     });
@@ -5257,7 +5338,7 @@ function createEntry() {
           curMeta.bundle = true;
       }
       // anonymous register
-      if (!entry.name || load && entry.name == load.name) {
+      if (!entry.name || load && !curMeta.entry && entry.name == load.name) {
         if (!curMeta)
           throw new TypeError('Invalid System.register call. Anonymous System.register calls can only be made by modules loaded by SystemJS.import and not via script tags.');
         if (curMeta.entry) {
@@ -5320,9 +5401,7 @@ function createEntry() {
     }
   }
 
-  function link(name, loader) {
-    var startEntry = loader.defined[name];
-
+  function link(name, startEntry, loader) {
     // skip if already linked
     if (startEntry.module)
       return;
@@ -5390,13 +5469,21 @@ function createEntry() {
         var importerModule = module.importers[i];
         if (!importerModule.locked) {
           var importerIndex = indexOf.call(importerModule.dependencies, module);
-          importerModule.setters[importerIndex](exports);
+          var setter = importerModule.setters[importerIndex];
+          if (setter)
+            setter(exports);
         }
       }
 
       module.locked = false;
       return value;
     }, { id: entry.name });
+
+    if (typeof declaration == 'function')
+      declaration = { setters: [], execute: declaration };
+
+    // allowing undefined declaration was a mistake! To be deprecated.
+    declaration = declaration || { setters: [], execute: function() {} };
     
     module.setters = declaration.setters;
     module.execute = declaration.execute;
@@ -5465,7 +5552,7 @@ function createEntry() {
 
     else {
       if (entry.declarative)
-        ensureEvaluated(name, [], loader);
+        ensureEvaluated(name, entry, [], loader);
     
       else if (!entry.evaluated)
         linkDynamicModule(entry, loader);
@@ -5514,7 +5601,7 @@ function createEntry() {
       throw new Error('Module ' + name + ' not declared as a dependency of ' + entry.name);
     }, exports, module);
     
-    if (output)
+    if (output !== undefined)
       module.exports = output;
 
     // create the esModule object, which allows ES6 named imports of dynamics
@@ -5522,13 +5609,13 @@ function createEntry() {
 
     // __esModule flag treats as already-named
     if (exports && (exports.__esModule || exports instanceof Module))
-      entry.esModule = exports;
+      entry.esModule = loader.newModule(exports);
     // set module as 'default' export, then fake named exports by iterating properties
     else if (entry.esmExports && exports !== __global)
-      entry.esModule = getESModule(exports);
+      entry.esModule = loader.newModule(getESModule(exports));
     // just use the 'default' export
     else
-      entry.esModule = { 'default': exports };
+      entry.esModule = loader.newModule({ 'default': exports });
   }
 
   /*
@@ -5540,9 +5627,7 @@ function createEntry() {
    * Then we evaluate the module itself depth-first left to right 
    * execution to match ES6 modules
    */
-  function ensureEvaluated(moduleName, seen, loader) {
-    var entry = loader.defined[moduleName];
-
+  function ensureEvaluated(moduleName, entry, seen, loader) {
     // if already seen, that means it's an already-evaluated non circular dependency
     if (!entry || entry.evaluated || !entry.declarative)
       return;
@@ -5557,7 +5642,7 @@ function createEntry() {
         if (!loader.defined[depName])
           loader.get(depName);
         else
-          ensureEvaluated(depName, seen, loader);
+          ensureEvaluated(depName, loader.defined[depName], seen, loader);
       }
     }
 
@@ -5594,12 +5679,43 @@ function createEntry() {
     // we run the meta detection here (register is after meta)
     return function(load) {
       load.metadata.deps = load.metadata.deps || [];
-      return Promise.resolve(translate.call(this, load)).then(function(source) {
+      return Promise.resolve(translate.apply(this, arguments)).then(function(source) {
         // run detection for register format
         if (load.metadata.format == 'register' || !load.metadata.format && detectRegisterFormat(load.source))
           load.metadata.format = 'register';
         return source;
       });
+    };
+  });
+
+  // implement a perforance shortpath for System.load with no deps
+  hook('load', function(doLoad) {
+    return function(normalized) {
+      var loader = this;
+      var entry = loader.defined[normalized];
+
+      if (!entry || entry.deps.length)
+        return doLoad.apply(this, arguments);
+
+      entry.originalIndices = entry.normalizedDeps = [];
+
+      // recursively ensure that the module and all its 
+      // dependencies are linked (with dependency group handling)
+      link(normalized, entry, loader);
+
+      // now handle dependency execution in correct order
+      ensureEvaluated(normalized, entry, [], loader);
+      if (!entry.esModule)
+        entry.esModule = loader.newModule(entry.module.exports);
+
+      // remove from the registry
+      if (!loader.trace)
+        loader.defined[normalized] = undefined;
+
+      // return the defined module object
+      loader.set(normalized, entry.esModule);
+
+      return Promise.resolve();
     };
   });
 
@@ -5622,6 +5738,7 @@ function createEntry() {
         // don't support deps for ES modules
         if (!entry.declarative)
           entry.deps = entry.deps.concat(load.metadata.deps);
+        entry.deps = entry.deps.concat(load.metadata.deps);
       }
 
       // picked up already by an anonymous System.register script injection
@@ -5680,16 +5797,20 @@ function createEntry() {
           execute: function() {
             // recursively ensure that the module and all its 
             // dependencies are linked (with dependency group handling)
-            link(load.name, loader);
+            link(load.name, entry, loader);
 
             // now handle dependency execution in correct order
-            ensureEvaluated(load.name, [], loader);
+            ensureEvaluated(load.name, entry, [], loader);
+
+            if (!entry.esModule)
+              entry.esModule = loader.newModule(entry.module.exports);
 
             // remove from the registry
-            loader.defined[load.name] = undefined;
+            if (!loader.trace)
+              loader.defined[load.name] = undefined;
 
             // return the defined module object
-            return loader.newModule(entry.declarative ? entry.module.exports : entry.esModule);
+            return entry.esModule;
           }
         };
       });
@@ -5709,7 +5830,8 @@ function createEntry() {
   hook('translate', function(translate) {
     return function(load) {
       var loader = this;
-      return translate.call(loader, load)
+      var args = arguments;
+      return translate.apply(loader, args)
       .then(function(source) {
         // detect & transpile ES6
         if (load.metadata.format == 'esm' || load.metadata.format == 'es6' || !load.metadata.format && source.match(esmRegEx)) {
@@ -5717,6 +5839,13 @@ function createEntry() {
             warn.call(loader, 'Module ' + load.name + ' has metadata setting its format to "es6", which is deprecated.\nThis should be updated to "esm".');
 
           load.metadata.format = 'esm';
+
+          if (load.metadata.deps) {
+            var depInject = '';
+            for (var i = 0; i < load.metadata.deps.length; i++)
+              depInject += 'import "' + load.metadata.deps[i] + '"; ';
+            load.source = depInject + source;
+          }
 
           if (loader.transpiler === false) {
             // we accept translation to esm for builds though to enable eg rollup optimizations
@@ -5748,18 +5877,19 @@ function createEntry() {
               if (typeof load.metadata.sourceMap == 'string')
                 load.metadata.sourceMap = JSON.parse(load.metadata.sourceMap);
 
-              return Promise.resolve(transpiler.translate.call(loader, load))
+              return Promise.resolve(transpiler.translate.apply(loader, args))
               .then(function(source) {
                 // sanitize sourceMap if an object not a JSON string
                 var sourceMap = load.metadata.sourceMap;
                 if (sourceMap && typeof sourceMap == 'object') {
-                  var originalName = load.name.split('!')[0];
+                  var originalName = load.address.split('!')[0];
                   
                   // force set the filename of the original file
-                  sourceMap.file = originalName + '!transpiled';
+                  if (!sourceMap.file || sourceMap.file == load.address)
+                    sourceMap.file = originalName + '!transpiled';
 
                   // force set the sources list if only one source
-                  if (!sourceMap.sources || sourceMap.sources.length <= 1)
+                  if (!sourceMap.sources || sourceMap.sources.length <= 1 && (!sourceMap.sources[0] || sourceMap.sources[0] == load.address))
                     sourceMap.sources = [originalName];
                 }
 
@@ -5780,6 +5910,8 @@ function createEntry() {
               load.metadata.sourceMap = undefined;
               return source;
             });            
+          }, function(err) {
+            throw addToError(err, 'Unable to load transpiler to transpile ' + load.name);
           });
         }
 
@@ -5817,13 +5949,13 @@ function createEntry() {
 
         // detect transpiler runtime usage to load runtimes
         if ((load.metadata.format == 'register' || load.metadata.bundle) && loader._loader.loadedTranspilerRuntime !== true) {
-          if (!__global.$traceurRuntime && load.source.match(traceurRuntimeRegEx)) {
+          if (loader.transpiler == 'traceur' && !__global.$traceurRuntime && load.source.match(traceurRuntimeRegEx)) {
             loader._loader.loadedTranspilerRuntime = loader._loader.loadedTranspilerRuntime || false;
             return loader['import']('traceur-runtime').then(function() {
               return source;
             });
           }
-          if (!__global.babelHelpers && load.source.match(babelHelpersRegEx)) {
+          if (loader.transpiler == 'babel' && !__global.babelHelpers && load.source.match(babelHelpersRegEx)) {
             loader._loader.loadedTranspilerRuntime = loader._loader.loadedTranspilerRuntime || false;
             return loader['import']('babel/external-helpers').then(function() {
               return source;
@@ -5869,7 +6001,7 @@ hook('instantiate', function(instantiate) {
       load.metadata.format = 'global';
 
     // global is a fallback module format
-    if (load.metadata.format == 'global' && !load.metadata.registered) {
+    if (load.metadata.format == 'global' && !load.metadata.entry) {
 
       var entry = createEntry();
 
@@ -5898,8 +6030,7 @@ hook('instantiate', function(instantiate) {
         if (exportName)
           load.source += '\n' + __globalName + '["' + exportName + '"] = ' + exportName + ';';
 
-        var retrieveGlobal = loader.get('@@global-helpers').prepareGlobal(module.id, exportName, globals);
-
+        var retrieveGlobal = loader.get('@@global-helpers').prepareGlobal(module.id, exportName, globals, !!load.metadata.encapsulateGlobal);
         __exec.call(loader, load);
 
         return retrieveGlobal();
@@ -5932,7 +6063,7 @@ function getGlobalValue(exports) {
 
 hook('reduceRegister_', function(reduceRegister) {
   return function(load, register) {
-    if (register || !load.metadata.exports)
+    if (register || (!load.metadata.exports && !(isWorker && load.metadata.format == 'global')))
       return reduceRegister.call(this, load, register);
 
     load.metadata.format = 'global';
@@ -5984,7 +6115,7 @@ hookConstructor(function(constructor) {
     }
 
     loader.set('@@global-helpers', loader.newModule({
-      prepareGlobal: function(moduleName, exports, globals) {
+      prepareGlobal: function(moduleName, exports, globals, encapsulate) {
         // disable module detection
         var curDefine = __global.define;
         
@@ -6011,33 +6142,36 @@ hookConstructor(function(constructor) {
 
         // return function to retrieve global
         return function() {
-          var globalValue;
+          var globalValue = exports ? getGlobalValue(exports) : {};
 
-          if (exports) {
-            globalValue = getGlobalValue(exports);
-          }
-          else {
-            globalValue = {};
-            var singleGlobal;
-            var multipleExports;
+          var singleGlobal;
+          var multipleExports = !!exports;
 
+          if (!exports || encapsulate)
             forEachGlobalValue(function(name, value) {
               if (globalSnapshot[name] === value)
                 return;
               if (typeof value == 'undefined')
                 return;
-              globalValue[name] = value;
+              
+              // allow global encapsulation where globals are removed
+              if (encapsulate)
+                __global[name] = undefined;
 
-              if (typeof singleGlobal != 'undefined') {
-                if (!multipleExports && singleGlobal !== value)
-                  multipleExports = true;
-              }
-              else {
-                singleGlobal = value;
+              if (!exports) {
+                globalValue[name] = value;
+
+                if (typeof singleGlobal != 'undefined') {
+                  if (!multipleExports && singleGlobal !== value)
+                    multipleExports = true;
+                }
+                else {
+                  singleGlobal = value;
+                }
               }
             });
-            globalValue = multipleExports ? globalValue : singleGlobal;
-          }
+
+          globalValue = multipleExports ? globalValue : singleGlobal;
 
           // revert globals
           if (oldGlobals) {
@@ -6088,11 +6222,13 @@ hookConstructor(function(constructor) {
     if (source.length / source.split('\n').length < 200) {
       while (match = stringRegEx.exec(source))
         stringLocations.push([match.index, match.index + match[0].length]);
+
+      // TODO: track template literals here before comments
       
       while (match = commentRegEx.exec(source)) {
         // only track comments not starting in strings
         if (!inLocation(stringLocations, match))
-          commentLocations.push([match.index, match.index + match[0].length]);
+          commentLocations.push([match.index + match[1].length, match.index + match[0].length - 1]);
       }
     }
 
@@ -6146,6 +6282,9 @@ hookConstructor(function(constructor) {
           require.resolve = function(name) {
             return loader.get('@@cjs-helpers').requireResolve(name, module.id);
           };
+          // support module.paths ish
+          module.paths = [];
+          module.require = _require;
 
           // ensure meta deps execute first
           if (!load.metadata.cjsDeferDepsExecute)
@@ -6454,7 +6593,7 @@ hookConstructor(function(constructor) {
           if (curMeta) {
             if (!curMeta.entry && !curMeta.bundle)
               curMeta.entry = entry;
-            else if (curMeta.entry && curMeta.entry.name)
+            else if (curMeta.entry && curMeta.entry.name && curMeta.entry.name != load.name)
               curMeta.entry = undefined;
 
             // note this is now a bundle
@@ -6588,8 +6727,8 @@ hookConstructor(function(constructor) {
     return function(name, parentName, isPlugin) {
       var loader = this;
       
-      parentName = getParentName(this, parentName);
       var parsed = parsePlugin(loader, name);
+      parentName = getParentName(this, parentName);
 
       if (!parsed)
         return normalizeSync.call(this, name, parentName, isPlugin);
@@ -6617,7 +6756,7 @@ hookConstructor(function(constructor) {
 
       return Promise.all([
         loader.normalize(parsed.argument, parentName, true),
-        loader.normalize(parsed.plugin, parentName)
+        loader.normalize(parsed.plugin, parentName, false)
       ])
       .then(function(normalized) {
         return combinePluginParts(loader, normalized[0], normalized[1], checkDefaultExtension(loader, parsed.argument));
@@ -6653,7 +6792,7 @@ hookConstructor(function(constructor) {
 
         // normalize plugin relative to parent in locate here when
         // using plugin via loader metadata
-        return loader.normalize(load.metadata.loader, load.name)
+        return (loader.pluginLoader || loader).normalize(load.metadata.loader, load.name)
         .then(function(loaderNormalized) {
           load.metadata.loader = loaderNormalized;
           return address;
@@ -6709,8 +6848,9 @@ hookConstructor(function(constructor) {
   hook('translate', function(translate) {
     return function(load) {
       var loader = this;
+      var args = arguments;
       if (load.metadata.loaderModule && load.metadata.loaderModule.translate && load.metadata.format != 'defined') {
-        return Promise.resolve(load.metadata.loaderModule.translate.call(loader, load)).then(function(result) {
+        return Promise.resolve(load.metadata.loaderModule.translate.apply(loader, args)).then(function(result) {
           var sourceMap = load.metadata.sourceMap;
 
           // sanitize sourceMap if an object not a JSON string
@@ -6718,13 +6858,14 @@ hookConstructor(function(constructor) {
             if (typeof sourceMap != 'object')
               throw new Error('load.metadata.sourceMap must be set to an object.');
 
-            var originalName = load.name.split('!')[0];
+            var originalName = load.address.split('!')[0];
             
             // force set the filename of the original file
-            sourceMap.file = originalName + '!transpiled';
+            if (!sourceMap.file || sourceMap.file == load.address)
+              sourceMap.file = originalName + '!transpiled';
 
             // force set the sources list if only one source
-            if (!sourceMap.sources || sourceMap.sources.length <= 1)
+            if (!sourceMap.sources || sourceMap.sources.length <= 1 && (!sourceMap.sources[0] || sourceMap.sources[0] == load.address))
               sourceMap.sources = [originalName];
           }
 
@@ -6736,11 +6877,11 @@ hookConstructor(function(constructor) {
           else
             warn.call(this, 'Plugin ' + load.metadata.loader + ' should return the source in translate, instead of setting load.source directly. This support will be deprecated.');
 
-          return translate.call(loader, load);
+          return translate.apply(loader, args);
         });
       }
       else {
-        return translate.call(loader, load);
+        return translate.apply(loader, args);
       }
     };
   });
@@ -6809,9 +6950,11 @@ hookConstructor(function(constructor) {
  *
  *   These conditions can also be negated via:
  *     
- *     import 'es5-shim#?~./conditions.js|es6'
+ *     import 'es5-shim#?./conditions.js|~es6'
  *
  */
+
+  var sysConditions = ['browser', 'node', 'dev', 'build', 'production', 'default'];
 
   function parseCondition(condition) {
     var conditionExport, conditionModule, negation;
@@ -6820,36 +6963,49 @@ hookConstructor(function(constructor) {
     var conditionExportIndex = condition.lastIndexOf('|');
     if (conditionExportIndex != -1) {
       conditionExport = condition.substr(conditionExportIndex + 1);
-      conditionModule = condition.substr(negation, conditionExportIndex - negation) || '@system-env';
+      conditionModule = condition.substr(negation, conditionExportIndex - negation);
+      
+      if (negation)
+        warn.call(this, 'Condition negation form "' + condition + '" is deprecated for "' + conditionModule + '|~' + conditionExport + '"');
+
+      if (conditionExport[0] == '~') {
+        negation = true;
+        conditionExport = conditionExport.substr(1);
+      }
     }
     else {
-      conditionExport = null;
+      conditionExport = 'default';
       conditionModule = condition.substr(negation);
+      if (sysConditions.indexOf(conditionModule) != -1) {
+        conditionExport = conditionModule;
+        conditionModule = null;
+      }
     }
 
     return {
-      module: conditionModule,
+      module: conditionModule || '@system-env',
       prop: conditionExport,
       negate: negation
     };
   }
 
   function serializeCondition(conditionObj) {
-    return (conditionObj.negate ? '~' : '') + conditionObj.module + (conditionObj.prop ? '|' + conditionObj.prop : '');
+    return conditionObj.module + '|' + (conditionObj.negate ? '~' : '') + conditionObj.prop;
   }
 
   function resolveCondition(conditionObj, parentName, bool) {
-    return this['import'](conditionObj.module, parentName)
-    .then(function(m) {
-      if (conditionObj.prop)
-        m = readMemberExpression(conditionObj.prop, m);
-      else if (typeof m == 'object' && m + '' == 'Module')
-        m = m['default'];
+    var self = this;
+    return this.normalize(conditionObj.module, parentName)
+    .then(function(normalizedCondition) {
+      return self.load(normalizedCondition)
+      .then(function(q) {
+        var m = readMemberExpression(conditionObj.prop, self.get(normalizedCondition));
 
-      if (bool && typeof m != 'boolean')
-        throw new TypeError('Condition ' + serializeCondition(conditionObj) + ' did not resolve to a boolean.');
+        if (bool && typeof m != 'boolean')
+          throw new TypeError('Condition ' + serializeCondition(conditionObj) + ' did not resolve to a boolean.');
 
-      return conditionObj.negate ? !m : m;
+        return conditionObj.negate ? !m : m;
+      });
     });
   }
 
@@ -6861,7 +7017,7 @@ hookConstructor(function(constructor) {
     if (!conditionalMatch)
       return Promise.resolve(name);
 
-    var conditionObj = parseCondition(conditionalMatch[0].substr(2, conditionalMatch[0].length - 3));
+    var conditionObj = parseCondition.call(this, conditionalMatch[0].substr(2, conditionalMatch[0].length - 3));
 
     // in builds, return normalized conditional
     if (this.builder)
@@ -6890,7 +7046,7 @@ hookConstructor(function(constructor) {
     if (booleanIndex == -1)
       return Promise.resolve(name);
 
-    var conditionObj = parseCondition(name.substr(booleanIndex + 2));
+    var conditionObj = parseCondition.call(this, name.substr(booleanIndex + 2));
 
     // in builds, return normalized conditional
     if (this.builder)
@@ -6908,11 +7064,11 @@ hookConstructor(function(constructor) {
 
   // normalizeSync does not parse conditionals at all although it could
   hook('normalize', function(normalize) {
-    return function(name, parentName, parentAddress) {
+    return function(name, parentName, skipExt) {
       var loader = this;
       return booleanConditional.call(loader, name, parentName)
       .then(function(name) {
-        return normalize.call(loader, name, parentName, parentAddress);
+        return normalize.call(loader, name, parentName, skipExt);
       })
       .then(function(normalized) {
         return interpolateConditional.call(loader, normalized, parentName);
@@ -7059,6 +7215,12 @@ hookConstructor(function(constructor) {
 
   hook('translate', function(translate) {
     return function(load) {
+      // shortpath for bundled
+      if (load.metadata.format == 'defined') {
+        load.metadata.deps = load.metadata.deps || [];
+        return Promise.resolve(load.source);
+      }
+
       // NB meta will be post-translate pending transpiler conversion to plugins
       var meta = load.source.match(metaRegEx);
       if (meta) {
@@ -7101,7 +7263,7 @@ hookConstructor(function(constructor) {
         }
       }
 
-      return translate.call(this, load);
+      return translate.apply(this, arguments);
     };
   });
 })();
@@ -7225,23 +7387,8 @@ hookConstructor(function(constructor) {
 System = new SystemJSLoader();
 
 __global.SystemJS = System;
-System.version = '0.19.27 Standard';
-  // -- exporting --
-
-  if (typeof exports === 'object')
-    module.exports = Loader;
-
-  __global.Reflect = __global.Reflect || {};
-  __global.Reflect.Loader = __global.Reflect.Loader || Loader;
-  __global.Reflect.global = __global.Reflect.global || __global;
-  __global.LoaderPolyfill = Loader;
-
-  if (!System) {
-    System = new SystemLoader();
-    System.constructor = SystemLoader;
-  }
-
-  if (typeof exports === 'object')
+System.version = '0.19.38 Standard';
+  if (typeof module == 'object' && module.exports && typeof exports == 'object')
     module.exports = System;
 
   __global.System = System;
@@ -7255,6 +7402,8 @@ var doPolyfill = typeof Promise === 'undefined';
 if (typeof document !== 'undefined') {
   var scripts = document.getElementsByTagName('script');
   $__curScript = scripts[scripts.length - 1];
+  if ($__curScript.defer || $__curScript.async)
+    $__curScript = document.currentScript;
   if (doPolyfill) {
     var curPath = $__curScript.src;
     var basePath = curPath.substr(0, curPath.lastIndexOf('/') + 1);
