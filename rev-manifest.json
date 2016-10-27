@@ -1,7 +1,7 @@
 {
   "css/styles.css": "css/styles-3b19fe5e5a.css",
-  "js/app.bundle.js": "js/app-28a52c95bc.bundle.js",
+  "js/app.bundle.js": "js/app-c1bb175a11.bundle.js",
   "js/dist-systemjs.config.js": "js/dist-systemjs-67862bd980.config.js",
-  "js/polyfills.js": "js/polyfills-42c5cf815b.js",
+  "js/polyfills.js": "js/polyfills-5dc77f6ac0.js",
   "sw.js": "sw-77d4e61ab0.js"
 }
