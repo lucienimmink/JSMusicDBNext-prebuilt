@@ -219,6 +219,13 @@ a {
     -ms-transform: scale(1);
     transform: scale(1); }
 
+.jumpList-years li {
+  font-size: 1.4em;
+  width: 17vw; }
+  @media only screen and (min-width: 768px) {
+    .jumpList-years li {
+      font-size: 1.5em; } }
+
 .btn.focus, .btn:focus, .btn:hover {
   color: white;
   outline: none; }
