@@ -31,7 +31,7 @@ return la.apply(Ga(this),arguments)},map:function map(a){return Ba(Ga(this),a,ar
 
 
 var Zone$1 = (function (global) {
-    if (global.Zone) {
+    if (global['Zone']) {
         throw new Error('Zone already loaded.');
     }
     var Zone = (function () {
@@ -54,7 +54,7 @@ var Zone$1 = (function (global) {
         };
         Object.defineProperty(Zone, "current", {
             get: function () {
-                return _currentZone;
+                return _currentZoneFrame.zone;
             },
             enumerable: true,
             configurable: true
@@ -118,21 +118,19 @@ var Zone$1 = (function (global) {
             if (applyThis === void 0) { applyThis = null; }
             if (applyArgs === void 0) { applyArgs = null; }
             if (source === void 0) { source = null; }
-            var oldZone = _currentZone;
-            _currentZone = this;
+            _currentZoneFrame = new ZoneFrame(_currentZoneFrame, this);
             try {
                 return this._zoneDelegate.invoke(this, callback, applyThis, applyArgs, source);
             }
             finally {
-                _currentZone = oldZone;
+                _currentZoneFrame = _currentZoneFrame.parent;
             }
         };
         Zone.prototype.runGuarded = function (callback, applyThis, applyArgs, source) {
             if (applyThis === void 0) { applyThis = null; }
             if (applyArgs === void 0) { applyArgs = null; }
             if (source === void 0) { source = null; }
-            var oldZone = _currentZone;
-            _currentZone = this;
+            _currentZoneFrame = new ZoneFrame(_currentZoneFrame, this);
             try {
                 try {
                     return this._zoneDelegate.invoke(this, callback, applyThis, applyArgs, source);
@@ -144,7 +142,7 @@ var Zone$1 = (function (global) {
                 }
             }
             finally {
-                _currentZone = oldZone;
+                _currentZoneFrame = _currentZoneFrame.parent;
             }
         };
         Zone.prototype.runTask = function (task, applyThis, applyArgs) {
@@ -154,8 +152,7 @@ var Zone$1 = (function (global) {
                     '; Execution: ' + this.name + ')');
             var previousTask = _currentTask;
             _currentTask = task;
-            var oldZone = _currentZone;
-            _currentZone = this;
+            _currentZoneFrame = new ZoneFrame(_currentZoneFrame, this);
             try {
                 if (task.type == 'macroTask' && task.data && !task.data.isPeriodic) {
                     task.cancelFn = null;
@@ -170,7 +167,7 @@ var Zone$1 = (function (global) {
                 }
             }
             finally {
-                _currentZone = oldZone;
+                _currentZoneFrame = _currentZoneFrame.parent;
                 _currentTask = previousTask;
             }
         };
@@ -189,9 +186,9 @@ var Zone$1 = (function (global) {
             task.cancelFn = null;
             return value;
         };
-        Zone.__symbol__ = __symbol__;
         return Zone;
     }());
+    Zone.__symbol__ = __symbol__;
     
     var ZoneDelegate = (function () {
         function ZoneDelegate(zone, parentDelegate, zoneSpec) {
@@ -200,32 +197,45 @@ var Zone$1 = (function (global) {
             this._parentDelegate = parentDelegate;
             this._forkZS = zoneSpec && (zoneSpec && zoneSpec.onFork ? zoneSpec : parentDelegate._forkZS);
             this._forkDlgt = zoneSpec && (zoneSpec.onFork ? parentDelegate : parentDelegate._forkDlgt);
+            this._forkCurrZone = zoneSpec && (zoneSpec.onFork ? this.zone : parentDelegate.zone);
             this._interceptZS =
                 zoneSpec && (zoneSpec.onIntercept ? zoneSpec : parentDelegate._interceptZS);
             this._interceptDlgt =
                 zoneSpec && (zoneSpec.onIntercept ? parentDelegate : parentDelegate._interceptDlgt);
+            this._interceptCurrZone =
+                zoneSpec && (zoneSpec.onIntercept ? this.zone : parentDelegate.zone);
             this._invokeZS = zoneSpec && (zoneSpec.onInvoke ? zoneSpec : parentDelegate._invokeZS);
             this._invokeDlgt =
                 zoneSpec && (zoneSpec.onInvoke ? parentDelegate : parentDelegate._invokeDlgt);
+            this._invokeCurrZone = zoneSpec && (zoneSpec.onInvoke ? this.zone : parentDelegate.zone);
             this._handleErrorZS =
                 zoneSpec && (zoneSpec.onHandleError ? zoneSpec : parentDelegate._handleErrorZS);
             this._handleErrorDlgt =
                 zoneSpec && (zoneSpec.onHandleError ? parentDelegate : parentDelegate._handleErrorDlgt);
+            this._handleErrorCurrZone =
+                zoneSpec && (zoneSpec.onHandleError ? this.zone : parentDelegate.zone);
             this._scheduleTaskZS =
                 zoneSpec && (zoneSpec.onScheduleTask ? zoneSpec : parentDelegate._scheduleTaskZS);
             this._scheduleTaskDlgt =
                 zoneSpec && (zoneSpec.onScheduleTask ? parentDelegate : parentDelegate._scheduleTaskDlgt);
+            this._scheduleTaskCurrZone =
+                zoneSpec && (zoneSpec.onScheduleTask ? this.zone : parentDelegate.zone);
             this._invokeTaskZS =
                 zoneSpec && (zoneSpec.onInvokeTask ? zoneSpec : parentDelegate._invokeTaskZS);
             this._invokeTaskDlgt =
                 zoneSpec && (zoneSpec.onInvokeTask ? parentDelegate : parentDelegate._invokeTaskDlgt);
+            this._invokeTaskCurrZone =
+                zoneSpec && (zoneSpec.onInvokeTask ? this.zone : parentDelegate.zone);
             this._cancelTaskZS =
                 zoneSpec && (zoneSpec.onCancelTask ? zoneSpec : parentDelegate._cancelTaskZS);
             this._cancelTaskDlgt =
                 zoneSpec && (zoneSpec.onCancelTask ? parentDelegate : parentDelegate._cancelTaskDlgt);
+            this._cancelTaskCurrZone =
+                zoneSpec && (zoneSpec.onCancelTask ? this.zone : parentDelegate.zone);
             this._hasTaskZS = zoneSpec && (zoneSpec.onHasTask ? zoneSpec : parentDelegate._hasTaskZS);
             this._hasTaskDlgt =
                 zoneSpec && (zoneSpec.onHasTask ? parentDelegate : parentDelegate._hasTaskDlgt);
+            this._hasTaskCurrZone = zoneSpec && (zoneSpec.onHasTask ? this.zone : parentDelegate.zone);
         }
         ZoneDelegate.prototype.fork = function (targetZone, zoneSpec) {
             return this._forkZS ? this._forkZS.onFork(this._forkDlgt, this.zone, targetZone, zoneSpec) :
@@ -233,23 +243,23 @@ var Zone$1 = (function (global) {
         };
         ZoneDelegate.prototype.intercept = function (targetZone, callback, source) {
             return this._interceptZS ?
-                this._interceptZS.onIntercept(this._interceptDlgt, this.zone, targetZone, callback, source) :
+                this._interceptZS.onIntercept(this._interceptDlgt, this._interceptCurrZone, targetZone, callback, source) :
                 callback;
         };
         ZoneDelegate.prototype.invoke = function (targetZone, callback, applyThis, applyArgs, source) {
             return this._invokeZS ?
-                this._invokeZS.onInvoke(this._invokeDlgt, this.zone, targetZone, callback, applyThis, applyArgs, source) :
+                this._invokeZS.onInvoke(this._invokeDlgt, this._invokeCurrZone, targetZone, callback, applyThis, applyArgs, source) :
                 callback.apply(applyThis, applyArgs);
         };
         ZoneDelegate.prototype.handleError = function (targetZone, error) {
             return this._handleErrorZS ?
-                this._handleErrorZS.onHandleError(this._handleErrorDlgt, this.zone, targetZone, error) :
+                this._handleErrorZS.onHandleError(this._handleErrorDlgt, this._handleErrorCurrZone, targetZone, error) :
                 true;
         };
         ZoneDelegate.prototype.scheduleTask = function (targetZone, task) {
             try {
                 if (this._scheduleTaskZS) {
-                    return this._scheduleTaskZS.onScheduleTask(this._scheduleTaskDlgt, this.zone, targetZone, task);
+                    return this._scheduleTaskZS.onScheduleTask(this._scheduleTaskDlgt, this._scheduleTaskCurrZone, targetZone, task);
                 }
                 else if (task.scheduleFn) {
                     task.scheduleFn(task);
@@ -271,7 +281,7 @@ var Zone$1 = (function (global) {
         ZoneDelegate.prototype.invokeTask = function (targetZone, task, applyThis, applyArgs) {
             try {
                 return this._invokeTaskZS ?
-                    this._invokeTaskZS.onInvokeTask(this._invokeTaskDlgt, this.zone, targetZone, task, applyThis, applyArgs) :
+                    this._invokeTaskZS.onInvokeTask(this._invokeTaskDlgt, this._invokeTaskCurrZone, targetZone, task, applyThis, applyArgs) :
                     task.callback.apply(applyThis, applyArgs);
             }
             finally {
@@ -284,7 +294,7 @@ var Zone$1 = (function (global) {
         ZoneDelegate.prototype.cancelTask = function (targetZone, task) {
             var value;
             if (this._cancelTaskZS) {
-                value = this._cancelTaskZS.onCancelTask(this._cancelTaskDlgt, this.zone, targetZone, task);
+                value = this._cancelTaskZS.onCancelTask(this._cancelTaskDlgt, this._cancelTaskCurrZone, targetZone, task);
             }
             else if (!task.cancelFn) {
                 throw new Error('Task does not support cancellation, or is already canceled.');
@@ -300,7 +310,7 @@ var Zone$1 = (function (global) {
         };
         ZoneDelegate.prototype.hasTask = function (targetZone, isEmpty) {
             return this._hasTaskZS &&
-                this._hasTaskZS.onHasTask(this._hasTaskDlgt, this.zone, targetZone, isEmpty);
+                this._hasTaskZS.onHasTask(this._hasTaskDlgt, this._hasTaskCurrZone, targetZone, isEmpty);
         };
         ZoneDelegate.prototype._updateTaskCount = function (type, count) {
             var counts = this._taskCounts;
@@ -362,6 +372,13 @@ var Zone$1 = (function (global) {
         };
         return ZoneTask;
     }());
+    var ZoneFrame = (function () {
+        function ZoneFrame(parent, zone) {
+            this.parent = parent;
+            this.zone = zone;
+        }
+        return ZoneFrame;
+    }());
     function __symbol__(name) {
         return '__zone_symbol__' + name;
     }
@@ -369,7 +386,7 @@ var Zone$1 = (function (global) {
     var symbolSetTimeout = __symbol__('setTimeout');
     var symbolPromise = __symbol__('Promise');
     var symbolThen = __symbol__('then');
-    var _currentZone = new Zone(null, null);
+    var _currentZoneFrame = new ZoneFrame(null, new Zone(null, null));
     var _currentTask = null;
     var _microTaskQueue = [];
     var _isDrainingMicrotaskQueue = false;
@@ -378,7 +395,7 @@ var Zone$1 = (function (global) {
     function scheduleQueueDrain() {
         // if we are not running in any task, and there has not been anything scheduled
         // we must bootstrap the initial task creation by manually scheduling the drain
-        if (_numberOfNestedTaskFrames == 0 && _microTaskQueue.length == 0) {
+        if (_numberOfNestedTaskFrames === 0 && _microTaskQueue.length === 0) {
             // We are not running in Task, so we need to kickstart the microtask queue.
             if (global[symbolPromise]) {
                 global[symbolPromise].resolve(0)[symbolThen](drainMicroTaskQueue);
@@ -416,7 +433,7 @@ var Zone$1 = (function (global) {
                 }
             }
             while (_uncaughtPromiseErrors.length) {
-                var _loop_1 = function() {
+                var _loop_1 = function () {
                     var uncaughtPromiseError = _uncaughtPromiseErrors.shift();
                     try {
                         uncaughtPromiseError.zone.runGuarded(function () {
@@ -458,7 +475,8 @@ var Zone$1 = (function (global) {
     }
     function resolvePromise(promise, state, value) {
         if (promise[symbolState] === UNRESOLVED) {
-            if (value instanceof ZoneAwarePromise && value[symbolState] !== UNRESOLVED) {
+            if (value instanceof ZoneAwarePromise && value.hasOwnProperty(symbolState) &&
+                value.hasOwnProperty(symbolValue) && value[symbolState] !== UNRESOLVED) {
                 clearRejectedNoCatch(value);
                 resolvePromise(promise, value[symbolState], value[symbolValue]);
             }
@@ -608,8 +626,8 @@ var Zone$1 = (function (global) {
     ZoneAwarePromise['reject'] = ZoneAwarePromise.reject;
     ZoneAwarePromise['race'] = ZoneAwarePromise.race;
     ZoneAwarePromise['all'] = ZoneAwarePromise.all;
-    var NativePromise = global[__symbol__('Promise')] = global.Promise;
-    global.Promise = ZoneAwarePromise;
+    var NativePromise = global[__symbol__('Promise')] = global['Promise'];
+    global['Promise'] = ZoneAwarePromise;
     function patchThen(NativePromise) {
         var NativePromiseProtototype = NativePromise.prototype;
         var NativePromiseThen = NativePromiseProtototype[__symbol__('then')] =
@@ -644,7 +662,172 @@ var Zone$1 = (function (global) {
     }
     // This is not part of public API, but it is usefull for tests, so we expose it.
     Promise[Zone.__symbol__('uncaughtPromiseErrors')] = _uncaughtPromiseErrors;
-    return global.Zone = Zone;
+    /*
+     * This code patches Error so that:
+     *   - It ignores un-needed stack frames.
+     *   - It Shows the associated Zone for reach frame.
+     */
+    var FrameType;
+    (function (FrameType) {
+        /// Skip this frame when printing out stack
+        FrameType[FrameType["blackList"] = 0] = "blackList";
+        /// This frame marks zone transition
+        FrameType[FrameType["transition"] = 1] = "transition";
+    })(FrameType || (FrameType = {}));
+    var NativeError = global[__symbol__('Error')] = global.Error;
+    // Store the frames which should be removed from the stack frames
+    var blackListedStackFrames = {};
+    // We must find the frame where Error was created, otherwise we assume we don't understand stack
+    var zoneAwareFrame;
+    global.Error = ZoneAwareError;
+    // How should the stack frames be parsed.
+    var frameParserStrategy = null;
+    var stackRewrite = 'stackRewrite';
+    /**
+     * This is ZoneAwareError which processes the stack frame and cleans up extra frames as well as
+     * adds zone information to it.
+     */
+    function ZoneAwareError() {
+        // Create an Error.
+        var error = NativeError.apply(this, arguments);
+        // Save original stack trace
+        error.originalStack = error.stack;
+        // Process the stack trace and rewrite the frames.
+        if (ZoneAwareError[stackRewrite] && error.originalStack) {
+            var frames_1 = error.originalStack.split('\n');
+            var zoneFrame = _currentZoneFrame;
+            var i = 0;
+            // Find the first frame
+            while (frames_1[i] !== zoneAwareFrame && i < frames_1.length) {
+                i++;
+            }
+            for (; i < frames_1.length && zoneFrame; i++) {
+                var frame = frames_1[i];
+                if (frame.trim()) {
+                    var frameType = blackListedStackFrames.hasOwnProperty(frame) && blackListedStackFrames[frame];
+                    if (frameType === FrameType.blackList) {
+                        frames_1.splice(i, 1);
+                        i--;
+                    }
+                    else if (frameType === FrameType.transition) {
+                        if (zoneFrame.parent) {
+                            // This is the special frame where zone changed. Print and process it accordingly
+                            frames_1[i] += " [" + zoneFrame.parent.zone.name + " => " + zoneFrame.zone.name + "]";
+                            zoneFrame = zoneFrame.parent;
+                        }
+                        else {
+                            zoneFrame = null;
+                        }
+                    }
+                    else {
+                        frames_1[i] += " [" + zoneFrame.zone.name + "]";
+                    }
+                }
+            }
+            error.stack = error.zoneAwareStack = frames_1.join('\n');
+        }
+        return error;
+    }
+    // Copy the prototype so that instanceof operator works as expected
+    ZoneAwareError.prototype = NativeError.prototype;
+    ZoneAwareError[Zone.__symbol__('blacklistedStackFrames')] = blackListedStackFrames;
+    ZoneAwareError[stackRewrite] = false;
+    if (NativeError.hasOwnProperty('stackTraceLimit')) {
+        // Extend default stack limit as we will be removing few frames.
+        NativeError.stackTraceLimit = Math.max(NativeError.stackTraceLimit, 15);
+        // make sure that ZoneAwareError has the same property which forwards to NativeError.
+        Object.defineProperty(ZoneAwareError, 'stackTraceLimit', {
+            get: function () {
+                return NativeError.stackTraceLimit;
+            },
+            set: function (value) {
+                return NativeError.stackTraceLimit = value;
+            }
+        });
+    }
+    if (NativeError.hasOwnProperty('captureStackTrace')) {
+        Object.defineProperty(ZoneAwareError, 'captureStackTrace', {
+            value: function (targetObject, constructorOpt) {
+                NativeError.captureStackTrace(targetObject, constructorOpt);
+            }
+        });
+    }
+    Object.defineProperty(ZoneAwareError, 'prepareStackTrace', {
+        get: function () {
+            return NativeError.prepareStackTrace;
+        },
+        set: function (value) {
+            return NativeError.prepareStackTrace = value;
+        }
+    });
+    // Now we need to populet the `blacklistedStackFrames` as well as find the
+    // Now we need to populet the `blacklistedStackFrames` as well as find the
+    // run/runGuraded/runTask frames. This is done by creating a detect zone and then threading
+    // the execution through all of the above methods so that we can look at the stack trace and
+    // find the frames of interest.
+    var detectZone = Zone.current.fork({
+        name: 'detect',
+        onInvoke: function (parentZoneDelegate, currentZone, targetZone, delegate, applyThis, applyArgs, source) {
+            // Here only so that it will show up in the stack frame so that it can be black listed.
+            return parentZoneDelegate.invoke(targetZone, delegate, applyThis, applyArgs, source);
+        },
+        onHandleError: function (parentZD, current, target, error) {
+            if (error.originalStack && Error === ZoneAwareError) {
+                var frames_2 = error.originalStack.split(/\n/);
+                var runFrame = false, runGuardedFrame = false, runTaskFrame = false;
+                while (frames_2.length) {
+                    var frame = frames_2.shift();
+                    // On safari it is possible to have stack frame with no line number.
+                    // This check makes sure that we don't filter frames on name only (must have
+                    // linenumber)
+                    if (/:\d+:\d+/.test(frame)) {
+                        // Get rid of the path so that we don't accidintely find function name in path.
+                        // In chrome the seperator is `(` and `@` in FF and safari
+                        // Chrome: at Zone.run (zone.js:100)
+                        // Chrome: at Zone.run (http://localhost:9876/base/build/lib/zone.js:100:24)
+                        // FireFox: Zone.prototype.run@http://localhost:9876/base/build/lib/zone.js:101:24
+                        // Safari: run@http://localhost:9876/base/build/lib/zone.js:101:24
+                        var fnName = frame.split('(')[0].split('@')[0];
+                        var frameType = FrameType.transition;
+                        if (fnName.indexOf('ZoneAwareError') !== -1) {
+                            zoneAwareFrame = frame;
+                        }
+                        if (fnName.indexOf('runGuarded') !== -1) {
+                            runGuardedFrame = true;
+                        }
+                        else if (fnName.indexOf('runTask') !== -1) {
+                            runTaskFrame = true;
+                        }
+                        else if (fnName.indexOf('run') !== -1) {
+                            runFrame = true;
+                        }
+                        else {
+                            frameType = FrameType.blackList;
+                        }
+                        blackListedStackFrames[frame] = frameType;
+                        // Once we find all of the frames we can stop looking.
+                        if (runFrame && runGuardedFrame && runTaskFrame) {
+                            ZoneAwareError[stackRewrite] = true;
+                            break;
+                        }
+                    }
+                }
+            }
+            return false;
+        }
+    });
+    // carefully constructor a stack frame which contains all of the frames of interest which
+    // need to be detected and blacklisted.
+    var detectRunFn = function () {
+        detectZone.run(function () {
+            detectZone.runGuarded(function () {
+                throw new Error('blacklistStackFrames');
+            });
+        });
+    };
+    // Cause the error to extract the stack frames.
+    detectZone.runTask(detectZone.scheduleMacroTask('detect', detectRunFn, null, function () { return null; }, null));
+    return global['Zone'] = Zone;
 })(typeof window === 'object' && window || typeof self === 'object' && self || global);
 
 /**
@@ -654,7 +837,12 @@ var Zone$1 = (function (global) {
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-var zoneSymbol = Zone['__symbol__'];
+/**
+ * Suppress closure compiler errors about unknown 'Zone' variable
+ * @fileoverview
+ * @suppress {undefinedVars}
+ */
+var zoneSymbol = function (n) { return "__zone_symbol__" + n; };
 var _global$1 = typeof window === 'object' && window || typeof self === 'object' && self || global;
 function bindArguments(args, source) {
     for (var i = args.length - 1; i >= 0; i--) {
@@ -664,10 +852,9 @@ function bindArguments(args, source) {
     }
     return args;
 }
-
 function patchPrototype(prototype, fnNames) {
     var source = prototype.constructor['name'];
-    var _loop_1 = function(i) {
+    var _loop_1 = function (i) {
         var name_1 = fnNames[i];
         var delegate = prototype[name_1];
         if (delegate) {
@@ -682,12 +869,16 @@ function patchPrototype(prototype, fnNames) {
         _loop_1(i);
     }
 }
-
 var isWebWorker = (typeof WorkerGlobalScope !== 'undefined' && self instanceof WorkerGlobalScope);
-var isNode = (typeof process !== 'undefined' && {}.toString.call(process) === '[object process]');
+var isNode = (!('nw' in _global$1) && typeof process !== 'undefined' &&
+    {}.toString.call(process) === '[object process]');
 var isBrowser = !isNode && !isWebWorker && !!(typeof window !== 'undefined' && window['HTMLElement']);
 function patchProperty(obj, prop) {
     var desc = Object.getOwnPropertyDescriptor(obj, prop) || { enumerable: true, configurable: true };
+    var originalDesc = Object.getOwnPropertyDescriptor(obj, 'original' + prop);
+    if (!originalDesc && desc.get) {
+        Object.defineProperty(obj, 'original' + prop, { enumerable: false, configurable: true, get: desc.get });
+    }
     // A property descriptor cannot have getter/setter and be writable
     // deleting the writable and value properties avoids this error:
     //
@@ -719,6 +910,23 @@ function patchProperty(obj, prop) {
     // The getter would return undefined for unassigned properties but the default value of an
     // unassigned property is null
     desc.get = function () {
+        var r = this[_prop] || null;
+        // result will be null when use inline event attribute,
+        // such as <button onclick="func();">OK</button>
+        // because the onclick function is internal raw uncompiled handler
+        // the onclick will be evaluated when first time event was triggered or
+        // the property is accessed, https://github.com/angular/zone.js/issues/525
+        // so we should use original native get to retrive the handler
+        if (r === null) {
+            var oriDesc = Object.getOwnPropertyDescriptor(obj, 'original' + prop);
+            if (oriDesc && oriDesc.get) {
+                r = oriDesc.get.apply(this, arguments);
+                if (r) {
+                    desc.set.apply(this, [r]);
+                    this.removeAttribute(prop);
+                }
+            }
+        }
         return this[_prop] || null;
     };
     Object.defineProperty(obj, prop, desc);
@@ -751,7 +959,9 @@ function findExistingRegisteredTask(target, handler, name, capture, remove) {
         for (var i = 0; i < eventTasks.length; i++) {
             var eventTask = eventTasks[i];
             var data = eventTask.data;
-            if (data.handler === handler && data.useCapturing === capture && data.eventName === name) {
+            var listener = data.handler;
+            if ((data.handler === handler || listener.listener === handler) &&
+                data.useCapturing === capture && data.eventName === name) {
                 if (remove) {
                     eventTasks.splice(i, 1);
                 }
@@ -761,50 +971,98 @@ function findExistingRegisteredTask(target, handler, name, capture, remove) {
     }
     return null;
 }
-function attachRegisteredEvent(target, eventTask) {
+function findAllExistingRegisteredTasks(target, name, capture, remove) {
+    var eventTasks = target[EVENT_TASKS];
+    if (eventTasks) {
+        var result = [];
+        for (var i = eventTasks.length - 1; i >= 0; i--) {
+            var eventTask = eventTasks[i];
+            var data = eventTask.data;
+            if (data.eventName === name && data.useCapturing === capture) {
+                result.push(eventTask);
+                if (remove) {
+                    eventTasks.splice(i, 1);
+                }
+            }
+        }
+        return result;
+    }
+    return null;
+}
+function attachRegisteredEvent(target, eventTask, isPrepend) {
     var eventTasks = target[EVENT_TASKS];
     if (!eventTasks) {
         eventTasks = target[EVENT_TASKS] = [];
     }
-    eventTasks.push(eventTask);
+    if (isPrepend) {
+        eventTasks.unshift(eventTask);
+    }
+    else {
+        eventTasks.push(eventTask);
+    }
 }
-function makeZoneAwareAddListener(addFnName, removeFnName, useCapturingParam, allowDuplicates) {
+var defaultListenerMetaCreator = function (self, args) {
+    return {
+        useCapturing: args[2],
+        eventName: args[0],
+        handler: args[1],
+        target: self || _global$1,
+        name: args[0],
+        invokeAddFunc: function (addFnSymbol, delegate) {
+            if (delegate && delegate.invoke) {
+                return this.target[addFnSymbol](this.eventName, delegate.invoke, this.useCapturing);
+            }
+            else {
+                return this.target[addFnSymbol](this.eventName, delegate, this.useCapturing);
+            }
+        },
+        invokeRemoveFunc: function (removeFnSymbol, delegate) {
+            if (delegate && delegate.invoke) {
+                return this.target[removeFnSymbol](this.eventName, delegate.invoke, this.useCapturing);
+            }
+            else {
+                return this.target[removeFnSymbol](this.eventName, delegate, this.useCapturing);
+            }
+        }
+    };
+};
+function makeZoneAwareAddListener(addFnName, removeFnName, useCapturingParam, allowDuplicates, isPrepend, metaCreator) {
     if (useCapturingParam === void 0) { useCapturingParam = true; }
     if (allowDuplicates === void 0) { allowDuplicates = false; }
+    if (isPrepend === void 0) { isPrepend = false; }
+    if (metaCreator === void 0) { metaCreator = defaultListenerMetaCreator; }
     var addFnSymbol = zoneSymbol(addFnName);
     var removeFnSymbol = zoneSymbol(removeFnName);
     var defaultUseCapturing = useCapturingParam ? false : undefined;
     function scheduleEventListener(eventTask) {
         var meta = eventTask.data;
-        attachRegisteredEvent(meta.target, eventTask);
-        return meta.target[addFnSymbol](meta.eventName, eventTask.invoke, meta.useCapturing);
+        attachRegisteredEvent(meta.target, eventTask, isPrepend);
+        return meta.invokeAddFunc(addFnSymbol, eventTask);
     }
     function cancelEventListener(eventTask) {
         var meta = eventTask.data;
         findExistingRegisteredTask(meta.target, eventTask.invoke, meta.eventName, meta.useCapturing, true);
-        meta.target[removeFnSymbol](meta.eventName, eventTask.invoke, meta.useCapturing);
+        return meta.invokeRemoveFunc(removeFnSymbol, eventTask);
     }
     return function zoneAwareAddListener(self, args) {
-        var eventName = args[0];
-        var handler = args[1];
-        var useCapturing = args[2] || defaultUseCapturing;
+        var data = metaCreator(self, args);
+        data.useCapturing = data.useCapturing || defaultUseCapturing;
         // - Inside a Web Worker, `this` is undefined, the context is `global`
         // - When `addEventListener` is called on the global context in strict mode, `this` is undefined
         // see https://github.com/angular/zone.js/issues/190
-        var target = self || _global$1;
         var delegate = null;
-        if (typeof handler == 'function') {
-            delegate = handler;
+        if (typeof data.handler == 'function') {
+            delegate = data.handler;
         }
-        else if (handler && handler.handleEvent) {
-            delegate = function (event) { return handler.handleEvent(event); };
+        else if (data.handler && data.handler.handleEvent) {
+            delegate = function (event) { return data.handler.handleEvent(event); };
         }
         var validZoneHandler = false;
         try {
             // In cross site contexts (such as WebDriver frameworks like Selenium),
             // accessing the handler object here will cause an exception to be thrown which
             // will fail tests prematurely.
-            validZoneHandler = handler && handler.toString() === '[object FunctionWrapper]';
+            validZoneHandler = data.handler && data.handler.toString() === '[object FunctionWrapper]';
         }
         catch (e) {
             // Returning nothing here is fine, because objects in a cross-site context are unusable
@@ -813,55 +1071,51 @@ function makeZoneAwareAddListener(addFnName, removeFnName, useCapturingParam, al
         // Ignore special listeners of IE11 & Edge dev tools, see
         // https://github.com/angular/zone.js/issues/150
         if (!delegate || validZoneHandler) {
-            return target[addFnSymbol](eventName, handler, useCapturing);
+            return data.invokeAddFunc(addFnSymbol, data.handler);
         }
         if (!allowDuplicates) {
-            var eventTask = findExistingRegisteredTask(target, handler, eventName, useCapturing, false);
+            var eventTask = findExistingRegisteredTask(data.target, data.handler, data.eventName, data.useCapturing, false);
             if (eventTask) {
                 // we already registered, so this will have noop.
-                return target[addFnSymbol](eventName, eventTask.invoke, useCapturing);
+                return data.invokeAddFunc(addFnSymbol, eventTask);
             }
         }
         var zone = Zone.current;
-        var source = target.constructor['name'] + '.' + addFnName + ':' + eventName;
-        var data = {
-            target: target,
-            eventName: eventName,
-            name: eventName,
-            useCapturing: useCapturing,
-            handler: handler
-        };
+        var source = data.target.constructor['name'] + '.' + addFnName + ':' + data.eventName;
         zone.scheduleEventTask(source, delegate, data, scheduleEventListener, cancelEventListener);
     };
 }
-function makeZoneAwareRemoveListener(fnName, useCapturingParam) {
+function makeZoneAwareRemoveListener(fnName, useCapturingParam, metaCreator) {
     if (useCapturingParam === void 0) { useCapturingParam = true; }
+    if (metaCreator === void 0) { metaCreator = defaultListenerMetaCreator; }
     var symbol = zoneSymbol(fnName);
     var defaultUseCapturing = useCapturingParam ? false : undefined;
     return function zoneAwareRemoveListener(self, args) {
-        var eventName = args[0];
-        var handler = args[1];
-        var useCapturing = args[2] || defaultUseCapturing;
+        var data = metaCreator(self, args);
+        data.useCapturing = data.useCapturing || defaultUseCapturing;
         // - Inside a Web Worker, `this` is undefined, the context is `global`
         // - When `addEventListener` is called on the global context in strict mode, `this` is undefined
         // see https://github.com/angular/zone.js/issues/190
-        var target = self || _global$1;
-        var eventTask = findExistingRegisteredTask(target, handler, eventName, useCapturing, true);
+        var eventTask = findExistingRegisteredTask(data.target, data.handler, data.eventName, data.useCapturing, true);
         if (eventTask) {
             eventTask.zone.cancelTask(eventTask);
         }
         else {
-            target[symbol](eventName, handler, useCapturing);
+            data.invokeRemoveFunc(symbol, data.handler);
         }
     };
 }
 
+
 var zoneAwareAddEventListener = makeZoneAwareAddListener(ADD_EVENT_LISTENER, REMOVE_EVENT_LISTENER);
 var zoneAwareRemoveEventListener = makeZoneAwareRemoveListener(REMOVE_EVENT_LISTENER);
-function patchEventTargetMethods(obj) {
-    if (obj && obj.addEventListener) {
-        patchMethod(obj, ADD_EVENT_LISTENER, function () { return zoneAwareAddEventListener; });
-        patchMethod(obj, REMOVE_EVENT_LISTENER, function () { return zoneAwareRemoveEventListener; });
+function patchEventTargetMethods(obj, addFnName, removeFnName, metaCreator) {
+    if (addFnName === void 0) { addFnName = ADD_EVENT_LISTENER; }
+    if (removeFnName === void 0) { removeFnName = REMOVE_EVENT_LISTENER; }
+    if (metaCreator === void 0) { metaCreator = defaultListenerMetaCreator; }
+    if (obj && obj[addFnName]) {
+        patchMethod(obj, addFnName, function () { return makeZoneAwareAddListener(addFnName, removeFnName, true, false, false, metaCreator); });
+        patchMethod(obj, removeFnName, function () { return makeZoneAwareRemoveListener(removeFnName, true, metaCreator); });
         return true;
     }
     else {
@@ -1142,7 +1396,7 @@ function _tryDefineProperty(obj, prop, desc, originalConfigurableFlag) {
  * found in the LICENSE file at https://angular.io/license
  */
 var WTF_ISSUE_555 = 'Anchor,Area,Audio,BR,Base,BaseFont,Body,Button,Canvas,Content,DList,Directory,Div,Embed,FieldSet,Font,Form,Frame,FrameSet,HR,Head,Heading,Html,IFrame,Image,Input,Keygen,LI,Label,Legend,Link,Map,Marquee,Media,Menu,Meta,Meter,Mod,OList,Object,OptGroup,Option,Output,Paragraph,Pre,Progress,Quote,Script,Select,Source,Span,Style,TableCaption,TableCell,TableCol,Table,TableRow,TableSection,TextArea,Title,Track,UList,Unknown,Video';
-var NO_EVENT_TARGET = 'ApplicationCache,EventSource,FileReader,InputMethodContext,MediaController,MessagePort,Node,Performance,SVGElementInstance,SharedWorker,TextTrack,TextTrackCue,TextTrackList,WebKitNamedFlow,Window,Worker,WorkerGlobalScope,XMLHttpRequest,XMLHttpRequestEventTarget,XMLHttpRequestUpload,IDBRequest,IDBOpenDBRequest,IDBDatabase,IDBTransaction,IDBCursor,DBIndex'
+var NO_EVENT_TARGET = 'ApplicationCache,EventSource,FileReader,InputMethodContext,MediaController,MessagePort,Node,Performance,SVGElementInstance,SharedWorker,TextTrack,TextTrackCue,TextTrackList,WebKitNamedFlow,Window,Worker,WorkerGlobalScope,XMLHttpRequest,XMLHttpRequestEventTarget,XMLHttpRequestUpload,IDBRequest,IDBOpenDBRequest,IDBDatabase,IDBTransaction,IDBCursor,DBIndex,WebSocket'
     .split(',');
 var EVENT_TARGET = 'EventTarget';
 function eventTargetPatch(_global) {
@@ -1272,7 +1526,7 @@ var unboundKey = zoneSymbol('unbound');
 // for `onwhatever` properties and replace them with zone-bound functions
 // - Chrome (for now)
 function patchViaCapturingAllTheEvents() {
-    var _loop_1 = function(i) {
+    var _loop_1 = function (i) {
         var property = eventNames[i];
         var onproperty = 'on' + property;
         self.addEventListener(property, function (event) {
@@ -1371,25 +1625,35 @@ registerElementPatch(_global);
 patchXHR(_global);
 var XHR_TASK = zoneSymbol('xhrTask');
 var XHR_SYNC = zoneSymbol('xhrSync');
+var XHR_LISTENER = zoneSymbol('xhrListener');
+var XHR_SCHEDULED = zoneSymbol('xhrScheduled');
 function patchXHR(window) {
     function findPendingTask(target) {
         var pendingTask = target[XHR_TASK];
         return pendingTask;
     }
     function scheduleTask(task) {
+        self[XHR_SCHEDULED] = false;
         var data = task.data;
-        data.target.addEventListener('readystatechange', function () {
+        // remove existing event listener
+        var listener = data.target[XHR_LISTENER];
+        if (listener) {
+            data.target.removeEventListener('readystatechange', listener);
+        }
+        var newListener = data.target[XHR_LISTENER] = function () {
             if (data.target.readyState === data.target.DONE) {
-                if (!data.aborted) {
+                if (!data.aborted && self[XHR_SCHEDULED]) {
                     task.invoke();
                 }
             }
-        });
+        };
+        data.target.addEventListener('readystatechange', newListener);
         var storedTask = data.target[XHR_TASK];
         if (!storedTask) {
             data.target[XHR_TASK] = task;
         }
         sendNative.apply(data.target, data.args);
+        self[XHR_SCHEDULED] = true;
         return task;
     }
     function placeholderCallback() { }
@@ -1433,6 +1697,14 @@ if (_global['navigator'] && _global['navigator'].geolocation) {
     patchPrototype(_global['navigator'].geolocation, ['getCurrentPosition', 'watchPosition']);
 }
 
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+
 })));
 
 /*! *****************************************************************************
@@ -1456,13 +1728,11 @@ var Reflect;
     // feature test for Object.create support
     var supportsCreate = typeof Object.create === "function";
     // feature test for __proto__ support
-    var supportsProto = (function () {
-        var sentinel = {};
-        function __() { }
-        __.prototype = sentinel;
-        var instance = new __();
-        return instance.__proto__ === sentinel;
-    })();
+    var supportsProto = { __proto__: [] } instanceof Array;
+    // feature test for Symbol support
+    var supportsSymbol = typeof Symbol === "function";
+    var toPrimitiveSymbol = supportsSymbol && typeof Symbol.toPrimitive !== "undefined" ? Symbol.toPrimitive : "@@toPrimitive";
+    var iteratorSymbol = supportsSymbol && typeof Symbol.iterator !== "undefined" ? Symbol.iterator : "@@iterator";
     // create an object in dictionary mode (a.k.a. "slow" mode in v8)
     var createDictionary = supportsCreate ? function () { return MakeDictionary(Object.create(null)); } :
         supportsProto ? function () { return MakeDictionary({ __proto__: null }); } :
@@ -1479,8 +1749,8 @@ var Reflect;
     })(HashMap || (HashMap = {}));
     // Load global or shim versions of Map, Set, and WeakMap
     var functionPrototype = Object.getPrototypeOf(Function);
-    var _Map = typeof Map === "function" ? Map : CreateMapPolyfill();
-    var _Set = typeof Set === "function" ? Set : CreateSetPolyfill();
+    var _Map = typeof Map === "function" && typeof Map.prototype.entries === "function" ? Map : CreateMapPolyfill();
+    var _Set = typeof Set === "function" && typeof Set.prototype.entries === "function" ? Set : CreateSetPolyfill();
     var _WeakMap = typeof WeakMap === "function" ? WeakMap : CreateWeakMapPolyfill();
     // [[Metadata]] internal slot
     var Metadata = new _WeakMap();
@@ -1524,25 +1794,17 @@ var Reflect;
       *
       */
     function decorate(decorators, target, targetKey, targetDescriptor) {
-        if (!IsUndefined(targetDescriptor)) {
+        if (!IsUndefined(targetKey)) {
             if (!IsArray(decorators))
                 throw new TypeError();
             if (!IsObject(target))
                 throw new TypeError();
-            if (IsUndefined(targetKey))
+            if (!IsObject(targetDescriptor) && !IsUndefined(targetDescriptor) && !IsNull(targetDescriptor))
                 throw new TypeError();
-            if (!IsObject(targetDescriptor))
-                throw new TypeError();
+            if (IsNull(targetDescriptor))
+                targetDescriptor = undefined;
             targetKey = ToPropertyKey(targetKey);
-            return DecoratePropertyWithDescriptor(decorators, target, targetKey, targetDescriptor);
-        }
-        else if (!IsUndefined(targetKey)) {
-            if (!IsArray(decorators))
-                throw new TypeError();
-            if (!IsObject(target))
-                throw new TypeError();
-            targetKey = ToPropertyKey(targetKey);
-            return DecoratePropertyWithoutDescriptor(decorators, target, targetKey);
+            return DecorateProperty(decorators, target, targetKey, targetDescriptor);
         }
         else {
             if (!IsArray(decorators))
@@ -1966,7 +2228,7 @@ var Reflect;
         for (var i = decorators.length - 1; i >= 0; --i) {
             var decorator = decorators[i];
             var decorated = decorator(target);
-            if (!IsUndefined(decorated)) {
+            if (!IsUndefined(decorated) && !IsNull(decorated)) {
                 if (!IsConstructor(decorated))
                     throw new TypeError();
                 target = decorated;
@@ -1974,11 +2236,11 @@ var Reflect;
         }
         return target;
     }
-    function DecoratePropertyWithDescriptor(decorators, target, propertyKey, descriptor) {
+    function DecorateProperty(decorators, target, propertyKey, descriptor) {
         for (var i = decorators.length - 1; i >= 0; --i) {
             var decorator = decorators[i];
             var decorated = decorator(target, propertyKey, descriptor);
-            if (!IsUndefined(decorated)) {
+            if (!IsUndefined(decorated) && !IsNull(decorated)) {
                 if (!IsObject(decorated))
                     throw new TypeError();
                 descriptor = decorated;
@@ -1986,65 +2248,74 @@ var Reflect;
         }
         return descriptor;
     }
-    function DecoratePropertyWithoutDescriptor(decorators, target, propertyKey) {
-        for (var i = decorators.length - 1; i >= 0; --i) {
-            var decorator = decorators[i];
-            decorator(target, propertyKey);
-        }
-    }
-    // https://github.com/rbuckton/ReflectDecorators/blob/master/spec/metadata.md#getorcreatemetadatamap--o-p-create-
-    function GetOrCreateMetadataMap(target, targetKey, create) {
-        var targetMetadata = Metadata.get(target);
-        if (!targetMetadata) {
-            if (!create)
+    function GetOrCreateMetadataMap(O, P, Create) {
+        var targetMetadata = Metadata.get(O);
+        if (IsUndefined(targetMetadata)) {
+            if (!Create)
                 return undefined;
             targetMetadata = new _Map();
-            Metadata.set(target, targetMetadata);
+            Metadata.set(O, targetMetadata);
         }
-        var keyMetadata = targetMetadata.get(targetKey);
-        if (!keyMetadata) {
-            if (!create)
+        var metadataMap = targetMetadata.get(P);
+        if (IsUndefined(metadataMap)) {
+            if (!Create)
                 return undefined;
-            keyMetadata = new _Map();
-            targetMetadata.set(targetKey, keyMetadata);
+            metadataMap = new _Map();
+            targetMetadata.set(P, metadataMap);
         }
-        return keyMetadata;
+        return metadataMap;
     }
+    // Ordinary Object Internal Methods and Internal Slots
+    // https://github.com/rbuckton/ReflectDecorators/blob/master/spec/metadata.md#ordinary-object-internal-methods-and-internal-slots
+    // OrdinaryHasMetadata(MetadataKey, O, P)
     // https://github.com/rbuckton/ReflectDecorators/blob/master/spec/metadata.md#ordinaryhasmetadata--metadatakey-o-p-
     function OrdinaryHasMetadata(MetadataKey, O, P) {
         var hasOwn = OrdinaryHasOwnMetadata(MetadataKey, O, P);
         if (hasOwn)
             return true;
-        var parent = GetPrototypeOf(O);
-        return parent !== null ? OrdinaryHasMetadata(MetadataKey, parent, P) : false;
+        var parent = OrdinaryGetPrototypeOf(O);
+        if (!IsNull(parent))
+            return OrdinaryHasMetadata(MetadataKey, parent, P);
+        return false;
     }
+    // OrdinaryHasOwnMetadata(MetadataKey, O, P)
     // https://github.com/rbuckton/ReflectDecorators/blob/master/spec/metadata.md#ordinaryhasownmetadata--metadatakey-o-p-
     function OrdinaryHasOwnMetadata(MetadataKey, O, P) {
         var metadataMap = GetOrCreateMetadataMap(O, P, /*create*/ false);
-        return metadataMap !== undefined && Boolean(metadataMap.has(MetadataKey));
+        if (IsUndefined(metadataMap))
+            return false;
+        return ToBoolean(metadataMap.has(MetadataKey));
     }
+    // OrdinaryGetMetadata(MetadataKey, O, P)
     // https://github.com/rbuckton/ReflectDecorators/blob/master/spec/metadata.md#ordinarygetmetadata--metadatakey-o-p-
     function OrdinaryGetMetadata(MetadataKey, O, P) {
         var hasOwn = OrdinaryHasOwnMetadata(MetadataKey, O, P);
         if (hasOwn)
             return OrdinaryGetOwnMetadata(MetadataKey, O, P);
-        var parent = GetPrototypeOf(O);
-        return parent !== null ? OrdinaryGetMetadata(MetadataKey, parent, P) : undefined;
+        var parent = OrdinaryGetPrototypeOf(O);
+        if (!IsNull(parent))
+            return OrdinaryGetMetadata(MetadataKey, parent, P);
+        return undefined;
     }
+    // OrdinaryGetOwnMetadata(MetadataKey, O, P)
     // https://github.com/rbuckton/ReflectDecorators/blob/master/spec/metadata.md#ordinarygetownmetadata--metadatakey-o-p-
     function OrdinaryGetOwnMetadata(MetadataKey, O, P) {
         var metadataMap = GetOrCreateMetadataMap(O, P, /*create*/ false);
-        return metadataMap === undefined ? undefined : metadataMap.get(MetadataKey);
+        if (IsUndefined(metadataMap))
+            return undefined;
+        return metadataMap.get(MetadataKey);
     }
+    // OrdinaryDefineOwnMetadata(MetadataKey, MetadataValue, O, P)
     // https://github.com/rbuckton/ReflectDecorators/blob/master/spec/metadata.md#ordinarydefineownmetadata--metadatakey-metadatavalue-o-p-
     function OrdinaryDefineOwnMetadata(MetadataKey, MetadataValue, O, P) {
         var metadataMap = GetOrCreateMetadataMap(O, P, /*create*/ true);
         metadataMap.set(MetadataKey, MetadataValue);
     }
+    // OrdinaryMetadataKeys(O, P)
     // https://github.com/rbuckton/ReflectDecorators/blob/master/spec/metadata.md#ordinarymetadatakeys--o-p-
     function OrdinaryMetadataKeys(O, P) {
         var ownKeys = OrdinaryOwnMetadataKeys(O, P);
-        var parent = GetPrototypeOf(O);
+        var parent = OrdinaryGetPrototypeOf(O);
         if (parent === null)
             return ownKeys;
         var parentKeys = OrdinaryMetadataKeys(parent, P);
@@ -2052,56 +2323,246 @@ var Reflect;
             return ownKeys;
         if (ownKeys.length <= 0)
             return parentKeys;
-        var keys = new _Set();
-        for (var _i = 0; _i < ownKeys.length; _i++) {
-            var key = ownKeys[_i];
-            keys.add(key);
-        }
-        for (var _a = 0; _a < parentKeys.length; _a++) {
-            var key = parentKeys[_a];
-            keys.add(key);
-        }
-        return getKeys(keys);
-    }
-    // https://github.com/rbuckton/ReflectDecorators/blob/master/spec/metadata.md#ordinaryownmetadatakeys--o-p-
-    function OrdinaryOwnMetadataKeys(target, targetKey) {
-        var metadataMap = GetOrCreateMetadataMap(target, targetKey, /*create*/ false);
+        var set = new _Set();
         var keys = [];
-        if (metadataMap)
-            forEach(metadataMap, function (_, key) { return keys.push(key); });
+        for (var _i = 0, ownKeys_1 = ownKeys; _i < ownKeys_1.length; _i++) {
+            var key = ownKeys_1[_i];
+            var hasKey = set.has(key);
+            if (!hasKey) {
+                set.add(key);
+                keys.push(key);
+            }
+        }
+        for (var _a = 0, parentKeys_1 = parentKeys; _a < parentKeys_1.length; _a++) {
+            var key = parentKeys_1[_a];
+            var hasKey = set.has(key);
+            if (!hasKey) {
+                set.add(key);
+                keys.push(key);
+            }
+        }
         return keys;
     }
-    // https://people.mozilla.org/~jorendorff/es6-draft.html#sec-ecmascript-language-types-undefined-type
+    // OrdinaryOwnMetadataKeys(O, P)
+    // https://github.com/rbuckton/ReflectDecorators/blob/master/spec/metadata.md#ordinaryownmetadatakeys--o-p-
+    function OrdinaryOwnMetadataKeys(O, P) {
+        var metadataMap = GetOrCreateMetadataMap(O, P, /*create*/ false);
+        var keys = [];
+        if (IsUndefined(metadataMap))
+            return keys;
+        var keysObj = metadataMap.keys();
+        var iterator = GetIterator(keysObj);
+        while (true) {
+            var next = IteratorStep(iterator);
+            try {
+                if (!next)
+                    return keys;
+                var nextValue = IteratorValue(next);
+                keys.push(nextValue);
+            }
+            catch (e) {
+                try {
+                    if (next) {
+                        next = false;
+                        IteratorClose(iterator);
+                    }
+                }
+                finally {
+                    throw e;
+                }
+            }
+            finally {
+                if (next)
+                    IteratorClose(iterator);
+            }
+        }
+    }
+    // ECMAScript Specification
+    // https://tc39.github.io/ecma262/
+    // 6 ECMAScript Data Typ0es and Values
+    // https://tc39.github.io/ecma262/#sec-ecmascript-data-types-and-values
+    function Type(x) {
+        if (x === null)
+            return 1 /* Null */;
+        switch (typeof x) {
+            case "undefined": return 0 /* Undefined */;
+            case "boolean": return 2 /* Boolean */;
+            case "string": return 3 /* String */;
+            case "symbol": return 4 /* Symbol */;
+            case "number": return 5 /* Number */;
+            case "object": return x === null ? 1 /* Null */ : 6 /* Object */;
+            default: return 6 /* Object */;
+        }
+    }
+    // 6.1.1 The Undefined Type
+    // https://tc39.github.io/ecma262/#sec-ecmascript-language-types-undefined-type
     function IsUndefined(x) {
         return x === undefined;
     }
-    // https://people.mozilla.org/~jorendorff/es6-draft.html#sec-isarray
-    function IsArray(x) {
-        return Array.isArray ? Array.isArray(x) : x instanceof Array || Object.prototype.toString.call(x) === "[object Array]";
+    // 6.1.2 The Null Type
+    // https://tc39.github.io/ecma262/#sec-ecmascript-language-types-null-type
+    function IsNull(x) {
+        return x === null;
     }
-    // https://people.mozilla.org/~jorendorff/es6-draft.html#sec-object-type
-    function IsObject(x) {
-        return typeof x === "object" ? x !== null : typeof x === "function";
-    }
-    // https://people.mozilla.org/~jorendorff/es6-draft.html#sec-isconstructor
-    function IsConstructor(x) {
-        return typeof x === "function";
-    }
-    // https://people.mozilla.org/~jorendorff/es6-draft.html#sec-ecmascript-language-types-symbol-type
+    // 6.1.5 The Symbol Type
+    // https://tc39.github.io/ecma262/#sec-ecmascript-language-types-symbol-type
     function IsSymbol(x) {
         return typeof x === "symbol";
     }
-    // https://people.mozilla.org/~jorendorff/es6-draft.html#sec-topropertykey
-    function ToPropertyKey(value) {
-        return IsSymbol(value) ? value : String(value);
+    // 6.1.7 The Object Type
+    // https://tc39.github.io/ecma262/#sec-object-type
+    function IsObject(x) {
+        return typeof x === "object" ? x !== null : typeof x === "function";
     }
-    function GetPrototypeOf(O) {
+    // 7.1 Type Conversion
+    // https://tc39.github.io/ecma262/#sec-type-conversion
+    // 7.1.1 ToPrimitive(input [, PreferredType])
+    // https://tc39.github.io/ecma262/#sec-toprimitive
+    function ToPrimitive(input, PreferredType) {
+        switch (Type(input)) {
+            case 0 /* Undefined */: return input;
+            case 1 /* Null */: return input;
+            case 2 /* Boolean */: return input;
+            case 3 /* String */: return input;
+            case 4 /* Symbol */: return input;
+            case 5 /* Number */: return input;
+        }
+        var hint = PreferredType === 3 /* String */ ? "string" : PreferredType === 5 /* Number */ ? "number" : "default";
+        var exoticToPrim = GetMethod(input, toPrimitiveSymbol);
+        if (exoticToPrim !== undefined) {
+            var result = exoticToPrim.call(input, hint);
+            if (IsObject(result))
+                throw new TypeError();
+            return result;
+        }
+        return OrdinaryToPrimitive(input, hint === "default" ? "number" : hint);
+    }
+    // 7.1.1.1 OrdinaryToPrimitive(O, hint)
+    // https://tc39.github.io/ecma262/#sec-ordinarytoprimitive
+    function OrdinaryToPrimitive(O, hint) {
+        if (hint === "string") {
+            var toString_1 = O.toString;
+            if (IsCallable(toString_1)) {
+                var result = toString_1.call(O);
+                if (!IsObject(result))
+                    return result;
+            }
+            var valueOf = O.valueOf;
+            if (IsCallable(valueOf)) {
+                var result = valueOf.call(O);
+                if (!IsObject(result))
+                    return result;
+            }
+        }
+        else {
+            var valueOf = O.valueOf;
+            if (IsCallable(valueOf)) {
+                var result = valueOf.call(O);
+                if (!IsObject(result))
+                    return result;
+            }
+            var toString_2 = O.toString;
+            if (IsCallable(toString_2)) {
+                var result = toString_2.call(O);
+                if (!IsObject(result))
+                    return result;
+            }
+        }
+        throw new TypeError();
+    }
+    // 7.1.2 ToBoolean(argument)
+    // https://tc39.github.io/ecma262/2016/#sec-toboolean
+    function ToBoolean(argument) {
+        return !!argument;
+    }
+    // 7.1.12 ToString(argument)
+    // https://tc39.github.io/ecma262/#sec-tostring
+    function ToString(argument) {
+        return "" + argument;
+    }
+    // 7.1.14 ToPropertyKey(argument)
+    // https://tc39.github.io/ecma262/#sec-topropertykey
+    function ToPropertyKey(argument) {
+        var key = ToPrimitive(argument, 3 /* String */);
+        if (IsSymbol(key))
+            return key;
+        return ToString(key);
+    }
+    // 7.2 Testing and Comparison Operations
+    // https://tc39.github.io/ecma262/#sec-testing-and-comparison-operations
+    // 7.2.2 IsArray(argument)
+    // https://tc39.github.io/ecma262/#sec-isarray
+    function IsArray(argument) {
+        return Array.isArray
+            ? Array.isArray(argument)
+            : argument instanceof Object
+                ? argument instanceof Array
+                : Object.prototype.toString.call(argument) === "[object Array]";
+    }
+    // 7.2.3 IsCallable(argument)
+    // https://tc39.github.io/ecma262/#sec-iscallable
+    function IsCallable(argument) {
+        // NOTE: This is an approximation as we cannot check for [[Call]] internal method.
+        return typeof argument === "function";
+    }
+    // 7.2.4 IsConstructor(argument)
+    // https://tc39.github.io/ecma262/#sec-isconstructor
+    function IsConstructor(argument) {
+        // NOTE: This is an approximation as we cannot check for [[Construct]] internal method.
+        return typeof argument === "function";
+    }
+    // 7.3 Operations on Objects
+    // https://tc39.github.io/ecma262/#sec-operations-on-objects
+    // 7.3.9 GetMethod(V, P)
+    // https://tc39.github.io/ecma262/#sec-getmethod
+    function GetMethod(V, P) {
+        var func = V[P];
+        if (func === undefined || func === null)
+            return undefined;
+        if (!IsCallable(func))
+            throw new TypeError();
+        return func;
+    }
+    // 7.4 Operations on Iterator Objects
+    // https://tc39.github.io/ecma262/#sec-operations-on-iterator-objects
+    function GetIterator(obj) {
+        var method = GetMethod(obj, iteratorSymbol);
+        if (!IsCallable(method))
+            throw new TypeError(); // from Call
+        var iterator = method.call(obj);
+        if (!IsObject(iterator))
+            throw new TypeError();
+        return iterator;
+    }
+    // 7.4.4 IteratorValue(iterResult)
+    // https://tc39.github.io/ecma262/2016/#sec-iteratorvalue
+    function IteratorValue(iterResult) {
+        return iterResult.value;
+    }
+    // 7.4.5 IteratorStep(iterator)
+    // https://tc39.github.io/ecma262/#sec-iteratorstep
+    function IteratorStep(iterator) {
+        var result = iterator.next();
+        return result.done ? false : result;
+    }
+    // 7.4.6 IteratorClose(iterator, completion)
+    // https://tc39.github.io/ecma262/#sec-iteratorclose
+    function IteratorClose(iterator) {
+        var f = iterator["return"];
+        if (f)
+            f.call(iterator);
+    }
+    // 9.1 Ordinary Object Internal Methods and Internal Slots
+    // https://tc39.github.io/ecma262/#sec-ordinary-object-internal-methods-and-internal-slots
+    // 9.1.1.1 OrdinaryGetPrototypeOf(O)
+    // https://tc39.github.io/ecma262/#sec-ordinarygetprototypeof
+    function OrdinaryGetPrototypeOf(O) {
         var proto = Object.getPrototypeOf(O);
         if (typeof O !== "function" || O === functionPrototype)
             return proto;
         // TypeScript doesn't set __proto__ in ES5, as it's non-standard.
-        // Try to determine the superclass Exampleonstructor. Compatible implementations
-        // must either set __proto__ on a subclass Exampleonstructor to the superclass Exampleonstructor,
+        // Try to determine the superclass constructor. Compatible implementations
+        // must either set __proto__ on a subclass constructor to the superclass constructor,
         // or ensure each class has a valid `constructor` property on its prototype that
         // points back to the constructor.
         // If this is not the same as Function.[[Prototype]], then this is definately inherited.
@@ -2123,79 +2584,53 @@ var Reflect;
         // we have a pretty good guess at the heritage.
         return constructor;
     }
-    function IteratorStep(iterator) {
-        var result = iterator.next();
-        return result.done ? undefined : result;
-    }
-    function IteratorClose(iterator) {
-        var f = iterator["return"];
-        if (f)
-            f.call(iterator);
-    }
-    function forEach(source, callback, thisArg) {
-        var entries = source.entries;
-        if (typeof entries === "function") {
-            var iterator = entries.call(source);
-            var result;
-            try {
-                while (result = IteratorStep(iterator)) {
-                    var _a = result.value, key = _a[0], value = _a[1];
-                    callback.call(thisArg, value, key, source);
-                }
-            }
-            finally {
-                if (result)
-                    IteratorClose(iterator);
-            }
-        }
-        else {
-            var forEach_1 = source.forEach;
-            if (typeof forEach_1 === "function") {
-                forEach_1.call(source, callback, thisArg);
-            }
-        }
-    }
-    function getKeys(source) {
-        var keys = [];
-        forEach(source, function (_, key) { keys.push(key); });
-        return keys;
-    }
-    // naive MapIterator shim
-    function CreateMapIterator(keys, values, kind) {
-        var index = 0;
-        return {
-            next: function () {
-                if ((keys || values) && index < (keys || values).length) {
-                    var current = index++;
-                    switch (kind) {
-                        case "key": return { value: keys[current], done: false };
-                        case "value": return { value: values[current], done: false };
-                        case "key+value": return { value: [keys[current], values[current]], done: false };
-                    }
-                }
-                keys = undefined;
-                values = undefined;
-                return { value: undefined, done: true };
-            },
-            "throw": function (error) {
-                if (keys || values) {
-                    keys = undefined;
-                    values = undefined;
-                }
-                throw error;
-            },
-            "return": function (value) {
-                if (keys || values) {
-                    keys = undefined;
-                    values = undefined;
-                }
-                return { value: value, done: true };
-            }
-        };
-    }
     // naive Map shim
     function CreateMapPolyfill() {
         var cacheSentinel = {};
+        var arraySentinel = [];
+        var MapIterator = (function () {
+            function MapIterator(keys, values, selector) {
+                this._index = 0;
+                this._keys = keys;
+                this._values = values;
+                this._selector = selector;
+            }
+            MapIterator.prototype["@@iterator"] = function () { return this; };
+            MapIterator.prototype[iteratorSymbol] = function () { return this; };
+            MapIterator.prototype.next = function () {
+                var index = this._index;
+                if (index >= 0 && index < this._keys.length) {
+                    var result = this._selector(this._keys[index], this._values[index]);
+                    if (index + 1 >= this._keys.length) {
+                        this._index = -1;
+                        this._keys = arraySentinel;
+                        this._values = arraySentinel;
+                    }
+                    else {
+                        this._index++;
+                    }
+                    return { value: result, done: false };
+                }
+                return { value: undefined, done: true };
+            };
+            MapIterator.prototype.throw = function (error) {
+                if (this._index >= 0) {
+                    this._index = -1;
+                    this._keys = arraySentinel;
+                    this._values = arraySentinel;
+                }
+                throw error;
+            };
+            MapIterator.prototype.return = function (value) {
+                if (this._index >= 0) {
+                    this._index = -1;
+                    this._keys = arraySentinel;
+                    this._values = arraySentinel;
+                }
+                return { value: value, done: true };
+            };
+            return MapIterator;
+        }());
         return (function () {
             function Map() {
                 this._keys = [];
@@ -2228,8 +2663,10 @@ var Reflect;
                     }
                     this._keys.length--;
                     this._values.length--;
-                    this._cacheKey = cacheSentinel;
-                    this._cacheIndex = -2;
+                    if (key === this._cacheKey) {
+                        this._cacheKey = cacheSentinel;
+                        this._cacheIndex = -2;
+                    }
                     return true;
                 }
                 return false;
@@ -2240,9 +2677,11 @@ var Reflect;
                 this._cacheKey = cacheSentinel;
                 this._cacheIndex = -2;
             };
-            Map.prototype.keys = function () { return CreateMapIterator(this._keys, /*values*/ undefined, "key"); };
-            Map.prototype.values = function () { return CreateMapIterator(/*keys*/ undefined, this._values, "value"); };
-            Map.prototype.entries = function () { return CreateMapIterator(this._keys, this._values, "key+value"); };
+            Map.prototype.keys = function () { return new MapIterator(this._keys, this._values, getKey); };
+            Map.prototype.values = function () { return new MapIterator(this._keys, this._values, getValue); };
+            Map.prototype.entries = function () { return new MapIterator(this._keys, this._values, getEntry); };
+            Map.prototype["@@iterator"] = function () { return this.entries(); };
+            Map.prototype[iteratorSymbol] = function () { return this.entries(); };
             Map.prototype._find = function (key, insert) {
                 if (this._cacheKey === key)
                     return this._cacheIndex;
@@ -2255,7 +2694,16 @@ var Reflect;
                 return this._cacheKey = key, this._cacheIndex = index;
             };
             return Map;
-        })();
+        }());
+        function getKey(key, _) {
+            return key;
+        }
+        function getValue(_, value) {
+            return value;
+        }
+        function getEntry(key, value) {
+            return [key, value];
+        }
     }
     // naive Set shim
     function CreateSetPolyfill() {
@@ -2275,8 +2723,10 @@ var Reflect;
             Set.prototype.keys = function () { return this._map.keys(); };
             Set.prototype.values = function () { return this._map.values(); };
             Set.prototype.entries = function () { return this._map.entries(); };
+            Set.prototype["@@iterator"] = function () { return this.keys(); };
+            Set.prototype[iteratorSymbol] = function () { return this.keys(); };
             return Set;
-        })();
+        }());
     }
     // naive WeakMap shim
     function CreateWeakMapPolyfill() {
@@ -2309,7 +2759,23 @@ var Reflect;
                 this._key = CreateUniqueKey();
             };
             return WeakMap;
-        })();
+        }());
+        function CreateUniqueKey() {
+            var key;
+            do
+                key = "@@WeakMap@@" + CreateUUID();
+            while (HashMap.has(keys, key));
+            keys[key] = true;
+            return key;
+        }
+        function GetOrCreateWeakMapTable(target, create) {
+            if (!hasOwn.call(target, rootKey)) {
+                if (!create)
+                    return undefined;
+                Object.defineProperty(target, rootKey, { value: createDictionary() });
+            }
+            return target[rootKey];
+        }
         function FillRandomBytes(buffer, size) {
             for (var i = 0; i < size; ++i)
                 buffer[i] = Math.random() * 0xff | 0;
@@ -2341,27 +2807,11 @@ var Reflect;
             }
             return result;
         }
-        function CreateUniqueKey() {
-            var key;
-            do
-                key = "@@WeakMap@@" + CreateUUID();
-            while (HashMap.has(keys, key));
-            keys[key] = true;
-            return key;
-        }
-        function GetOrCreateWeakMapTable(target, create) {
-            if (!hasOwn.call(target, rootKey)) {
-                if (!create)
-                    return undefined;
-                Object.defineProperty(target, rootKey, { value: createDictionary() });
-            }
-            return target[rootKey];
-        }
     }
     // uses a heuristic used by v8 and chakra to force an object into dictionary mode.
     function MakeDictionary(obj) {
-        obj.__DICTIONARY_MODE__ = 1;
-        delete obj.____DICTIONARY_MODE__;
+        obj.__ = undefined;
+        delete obj.__;
         return obj;
     }
     // patch global Reflect
@@ -2378,10 +2828,9 @@ var Reflect;
         else {
             __global.Reflect = Reflect;
         }
-    })(typeof window !== "undefined" ? window :
-        typeof WorkerGlobalScope !== "undefined" ? self :
-            typeof global !== "undefined" ? global :
-                Function("return this;")());
+    })(typeof global !== "undefined" ? global :
+        typeof self !== "undefined" ? self :
+            Function("return this;")());
 })(Reflect || (Reflect = {}));
 //# sourceMappingURL=Reflect.js.map
 /*! Hammer.JS - v2.0.7 - 2016-04-22
@@ -5029,7 +5478,7 @@ if (typeof define === 'function' && define.amd) {
 })(window, document, 'Hammer');
 
 /*
- * SystemJS v0.19.40
+ * SystemJS v0.19.41
  */
 (function() {
 function bootstrap() {// from https://gist.github.com/Yaffle/1088850
@@ -6657,7 +7106,7 @@ function prepareBaseURL(loader) {
   if (this._loader.baseURL !== this.baseURL) {
     if (this.baseURL[this.baseURL.length - 1] != '/')
       this.baseURL += '/';
-    
+
     this._loader.baseURL = this.baseURL = new URL(this.baseURL, baseURIObj).href;
   }
 }
@@ -6759,7 +7208,7 @@ function coreResolve(name, parentName) {
 
   if (this.has(name))
     return name;
-  
+
   // dynamically load node-core modules when requiring `@node/fs` for example
   if (name.substr(0, 6) == '@node/') {
     if (!this._nodeRequire)
@@ -6812,7 +7261,7 @@ hook('fetch', function() {
 
 /*
   __useDefault
-  
+
   When a module object looks like:
   newModule(
     __useDefault: true,
@@ -7002,7 +7451,7 @@ SystemJSLoader.prototype.config = function(cfg, isEnvConfig) {
     if (this.warnings) {
       for (var p in loader.paths)
         if (p.indexOf('*') != -1)
-          warn.call(loader, 'Paths configuration "' + p + '" -> "' + loader.paths[p] + '" uses wildcards which are being deprecated for simpler trailing "/" folder paths.');
+          warn.call(loader, 'Paths configuration "' + p + '" -> "' + loader.paths[p] + '" uses wildcards which are being deprecated for just leaving a trailing "/" to indicate folder paths.');
     }
   }
 
@@ -7015,14 +7464,11 @@ SystemJSLoader.prototype.config = function(cfg, isEnvConfig) {
     loader.pluginFirst = cfg.pluginFirst;
 
   if (cfg.map) {
-    var objMaps = '';
     for (var p in cfg.map) {
       var v = cfg.map[p];
 
       // object map backwards-compat into packages configuration
       if (typeof v !== 'string') {
-        objMaps += (objMaps.length ? ', ' : '') + '"' + p + '"';
-
         var defaultJSExtension = loader.defaultJSExtensions && p.substr(p.length - 3, 3) != '.js';
         var prop = loader.decanonicalize(p);
         if (defaultJSExtension && prop.substr(prop.length - 3, 3) == '.js')
@@ -7031,8 +7477,8 @@ SystemJSLoader.prototype.config = function(cfg, isEnvConfig) {
         // if a package main, revert it
         var pkgMatch = '';
         for (var pkg in loader.packages) {
-          if (prop.substr(0, pkg.length) == pkg 
-              && (!prop[pkg.length] || prop[pkg.length] == '/') 
+          if (prop.substr(0, pkg.length) == pkg
+              && (!prop[pkg.length] || prop[pkg.length] == '/')
               && pkgMatch.split('/').length < pkg.split('/').length)
             pkgMatch = pkg;
         }
@@ -7046,8 +7492,6 @@ SystemJSLoader.prototype.config = function(cfg, isEnvConfig) {
         loader.map[p] = v;
       }
     }
-    if (objMaps)
-      warn.call(loader, 'The map configuration for ' + objMaps + ' uses object submaps, which is deprecated in global map.\nUpdate this to use package contextual map with configs like SystemJS.config({ packages: { "' + p + '": { map: {...} } } }).');
   }
 
   if (cfg.packageConfigPaths) {
@@ -7093,7 +7537,7 @@ SystemJSLoader.prototype.config = function(cfg, isEnvConfig) {
   for (var c in cfg) {
     var v = cfg[c];
 
-    if (indexOf.call(['baseURL', 'map', 'packages', 'bundles', 'paths', 'warnings', 'packageConfigPaths', 
+    if (indexOf.call(['baseURL', 'map', 'packages', 'bundles', 'paths', 'warnings', 'packageConfigPaths',
           'loaderErrorStack', 'browserConfig', 'nodeConfig', 'devConfig', 'buildConfig', 'productionConfig'], c) != -1)
       continue;
 
@@ -7132,7 +7576,8 @@ SystemJSLoader.prototype.config = function(cfg, isEnvConfig) {
   envSet(loader, cfg, function(cfg) {
     loader.config(cfg, true);
   });
-};/*
+};
+/*
  * Package Configuration Extension
  *
  * Example:
@@ -8603,14 +9048,7 @@ function createEntry() {
           // do transpilation
           return (loader._loader.transpilerPromise || (
             loader._loader.transpilerPromise = Promise.resolve(
-              __global[loader.transpiler == 'typescript' ? 'ts' : loader.transpiler] || (loader.pluginLoader || loader).normalize(loader.transpiler)
-              .then(function(normalized) {
-                loader._loader.transpilerNormalized = normalized;
-                return (loader.pluginLoader || loader).load(normalized)
-                .then(function() {
-                  return (loader.pluginLoader || loader).get(normalized);
-                });
-              })
+              __global[loader.transpiler == 'typescript' ? 'ts' : loader.transpiler] || (loader.pluginLoader || loader)['import'](loader.transpiler)
           ))).then(function(transpiler) {
             loader._loader.loadedTranspilerRuntime = true;
 
@@ -8619,8 +9057,6 @@ function createEntry() {
               // if transpiler is the same as the plugin loader, then don't run twice
               if (transpiler == load.metadata.loaderModule)
                 return load.source;
-              load.metadata.loaderModule = transpiler;
-              load.metadata.loader = loader._loader.transpilerNormalized;
 
               // convert the source map into an object for transpilation chaining
               if (typeof load.metadata.sourceMap == 'string')
@@ -8632,7 +9068,7 @@ function createEntry() {
                 var sourceMap = load.metadata.sourceMap;
                 if (sourceMap && typeof sourceMap == 'object') {
                   var originalName = load.address.split('!')[0];
-
+                  
                   // force set the filename of the original file
                   if (!sourceMap.file || sourceMap.file == load.address)
                     sourceMap.file = originalName + '!transpiled';
@@ -8651,14 +9087,14 @@ function createEntry() {
             // legacy builder support
             if (loader.builder)
               load.metadata.originalSource = load.source;
-
+            
             // defined in es6-module-loader/src/transpile.js
             return transpile.call(loader, load)
             .then(function(source) {
               // clear sourceMap as transpiler embeds it
               load.metadata.sourceMap = undefined;
               return source;
-            });
+            });            
           }, function(err) {
             throw addToError(err, 'Unable to load transpiler to transpile ' + load.name);
           });
@@ -9469,13 +9905,13 @@ hookConstructor(function(constructor) {
   // if so, remove for backwards compat
   // this is strange and sucks, but will be deprecated
   function checkDefaultExtension(loader, arg) {
-    return loader.defaultJSExtensions && arg.substr(arg.length - 3, 3) != '.js'; 
+    return loader.defaultJSExtensions && arg.substr(arg.length - 3, 3) != '.js';
   }
 
   function createNormalizeSync(normalizeSync) {
     return function(name, parentName, isPlugin) {
       var loader = this;
-      
+
       var parsed = parsePlugin(loader, name);
       parentName = getParentName(this, parentName);
 
@@ -9488,7 +9924,7 @@ hookConstructor(function(constructor) {
       return combinePluginParts(loader, argumentName, pluginName, checkDefaultExtension(loader, parsed.argument));
     };
   }
-  
+
   hook('decanonicalize', createNormalizeSync);
   hook('normalizeSync', createNormalizeSync);
 
@@ -9608,7 +10044,7 @@ hookConstructor(function(constructor) {
               throw new Error('load.metadata.sourceMap must be set to an object.');
 
             var originalName = load.address.split('!')[0];
-            
+
             // force set the filename of the original file
             if (!sourceMap.file || sourceMap.file == load.address)
               sourceMap.file = originalName + '!transpiled';
@@ -9623,8 +10059,6 @@ hookConstructor(function(constructor) {
 
           if (typeof result == 'string')
             load.source = result;
-          else
-            warn.call(this, 'Plugin ' + load.metadata.loader + ' should return the source in translate, instead of setting load.source directly. This support will be deprecated.');
 
           return translate.apply(loader, args);
         });
@@ -9650,12 +10084,14 @@ hookConstructor(function(constructor) {
           if (calledInstantiate)
             return result;
 
-          load.metadata.entry = createEntry();
-          load.metadata.entry.execute = function() {
-            return result;
+          if (result !== undefined) {
+            load.metadata.entry = createEntry();
+            load.metadata.entry.execute = function() {
+              return result;
+            }
+            load.metadata.entry.deps = load.metadata.deps;
+            load.metadata.format = 'defined';
           }
-          load.metadata.entry.deps = load.metadata.deps;
-          load.metadata.format = 'defined';
           return instantiate.call(loader, load);
         });
       else
@@ -9663,7 +10099,8 @@ hookConstructor(function(constructor) {
     };
   });
 
-})();/*
+})();
+/*
  * Conditions Extension
  *
  *   Allows a condition module to alter the resolution of an import via syntax:
@@ -10136,7 +10573,7 @@ hookConstructor(function(constructor) {
 System = new SystemJSLoader();
 
 __global.SystemJS = System;
-System.version = '0.19.40 Standard';
+System.version = '0.19.41 Standard';
   if (typeof module == 'object' && module.exports && typeof exports == 'object')
     module.exports = System;
 
