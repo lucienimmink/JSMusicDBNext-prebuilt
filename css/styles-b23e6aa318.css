@@ -11548,7 +11548,10 @@ a {
   height: 48vw;
   margin: 0 2vw 2vw 0;
   cursor: pointer;
-  background-image: url("../../global/images/no-cover.png"); }
+  background-image: url("../global/images/no-cover.png");
+  background-size: contain; }
+  .media-panel.artist-panel {
+    background-image: url("../global/images/no-artist.png"); }
   .media-panel:nth-child(2n) {
     margin-right: 0; }
   @media only screen and (min-width: 480px) {
@@ -11647,11 +11650,11 @@ a {
     font-weight: bold;
     display: inline-block;
     text-align: center;
-    width: 21vw; }
+    width: 25%; }
     @media only screen and (min-width: 768px) {
       .jumpList li {
         font-size: 3em;
-        width: 17vw; } }
+        width: 16.6%; } }
   .jumpList a:hover {
     text-decoration: none;
     color: #dddddd; }
@@ -11662,11 +11665,12 @@ a {
 
 .jumpList-years li {
   font-size: 1.4em;
-  width: 18vw;
+  width: 25%;
   margin: 5px 0 0 0; }
   @media only screen and (min-width: 768px) {
     .jumpList-years li {
-      font-size: 1.5em; } }
+      font-size: 1.5em;
+      width: 16.6%; } }
 
 .btn.focus, .btn:focus, .btn:hover, .btn:active {
   color: black;
@@ -11776,6 +11780,10 @@ input.form-control:focus, textarea.form-control:focus {
 
 .actions {
   background-color: white; }
+
+canvas {
+  width: 900px;
+  display: none; }
 
 @keyframes enterPage {
   from {
