@@ -20,15 +20,15 @@
     <link rel="apple-touch-icon" type="image/png" sizes="1024x1024" href="/global/images/logo.png">
 
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-    <link rel="stylesheet" href="/css/styles-7fc3d6ac17.css">
+    <link rel="stylesheet" href="/css/styles-616db0355a.css">
     <base href="/">
 </head>
 
 <body>
-
+    
     <musicdb id="musicdb">
         <div class="preloader">
-            <div><img src="global/images/logo.png" width="250" alt="Logo"></div>
+            <div><img src="global/images/logo.png" width="250" alt="Logo"></div> 
             <div class="progress-bar">
                 <div class="progress-circle"></div>
                 <div class="progress-circle"></div>
@@ -39,11 +39,11 @@
         </div>
     </musicdb>
 
-    <script src="/js/polyfills-21984688b2.js" async></script>
+    <script src="/js/polyfills-576d9cc0c4.js" async></script>
 
-    <script src="/js/app-1d36438908.bundle.js"></script>
+    <script src="/js/app-fdaefbf44d.bundle.js"></script>
 
-    <script src="/js/dist-systemjs-cc23e7ff38.config.js"></script>
+    <script src="/js/dist-systemjs-e431aba346.config.js"></script>
     <script>
         var ENV = 'prod';
         System.import('app/main').catch(function(err) {
@@ -101,7 +101,7 @@
             a.src = g;
             m.parentNode.insertBefore(a, m)
 
-            i.addEventListener('error', function(e) {
+            i.addEventListener('error', function (e) {
                 i[r]('send', 'event', 'Errors', 'JavaScriptError', e.message + '\n' + e.filename + ': ' + e.lineno)
             }, false);
 
