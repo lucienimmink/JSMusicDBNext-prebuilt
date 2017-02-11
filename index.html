@@ -25,10 +25,10 @@
 </head>
 
 <body>
-    
+
     <musicdb id="musicdb">
         <div class="preloader">
-            <div><img src="global/images/logo.png" width="250" alt="Logo"></div> 
+            <div><img src="global/images/logo.png" width="250" alt="Logo"></div>
             <div class="progress-bar">
                 <div class="progress-circle"></div>
                 <div class="progress-circle"></div>
@@ -39,9 +39,9 @@
         </div>
     </musicdb>
 
-    <script src="/js/polyfills-576d9cc0c4.js" async></script>
+    <script src="/js/polyfills-576d9cc0c4.js"></script>
 
-    <script src="/js/app-fdaefbf44d.bundle.js"></script>
+    <script src="/js/app-19a2f03421.bundle.js"></script>
 
     <script src="/js/dist-systemjs-e431aba346.config.js"></script>
     <script>
@@ -101,7 +101,7 @@
             a.src = g;
             m.parentNode.insertBefore(a, m)
 
-            i.addEventListener('error', function (e) {
+            i.addEventListener('error', function(e) {
                 i[r]('send', 'event', 'Errors', 'JavaScriptError', e.message + '\n' + e.filename + ': ' + e.lineno)
             }, false);
 
