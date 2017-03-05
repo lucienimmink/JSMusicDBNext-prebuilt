@@ -2043,21 +2043,21 @@ var Reflect;
 (function (Reflect) {
     "use strict";
     var hasOwn = Object.prototype.hasOwnProperty;
-    // feature test for Object.create support
-    var supportsCreate = typeof Object.create === "function";
-    // feature test for __proto__ support
-    var supportsProto = { __proto__: [] } instanceof Array;
     // feature test for Symbol support
     var supportsSymbol = typeof Symbol === "function";
     var toPrimitiveSymbol = supportsSymbol && typeof Symbol.toPrimitive !== "undefined" ? Symbol.toPrimitive : "@@toPrimitive";
     var iteratorSymbol = supportsSymbol && typeof Symbol.iterator !== "undefined" ? Symbol.iterator : "@@iterator";
-    // create an object in dictionary mode (a.k.a. "slow" mode in v8)
-    var createDictionary = supportsCreate ? function () { return MakeDictionary(Object.create(null)); } :
-        supportsProto ? function () { return MakeDictionary({ __proto__: null }); } :
-            function () { return MakeDictionary({}); };
     var HashMap;
     (function (HashMap) {
+        var supportsCreate = typeof Object.create === "function"; // feature test for Object.create support
+        var supportsProto = { __proto__: [] } instanceof Array; // feature test for __proto__ support
         var downLevel = !supportsCreate && !supportsProto;
+        // create an object in dictionary mode (a.k.a. "slow" mode in v8)
+        HashMap.create = supportsCreate
+            ? function () { return MakeDictionary(Object.create(null)); }
+            : supportsProto
+                ? function () { return MakeDictionary({ __proto__: null }); }
+                : function () { return MakeDictionary({}); };
         HashMap.has = downLevel
             ? function (map, key) { return hasOwn.call(map, key); }
             : function (map, key) { return key in map; };
@@ -2067,17 +2067,19 @@ var Reflect;
     })(HashMap || (HashMap = {}));
     // Load global or shim versions of Map, Set, and WeakMap
     var functionPrototype = Object.getPrototypeOf(Function);
-    var _Map = typeof Map === "function" && typeof Map.prototype.entries === "function" ? Map : CreateMapPolyfill();
-    var _Set = typeof Set === "function" && typeof Set.prototype.entries === "function" ? Set : CreateSetPolyfill();
-    var _WeakMap = typeof WeakMap === "function" ? WeakMap : CreateWeakMapPolyfill();
+    var usePolyfill = typeof process === "object" && process.env && process.env["REFLECT_METADATA_USE_MAP_POLYFILL"] === "true";
+    var _Map = !usePolyfill && typeof Map === "function" && typeof Map.prototype.entries === "function" ? Map : CreateMapPolyfill();
+    var _Set = !usePolyfill && typeof Set === "function" && typeof Set.prototype.entries === "function" ? Set : CreateSetPolyfill();
+    var _WeakMap = !usePolyfill && typeof WeakMap === "function" ? WeakMap : CreateWeakMapPolyfill();
     // [[Metadata]] internal slot
+    // https://rbuckton.github.io/reflect-metadata/#ordinary-object-internal-methods-and-internal-slots
     var Metadata = new _WeakMap();
     /**
       * Applies a set of decorators to a property of a target object.
       * @param decorators An array of decorators.
       * @param target The target object.
-      * @param targetKey (Optional) The property key to decorate.
-      * @param targetDescriptor (Optional) The property descriptor for the target key
+      * @param propertyKey (Optional) The property key to decorate.
+      * @param attributes (Optional) The property descriptor for the target key.
       * @remarks Decorators are applied in reverse order.
       * @example
       *
@@ -2111,18 +2113,18 @@ var Reflect;
       *             Object.getOwnPropertyDescriptor(Example.prototype, "method")));
       *
       */
-    function decorate(decorators, target, targetKey, targetDescriptor) {
-        if (!IsUndefined(targetKey)) {
+    function decorate(decorators, target, propertyKey, attributes) {
+        if (!IsUndefined(propertyKey)) {
             if (!IsArray(decorators))
                 throw new TypeError();
             if (!IsObject(target))
                 throw new TypeError();
-            if (!IsObject(targetDescriptor) && !IsUndefined(targetDescriptor) && !IsNull(targetDescriptor))
+            if (!IsObject(attributes) && !IsUndefined(attributes) && !IsNull(attributes))
                 throw new TypeError();
-            if (IsNull(targetDescriptor))
-                targetDescriptor = undefined;
-            targetKey = ToPropertyKey(targetKey);
-            return DecorateProperty(decorators, target, targetKey, targetDescriptor);
+            if (IsNull(attributes))
+                attributes = undefined;
+            propertyKey = ToPropertyKey(propertyKey);
+            return DecorateProperty(decorators, target, propertyKey, attributes);
         }
         else {
             if (!IsArray(decorators))
@@ -2133,6 +2135,8 @@ var Reflect;
         }
     }
     Reflect.decorate = decorate;
+    // 4.1.2 Reflect.metadata(metadataKey, metadataValue)
+    // https://rbuckton.github.io/reflect-metadata/#reflect.metadata
     /**
       * A default metadata decorator factory that can be used on a class, class member, or parameter.
       * @param metadataKey The key for the metadata entry.
@@ -2174,18 +2178,12 @@ var Reflect;
       *
       */
     function metadata(metadataKey, metadataValue) {
-        function decorator(target, targetKey) {
-            if (!IsUndefined(targetKey)) {
-                if (!IsObject(target))
-                    throw new TypeError();
-                targetKey = ToPropertyKey(targetKey);
-                OrdinaryDefineOwnMetadata(metadataKey, metadataValue, target, targetKey);
-            }
-            else {
-                if (!IsConstructor(target))
-                    throw new TypeError();
-                OrdinaryDefineOwnMetadata(metadataKey, metadataValue, target, /*targetKey*/ undefined);
-            }
+        function decorator(target, propertyKey) {
+            if (!IsObject(target))
+                throw new TypeError();
+            if (!IsUndefined(propertyKey) && !IsPropertyKey(propertyKey))
+                throw new TypeError();
+            OrdinaryDefineOwnMetadata(metadataKey, metadataValue, target, propertyKey);
         }
         return decorator;
     }
@@ -2195,7 +2193,7 @@ var Reflect;
       * @param metadataKey A key used to store and retrieve metadata.
       * @param metadataValue A value that contains attached metadata.
       * @param target The target object on which to define metadata.
-      * @param targetKey (Optional) The property key for the target.
+      * @param propertyKey (Optional) The property key for the target.
       * @example
       *
       *     class Example {
@@ -2229,19 +2227,19 @@ var Reflect;
       *     }
       *
       */
-    function defineMetadata(metadataKey, metadataValue, target, targetKey) {
+    function defineMetadata(metadataKey, metadataValue, target, propertyKey) {
         if (!IsObject(target))
             throw new TypeError();
-        if (!IsUndefined(targetKey))
-            targetKey = ToPropertyKey(targetKey);
-        return OrdinaryDefineOwnMetadata(metadataKey, metadataValue, target, targetKey);
+        if (!IsUndefined(propertyKey))
+            propertyKey = ToPropertyKey(propertyKey);
+        return OrdinaryDefineOwnMetadata(metadataKey, metadataValue, target, propertyKey);
     }
     Reflect.defineMetadata = defineMetadata;
     /**
       * Gets a value indicating whether the target object or its prototype chain has the provided metadata key defined.
       * @param metadataKey A key used to store and retrieve metadata.
       * @param target The target object on which the metadata is defined.
-      * @param targetKey (Optional) The property key for the target.
+      * @param propertyKey (Optional) The property key for the target.
       * @returns `true` if the metadata key was defined on the target object or its prototype chain; otherwise, `false`.
       * @example
       *
@@ -2271,19 +2269,19 @@ var Reflect;
       *     result = Reflect.hasMetadata("custom:annotation", Example.prototype, "method");
       *
       */
-    function hasMetadata(metadataKey, target, targetKey) {
+    function hasMetadata(metadataKey, target, propertyKey) {
         if (!IsObject(target))
             throw new TypeError();
-        if (!IsUndefined(targetKey))
-            targetKey = ToPropertyKey(targetKey);
-        return OrdinaryHasMetadata(metadataKey, target, targetKey);
+        if (!IsUndefined(propertyKey))
+            propertyKey = ToPropertyKey(propertyKey);
+        return OrdinaryHasMetadata(metadataKey, target, propertyKey);
     }
     Reflect.hasMetadata = hasMetadata;
     /**
       * Gets a value indicating whether the target object has the provided metadata key defined.
       * @param metadataKey A key used to store and retrieve metadata.
       * @param target The target object on which the metadata is defined.
-      * @param targetKey (Optional) The property key for the target.
+      * @param propertyKey (Optional) The property key for the target.
       * @returns `true` if the metadata key was defined on the target object; otherwise, `false`.
       * @example
       *
@@ -2313,19 +2311,19 @@ var Reflect;
       *     result = Reflect.hasOwnMetadata("custom:annotation", Example.prototype, "method");
       *
       */
-    function hasOwnMetadata(metadataKey, target, targetKey) {
+    function hasOwnMetadata(metadataKey, target, propertyKey) {
         if (!IsObject(target))
             throw new TypeError();
-        if (!IsUndefined(targetKey))
-            targetKey = ToPropertyKey(targetKey);
-        return OrdinaryHasOwnMetadata(metadataKey, target, targetKey);
+        if (!IsUndefined(propertyKey))
+            propertyKey = ToPropertyKey(propertyKey);
+        return OrdinaryHasOwnMetadata(metadataKey, target, propertyKey);
     }
     Reflect.hasOwnMetadata = hasOwnMetadata;
     /**
       * Gets the metadata value for the provided metadata key on the target object or its prototype chain.
       * @param metadataKey A key used to store and retrieve metadata.
       * @param target The target object on which the metadata is defined.
-      * @param targetKey (Optional) The property key for the target.
+      * @param propertyKey (Optional) The property key for the target.
       * @returns The metadata value for the metadata key if found; otherwise, `undefined`.
       * @example
       *
@@ -2355,19 +2353,19 @@ var Reflect;
       *     result = Reflect.getMetadata("custom:annotation", Example.prototype, "method");
       *
       */
-    function getMetadata(metadataKey, target, targetKey) {
+    function getMetadata(metadataKey, target, propertyKey) {
         if (!IsObject(target))
             throw new TypeError();
-        if (!IsUndefined(targetKey))
-            targetKey = ToPropertyKey(targetKey);
-        return OrdinaryGetMetadata(metadataKey, target, targetKey);
+        if (!IsUndefined(propertyKey))
+            propertyKey = ToPropertyKey(propertyKey);
+        return OrdinaryGetMetadata(metadataKey, target, propertyKey);
     }
     Reflect.getMetadata = getMetadata;
     /**
       * Gets the metadata value for the provided metadata key on the target object.
       * @param metadataKey A key used to store and retrieve metadata.
       * @param target The target object on which the metadata is defined.
-      * @param targetKey (Optional) The property key for the target.
+      * @param propertyKey (Optional) The property key for the target.
       * @returns The metadata value for the metadata key if found; otherwise, `undefined`.
       * @example
       *
@@ -2397,18 +2395,18 @@ var Reflect;
       *     result = Reflect.getOwnMetadata("custom:annotation", Example.prototype, "method");
       *
       */
-    function getOwnMetadata(metadataKey, target, targetKey) {
+    function getOwnMetadata(metadataKey, target, propertyKey) {
         if (!IsObject(target))
             throw new TypeError();
-        if (!IsUndefined(targetKey))
-            targetKey = ToPropertyKey(targetKey);
-        return OrdinaryGetOwnMetadata(metadataKey, target, targetKey);
+        if (!IsUndefined(propertyKey))
+            propertyKey = ToPropertyKey(propertyKey);
+        return OrdinaryGetOwnMetadata(metadataKey, target, propertyKey);
     }
     Reflect.getOwnMetadata = getOwnMetadata;
     /**
       * Gets the metadata keys defined on the target object or its prototype chain.
       * @param target The target object on which the metadata is defined.
-      * @param targetKey (Optional) The property key for the target.
+      * @param propertyKey (Optional) The property key for the target.
       * @returns An array of unique metadata keys.
       * @example
       *
@@ -2438,18 +2436,18 @@ var Reflect;
       *     result = Reflect.getMetadataKeys(Example.prototype, "method");
       *
       */
-    function getMetadataKeys(target, targetKey) {
+    function getMetadataKeys(target, propertyKey) {
         if (!IsObject(target))
             throw new TypeError();
-        if (!IsUndefined(targetKey))
-            targetKey = ToPropertyKey(targetKey);
-        return OrdinaryMetadataKeys(target, targetKey);
+        if (!IsUndefined(propertyKey))
+            propertyKey = ToPropertyKey(propertyKey);
+        return OrdinaryMetadataKeys(target, propertyKey);
     }
     Reflect.getMetadataKeys = getMetadataKeys;
     /**
       * Gets the unique metadata keys defined on the target object.
       * @param target The target object on which the metadata is defined.
-      * @param targetKey (Optional) The property key for the target.
+      * @param propertyKey (Optional) The property key for the target.
       * @returns An array of unique metadata keys.
       * @example
       *
@@ -2479,19 +2477,19 @@ var Reflect;
       *     result = Reflect.getOwnMetadataKeys(Example.prototype, "method");
       *
       */
-    function getOwnMetadataKeys(target, targetKey) {
+    function getOwnMetadataKeys(target, propertyKey) {
         if (!IsObject(target))
             throw new TypeError();
-        if (!IsUndefined(targetKey))
-            targetKey = ToPropertyKey(targetKey);
-        return OrdinaryOwnMetadataKeys(target, targetKey);
+        if (!IsUndefined(propertyKey))
+            propertyKey = ToPropertyKey(propertyKey);
+        return OrdinaryOwnMetadataKeys(target, propertyKey);
     }
     Reflect.getOwnMetadataKeys = getOwnMetadataKeys;
     /**
       * Deletes the metadata entry from the target object with the provided key.
       * @param metadataKey A key used to store and retrieve metadata.
       * @param target The target object on which the metadata is defined.
-      * @param targetKey (Optional) The property key for the target.
+      * @param propertyKey (Optional) The property key for the target.
       * @returns `true` if the metadata entry was found and deleted; otherwise, false.
       * @example
       *
@@ -2521,13 +2519,12 @@ var Reflect;
       *     result = Reflect.deleteMetadata("custom:annotation", Example.prototype, "method");
       *
       */
-    function deleteMetadata(metadataKey, target, targetKey) {
-        // https://github.com/rbuckton/ReflectDecorators/blob/master/spec/metadata.md#deletemetadata-metadatakey-p-
+    function deleteMetadata(metadataKey, target, propertyKey) {
         if (!IsObject(target))
             throw new TypeError();
-        if (!IsUndefined(targetKey))
-            targetKey = ToPropertyKey(targetKey);
-        var metadataMap = GetOrCreateMetadataMap(target, targetKey, /*create*/ false);
+        if (!IsUndefined(propertyKey))
+            propertyKey = ToPropertyKey(propertyKey);
+        var metadataMap = GetOrCreateMetadataMap(target, propertyKey, /*Create*/ false);
         if (IsUndefined(metadataMap))
             return false;
         if (!metadataMap.delete(metadataKey))
@@ -2535,7 +2532,7 @@ var Reflect;
         if (metadataMap.size > 0)
             return true;
         var targetMetadata = Metadata.get(target);
-        targetMetadata.delete(targetKey);
+        targetMetadata.delete(propertyKey);
         if (targetMetadata.size > 0)
             return true;
         Metadata.delete(target);
@@ -2583,10 +2580,8 @@ var Reflect;
         }
         return metadataMap;
     }
-    // Ordinary Object Internal Methods and Internal Slots
-    // https://github.com/rbuckton/ReflectDecorators/blob/master/spec/metadata.md#ordinary-object-internal-methods-and-internal-slots
-    // OrdinaryHasMetadata(MetadataKey, O, P)
-    // https://github.com/rbuckton/ReflectDecorators/blob/master/spec/metadata.md#ordinaryhasmetadata--metadatakey-o-p-
+    // 3.1.1.1 OrdinaryHasMetadata(MetadataKey, O, P)
+    // https://rbuckton.github.io/reflect-metadata/#ordinaryhasmetadata
     function OrdinaryHasMetadata(MetadataKey, O, P) {
         var hasOwn = OrdinaryHasOwnMetadata(MetadataKey, O, P);
         if (hasOwn)
@@ -2596,16 +2591,16 @@ var Reflect;
             return OrdinaryHasMetadata(MetadataKey, parent, P);
         return false;
     }
-    // OrdinaryHasOwnMetadata(MetadataKey, O, P)
-    // https://github.com/rbuckton/ReflectDecorators/blob/master/spec/metadata.md#ordinaryhasownmetadata--metadatakey-o-p-
+    // 3.1.2.1 OrdinaryHasOwnMetadata(MetadataKey, O, P)
+    // https://rbuckton.github.io/reflect-metadata/#ordinaryhasownmetadata
     function OrdinaryHasOwnMetadata(MetadataKey, O, P) {
-        var metadataMap = GetOrCreateMetadataMap(O, P, /*create*/ false);
+        var metadataMap = GetOrCreateMetadataMap(O, P, /*Create*/ false);
         if (IsUndefined(metadataMap))
             return false;
         return ToBoolean(metadataMap.has(MetadataKey));
     }
-    // OrdinaryGetMetadata(MetadataKey, O, P)
-    // https://github.com/rbuckton/ReflectDecorators/blob/master/spec/metadata.md#ordinarygetmetadata--metadatakey-o-p-
+    // 3.1.3.1 OrdinaryGetMetadata(MetadataKey, O, P)
+    // https://rbuckton.github.io/reflect-metadata/#ordinarygetmetadata
     function OrdinaryGetMetadata(MetadataKey, O, P) {
         var hasOwn = OrdinaryHasOwnMetadata(MetadataKey, O, P);
         if (hasOwn)
@@ -2615,22 +2610,22 @@ var Reflect;
             return OrdinaryGetMetadata(MetadataKey, parent, P);
         return undefined;
     }
-    // OrdinaryGetOwnMetadata(MetadataKey, O, P)
-    // https://github.com/rbuckton/ReflectDecorators/blob/master/spec/metadata.md#ordinarygetownmetadata--metadatakey-o-p-
+    // 3.1.4.1 OrdinaryGetOwnMetadata(MetadataKey, O, P)
+    // https://rbuckton.github.io/reflect-metadata/#ordinarygetownmetadata
     function OrdinaryGetOwnMetadata(MetadataKey, O, P) {
-        var metadataMap = GetOrCreateMetadataMap(O, P, /*create*/ false);
+        var metadataMap = GetOrCreateMetadataMap(O, P, /*Create*/ false);
         if (IsUndefined(metadataMap))
             return undefined;
         return metadataMap.get(MetadataKey);
     }
-    // OrdinaryDefineOwnMetadata(MetadataKey, MetadataValue, O, P)
-    // https://github.com/rbuckton/ReflectDecorators/blob/master/spec/metadata.md#ordinarydefineownmetadata--metadatakey-metadatavalue-o-p-
+    // 3.1.5.1 OrdinaryDefineOwnMetadata(MetadataKey, MetadataValue, O, P)
+    // https://rbuckton.github.io/reflect-metadata/#ordinarydefineownmetadata
     function OrdinaryDefineOwnMetadata(MetadataKey, MetadataValue, O, P) {
-        var metadataMap = GetOrCreateMetadataMap(O, P, /*create*/ true);
+        var metadataMap = GetOrCreateMetadataMap(O, P, /*Create*/ true);
         metadataMap.set(MetadataKey, MetadataValue);
     }
-    // OrdinaryMetadataKeys(O, P)
-    // https://github.com/rbuckton/ReflectDecorators/blob/master/spec/metadata.md#ordinarymetadatakeys--o-p-
+    // 3.1.6.1 OrdinaryMetadataKeys(O, P)
+    // https://rbuckton.github.io/reflect-metadata/#ordinarymetadatakeys
     function OrdinaryMetadataKeys(O, P) {
         var ownKeys = OrdinaryOwnMetadataKeys(O, P);
         var parent = OrdinaryGetPrototypeOf(O);
@@ -2661,42 +2656,37 @@ var Reflect;
         }
         return keys;
     }
-    // OrdinaryOwnMetadataKeys(O, P)
-    // https://github.com/rbuckton/ReflectDecorators/blob/master/spec/metadata.md#ordinaryownmetadatakeys--o-p-
+    // 3.1.7.1 OrdinaryOwnMetadataKeys(O, P)
+    // https://rbuckton.github.io/reflect-metadata/#ordinaryownmetadatakeys
     function OrdinaryOwnMetadataKeys(O, P) {
-        var metadataMap = GetOrCreateMetadataMap(O, P, /*create*/ false);
         var keys = [];
+        var metadataMap = GetOrCreateMetadataMap(O, P, /*Create*/ false);
         if (IsUndefined(metadataMap))
             return keys;
         var keysObj = metadataMap.keys();
         var iterator = GetIterator(keysObj);
+        var k = 0;
         while (true) {
             var next = IteratorStep(iterator);
+            if (!next) {
+                keys.length = k;
+                return keys;
+            }
+            var nextValue = IteratorValue(next);
             try {
-                if (!next)
-                    return keys;
-                var nextValue = IteratorValue(next);
-                keys.push(nextValue);
+                keys[k] = nextValue;
             }
             catch (e) {
                 try {
-                    if (next) {
-                        next = false;
-                        IteratorClose(iterator);
-                    }
+                    IteratorClose(iterator);
                 }
                 finally {
                     throw e;
                 }
             }
-            finally {
-                if (next)
-                    IteratorClose(iterator);
-            }
+            k++;
         }
     }
-    // ECMAScript Specification
-    // https://tc39.github.io/ecma262/
     // 6 ECMAScript Data Typ0es and Values
     // https://tc39.github.io/ecma262/#sec-ecmascript-data-types-and-values
     function Type(x) {
@@ -2828,6 +2818,15 @@ var Reflect;
     function IsConstructor(argument) {
         // NOTE: This is an approximation as we cannot check for [[Construct]] internal method.
         return typeof argument === "function";
+    }
+    // 7.2.7 IsPropertyKey(argument)
+    // https://tc39.github.io/ecma262/#sec-ispropertykey
+    function IsPropertyKey(argument) {
+        switch (Type(argument)) {
+            case 3 /* String */: return true;
+            case 4 /* Symbol */: return true;
+            default: return false;
+        }
     }
     // 7.3 Operations on Objects
     // https://tc39.github.io/ecma262/#sec-operations-on-objects
@@ -3001,15 +3000,15 @@ var Reflect;
             Map.prototype["@@iterator"] = function () { return this.entries(); };
             Map.prototype[iteratorSymbol] = function () { return this.entries(); };
             Map.prototype._find = function (key, insert) {
-                if (this._cacheKey === key)
-                    return this._cacheIndex;
-                var index = this._keys.indexOf(key);
-                if (index < 0 && insert) {
-                    index = this._keys.length;
+                if (this._cacheKey !== key) {
+                    this._cacheIndex = this._keys.indexOf(this._cacheKey = key);
+                }
+                if (this._cacheIndex < 0 && insert) {
+                    this._cacheIndex = this._keys.length;
                     this._keys.push(key);
                     this._values.push(undefined);
                 }
-                return this._cacheKey = key, this._cacheIndex = index;
+                return this._cacheIndex;
             };
             return Map;
         }());
@@ -3049,7 +3048,7 @@ var Reflect;
     // naive WeakMap shim
     function CreateWeakMapPolyfill() {
         var UUID_SIZE = 16;
-        var keys = createDictionary();
+        var keys = HashMap.create();
         var rootKey = CreateUniqueKey();
         return (function () {
             function WeakMap() {
@@ -3090,7 +3089,7 @@ var Reflect;
             if (!hasOwn.call(target, rootKey)) {
                 if (!create)
                     return undefined;
-                Object.defineProperty(target, rootKey, { value: createDictionary() });
+                Object.defineProperty(target, rootKey, { value: HashMap.create() });
             }
             return target[rootKey];
         }
@@ -5796,7 +5795,7 @@ if (typeof define === 'function' && define.amd) {
 })(window, document, 'Hammer');
 
 /*
- * SystemJS v0.20.7 Dev
+ * SystemJS v0.20.9 Dev
  */
 (function () {
 'use strict';
@@ -5842,9 +5841,11 @@ else if (typeof location != 'undefined') {
 // sanitize out the hash and querystring
 if (baseURI) {
   baseURI = baseURI.split('#')[0].split('?')[0];
-  baseURI = baseURI.substr(0, baseURI.lastIndexOf('/') + 1);
+  var slashIndex = baseURI.lastIndexOf('/');
+  if (slashIndex !== -1)
+    baseURI = baseURI.substr(0, slashIndex + 1);
 }
-else if (typeof process != 'undefined' && process.cwd) {
+else if (typeof process !== 'undefined' && process.cwd) {
   baseURI = 'file://' + (isWindows ? '/' : '') + process.cwd();
   if (isWindows)
     baseURI = baseURI.replace(/\\/g, '/');
@@ -5891,7 +5892,7 @@ function LoaderError__Check_error_message_for_loader_stack (childErr, newMessage
 /*
  * Optimized URL normalization assuming a syntax-valid URL parent
  */
-function throwResolveError () {
+function throwResolveError (relUrl, parentUrl) {
   throw new RangeError('Unable to resolve "' + relUrl + '" to ' + parentUrl);
 }
 function resolveIfNotPlain (relUrl, parentUrl) {
@@ -6295,11 +6296,24 @@ var REGISTER_INTERNAL = createSymbol('register-internal');
 function RegisterLoader$1 () {
   Loader.call(this);
 
+  var registryDelete = this.registry.delete;
+  this.registry.delete = function (key) {
+    var deleted = registryDelete.call(this, key);
+
+    // also delete from register registry if linked
+    if (records.hasOwnProperty(key) && !records[key].linkRecord)
+      delete records[key];
+
+    return deleted;
+  };
+
+  var records = {};
+
   this[REGISTER_INTERNAL] = {
     // last anonymous System.register call
     lastRegister: undefined,
     // in-flight es module load records
-    records: {}
+    records: records
   };
 
   // tracing
@@ -6538,7 +6552,7 @@ function resolveInstantiateDep (loader, key, parentKey, registry, state, traceDe
   return loader.resolve(key, parentKey)
   .then(function (resolvedKey) {
     if (traceDepMap)
-      traceDepMap[key] = key;
+      traceDepMap[key] = resolvedKey;
 
     // normalization shortpaths for already-normalized key
     var load = state.records[resolvedKey];
@@ -6620,7 +6634,7 @@ function instantiateDeps (loader, load, link, registry, state, seen) {
     var depsInstantiatePromises = Array(link.dependencies.length);
 
     for (var i = 0; i < link.dependencies.length; i++)
-      depsInstantiatePromises[i] = resolveInstantiateDep(loader, link.dependencies[i], load.key, registry, state, loader.trace && (link.depMap = {}));
+      depsInstantiatePromises[i] = resolveInstantiateDep(loader, link.dependencies[i], load.key, registry, state, loader.trace && link.depMap || (link.depMap = {}));
 
     return Promise.all(depsInstantiatePromises);
   })
@@ -6887,12 +6901,15 @@ function doEvaluate (loader, load, link, registry, state, seen) {
       if (module.exports !== moduleObj.default)
         moduleObj.default = module.exports;
 
+      var moduleDefault = moduleObj.default;
+
       // __esModule flag extension support via lifting
-      if (moduleObj.default && moduleObj.default.__esModule) {
-        moduleObj.__useDefault = false;
-        for (var p in moduleObj.default) {
-          if (Object.hasOwnProperty.call(moduleObj.default, p))
-            moduleObj[p] = moduleObj.default[p];
+      if (moduleDefault && moduleDefault.__esModule) {
+        if (moduleObj.__useDefault)
+          delete moduleObj.__useDefault;
+        for (var p in moduleDefault) {
+          if (Object.hasOwnProperty.call(moduleDefault, p))
+            moduleObj[p] = moduleDefault[p];
         }
         moduleObj.__esModule = true;
       }
@@ -9056,7 +9073,7 @@ function instantiate$1 (key, processAnonRegister) {
     });
   })
   .then(function (instantiated) {
-    loader[METADATA][key] = undefined;
+    delete loader[METADATA][key];
     return instantiated;
   });
 }
@@ -9748,7 +9765,7 @@ SystemJSLoader$1.prototype.registerDynamic = function (key, deps, executingRequi
   return RegisterLoader$1.prototype.registerDynamic.call(this, key, deps, executingRequire, execute);
 };
 
-SystemJSLoader$1.prototype.version = "0.20.7 Dev";
+SystemJSLoader$1.prototype.version = "0.20.9 Dev";
 
 var System = new SystemJSLoader$1();
 

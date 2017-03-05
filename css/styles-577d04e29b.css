@@ -11613,10 +11613,11 @@ a,
   line-height: 1.35;
   transition: .1s ease-out;
   overflow: hidden;
-  text-align: center; }
+  text-align: center;
+  text-shadow: 0px 0px 3px black; }
   @media only screen and (min-width: 768px) {
     .panel-info {
-      padding: 10px 15px; } }
+      padding: 10px; } }
   .panel-info span {
     display: block;
     overflow: hidden;
@@ -11704,6 +11705,17 @@ textarea.form-control:focus {
     color: black;
     background: white;
     border: 1px solid black; }
+
+.side-nav-xl {
+  position: fixed;
+  left: 0;
+  top: 100px;
+  height: calc(100% - 100px);
+  z-index: 13;
+  overflow-y: auto;
+  overflow-x: hidden; }
+  .isPlaying .side-nav-xl {
+    height: calc(100% - 100px - 80px); }
 
 .side-nav__container,
 .side-nav-xl {
