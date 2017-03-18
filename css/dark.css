@@ -94,24 +94,16 @@ a,
     text-decoration: none; }
 
 .media-container {
-  -ms-flex-direction: row;
   flex-direction: row;
-  -ms-flex-wrap: wrap;
   flex-wrap: wrap;
-  -ms-flex-pack: center;
   justify-content: center;
-  -ms-flex-line-pack: start;
   align-content: flex-start;
-  -ms-flex-align: stretch;
   align-items: stretch;
-  display: -ms-flexbox;
   display: flex;
   padding: 0; }
 
 .no-flex {
-  -ms-flex-pack: start;
   justify-content: flex-start;
-  -ms-flex-align: start;
   align-items: flex-start; }
 
 .media-panel {
@@ -201,7 +193,6 @@ a,
   right: 0;
   bottom: 0;
   padding: 0;
-  -ms-transform: scale(0);
   transform: scale(0);
   transition: transform 0.25s ease-in-out; }
   @media only screen and (min-width: 768px) {
@@ -211,17 +202,11 @@ a,
     list-style: none;
     padding: 3vh 3vw;
     margin: 0;
-    -ms-flex-direction: row;
     flex-direction: row;
-    -ms-flex-wrap: wrap;
     flex-wrap: wrap;
-    -ms-flex-pack: start;
     justify-content: flex-start;
-    -ms-flex-line-pack: start;
     align-content: flex-start;
-    -ms-flex-align: stretch;
     align-items: stretch;
-    display: -ms-flexbox;
     display: flex; }
   .jumpList li {
     font-size: 2em;
@@ -238,7 +223,6 @@ a,
     color: #dddddd; }
   .jumpList.visible {
     display: block;
-    -ms-transform: scale(1);
     transform: scale(1); }
 
 .jumpList-years li {

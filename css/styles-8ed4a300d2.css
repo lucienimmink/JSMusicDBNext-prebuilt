@@ -3116,7 +3116,6 @@ select[multiple].input-lg,
   font-weight: normal;
   text-align: center;
   vertical-align: middle;
-  -ms-touch-action: manipulation;
   touch-action: manipulation;
   cursor: pointer;
   background-image: none;
@@ -5301,11 +5300,9 @@ button.close {
   -webkit-overflow-scrolling: touch;
   outline: 0; }
   .modal.fade .modal-dialog {
-    -ms-transform: translate(0, -25%);
     transform: translate(0, -25%);
     transition: transform 0.3s ease-out; }
   .modal.in .modal-dialog {
-    -ms-transform: translate(0, 0);
     transform: translate(0, 0); }
 
 .modal-open .modal {
@@ -10228,7 +10225,6 @@ blockquote {
   height: 48px;
   padding: 10px 12px 12px;
   opacity: 0;
-  -ms-transform: translate(0, 24px);
   transform: translate(0, 24px);
   transition: opacity 0.3s, transform 0.3s; }
   .back-to-top.affix {
@@ -10237,7 +10233,6 @@ blockquote {
     z-index: 1030;
     right: 24px;
     bottom: 12px;
-    -ms-transform: translate(0, 0);
     transform: translate(0, 0); }
   .back-to-top [class*="glyph-"] {
     font-size: 24px; }
@@ -10939,22 +10934,18 @@ a.link-on-dark {
 
 @keyframes progress-bar-animation {
   0% {
-    -ms-transform: translate(0px, 0px);
     transform: translate(0px, 0px);
     animation-timing-function: ease-in;
     opacity: 0; }
   30% {
-    -ms-transform: translate(60px, 0px);
     transform: translate(60px, 0px);
     animation-timing-function: linear;
     opacity: 1; }
   70% {
-    -ms-transform: translate(120px, 0px);
     transform: translate(120px, 0px);
     animation-timing-function: ease-out;
     opacity: 1; }
   100% {
-    -ms-transform: translate(180px, 0px);
     transform: translate(180px, 0px);
     opacity: 0; } }
 
@@ -10969,7 +10960,6 @@ a.link-on-dark {
     width: 20px;
     height: 20px;
     opacity: 0;
-    -ms-transform: rotate(225deg);
     transform: rotate(225deg);
     animation: progress-ring-animation 5s infinite; }
     .progress-ring .progress-circle:after {
@@ -11004,37 +10994,29 @@ a.link-on-dark {
 
 @keyframes progress-ring-animation {
   0% {
-    -ms-transform: rotate(225deg);
     transform: rotate(225deg);
     opacity: 1;
     animation-timing-function: ease-out; }
   7% {
-    -ms-transform: rotate(345deg);
     transform: rotate(345deg);
     animation-timing-function: linear; }
   30% {
-    -ms-transform: rotate(455deg);
     transform: rotate(455deg);
     animation-timing-function: ease-in-out; }
   39% {
-    -ms-transform: rotate(690deg);
     transform: rotate(690deg);
     animation-timing-function: linear; }
   70% {
-    -ms-transform: rotate(815deg);
     transform: rotate(815deg);
     opacity: 1;
     animation-timing-function: ease-out; }
   75% {
-    -ms-transform: rotate(945deg);
     transform: rotate(945deg);
     animation-timing-function: ease-out; }
   76% {
-    -ms-transform: rotate(945deg);
     transform: rotate(945deg);
     opacity: 0; }
   100% {
-    -ms-transform: rotate(945deg);
     transform: rotate(945deg);
     opacity: 0; } }
 
@@ -11526,24 +11508,16 @@ a,
     text-decoration: none; }
 
 .media-container {
-  -ms-flex-direction: row;
   flex-direction: row;
-  -ms-flex-wrap: wrap;
   flex-wrap: wrap;
-  -ms-flex-pack: center;
   justify-content: center;
-  -ms-flex-line-pack: start;
   align-content: flex-start;
-  -ms-flex-align: stretch;
   align-items: stretch;
-  display: -ms-flexbox;
   display: flex;
   padding: 0; }
 
 .no-flex {
-  -ms-flex-pack: start;
   justify-content: flex-start;
-  -ms-flex-align: start;
   align-items: flex-start; }
 
 .media-panel {
@@ -11633,7 +11607,6 @@ a,
   right: 0;
   bottom: 0;
   padding: 0;
-  -ms-transform: scale(0);
   transform: scale(0);
   transition: transform 0.25s ease-in-out; }
   @media only screen and (min-width: 768px) {
@@ -11643,17 +11616,11 @@ a,
     list-style: none;
     padding: 3vh 3vw;
     margin: 0;
-    -ms-flex-direction: row;
     flex-direction: row;
-    -ms-flex-wrap: wrap;
     flex-wrap: wrap;
-    -ms-flex-pack: start;
     justify-content: flex-start;
-    -ms-flex-line-pack: start;
     align-content: flex-start;
-    -ms-flex-align: stretch;
     align-items: stretch;
-    display: -ms-flexbox;
     display: flex; }
   .jumpList li {
     font-size: 2em;
@@ -11670,7 +11637,6 @@ a,
     color: #dddddd; }
   .jumpList.visible {
     display: block;
-    -ms-transform: scale(1);
     transform: scale(1); }
 
 .jumpList-years li {
