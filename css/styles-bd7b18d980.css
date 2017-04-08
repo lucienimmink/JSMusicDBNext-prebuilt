@@ -11507,6 +11507,9 @@ a,
     color: #003f71;
     text-decoration: none; }
 
+.logo path {
+  fill: black; }
+
 .media-container {
   flex-direction: row;
   flex-wrap: wrap;

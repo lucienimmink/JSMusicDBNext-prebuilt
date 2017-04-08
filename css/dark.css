@@ -93,6 +93,9 @@ a,
     color: #003f71;
     text-decoration: none; }
 
+.logo path {
+  fill: white; }
+
 .media-container {
   flex-direction: row;
   flex-wrap: wrap;
