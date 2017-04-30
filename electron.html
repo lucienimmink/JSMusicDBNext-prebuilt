@@ -4,11 +4,9 @@
 <head>
     <title>JSMusicDB next</title>
     <meta charset="UTF-8">
-
     <link rel="manifest" href="manifest.json">
-
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-    <link rel="stylesheet" href="css/styles-bd7b18d980.css">
+    <link rel="stylesheet" href="css/styles-2eef3234be.css">
     <base href=".">
 </head>
 
@@ -25,17 +23,64 @@
             </div>
         </div>
     </musicdb>
-
-    <script src="js/polyfills-f642d0f7f7.js"></script>
-
-    <script src="js/app-1dcd56dc86.bundle.js"></script>
-
-    <script src="js/dist-systemjs-341eabe3ba.config.js"></script>
+    <script src="js/polyfills-b9f0a7ca66.js"></script>
+    <script src="js/app-c4193de7cf.bundle.js"></script>
     <script>
+        (function(global) {
+    var map = {
+        'app': 'dist/app',
+        '@angular': 'node_modules/@angular',
+        'rxjs': 'node_modules/rxjs',
+        'lodash': 'node_modules/lodash',
+        'angular2-jwt': 'node_modules/angular2-jwt',
+        'ng2-bootstrap': 'node_modules/ng2-bootstrap',
+        'moment': 'node_modules/moment',
+        'pouchdb': 'node_modules/pouchdb',
+        'jsrsasign': 'node_modules/jsrsasign',
+        'ng2-youtube-player': 'node_modules/ng2-youtube-player',
+        'ng2-sticky-kit': 'node_modules/ng2-sticky-kit'
+    };
+    var packages = {
+        'app': { main: 'main.js', defaultExtension: 'js' },
+        'rxjs': { defaultExtension: 'js' },
+        'lodash': { main: 'lodash.js', defaultExtension: 'js' },
+        'angular2-jwt': { main: 'angular2-jwt.js', defaultExtension: 'js' },
+        'ng2-bootstrap': { main: 'bundles/ngx-bootstrap.umd.min.js', defaultExtension: 'js' },
+        'moment': { main: 'moment.js', defaultExtension: 'js' },
+        'pouchdb': { main: 'dist/pouchdb.js', defaultExtension: 'js' },
+        'jsrsasign': { main: 'lib/jsrsasign.js', defaultExtension: 'js' },
+        'ng2-youtube-player': { main: 'ng2-youtube-player.js', defaultExtension: 'js' },
+        'ng2-sticky-kit': { main: 'ng2-sticky-kit.js', defaultExtension: 'js' }
+    };
+    var meta = {
+        'pouchdb': { format: 'cjs' },
+        'ng2-bootstrap': { format: 'amd' }
+    }
+    var ngPackageNames = [
+        'common',
+        'compiler',
+        'core',
+        'forms',
+        'http',
+        'platform-browser',
+        'platform-browser-dynamic',
+        'router'
+    ];
+
+    function packIndex(pkgName) {
+        //packages['@angular/' + pkgName] = { main: `@angular/${pkgName}.js`, defaultExtension: 'js' };
+        packages['@angular/' + pkgName] = { main: 'bundles/' + pkgName + '.umd.js', defaultExtension: 'js' };
+    }
+    ngPackageNames.forEach(packIndex);
+    var config = {
+        map: map,
+        packages: packages,
+        meta: meta
+    }
+    System.config(config);
+})(this);
         var ENV = 'prod';
-        System.import('app/main').catch(function(err) {
-            console.error(err);
-        });
+        System.import('app/main');
     </script>
 </body>
 
