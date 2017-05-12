@@ -11832,10 +11832,11 @@ canvas {
   border: none;
   color: black;
   font-size: 16px; }
-
-#title-bar-btns button:hover {
-  background-color: rgba(0, 0, 0, 0.6);
-  color: white; }
+  #title-bar-btns button:hover {
+    background-color: rgba(0, 0, 0, 0.6);
+    color: white; }
+  #title-bar-btns button:active, #title-bar-btns button:focus {
+    outline: none; }
 
 @keyframes enterPage {
   from {

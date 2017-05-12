@@ -418,7 +418,8 @@ canvas {
   border: none;
   color: white;
   font-size: 16px; }
-
-#title-bar-btns button:hover {
-  background-color: rgba(255, 255, 255, 0.6);
-  color: black; }
+  #title-bar-btns button:hover {
+    background-color: rgba(255, 255, 255, 0.6);
+    color: black; }
+  #title-bar-btns button:active, #title-bar-btns button:focus {
+    outline: none; }
