@@ -174,9 +174,19 @@ var Zone$1 = (function (global) {
             }
         };
         Zone.prototype.runTask = function (task, applyThis, applyArgs) {
-            if (task.zone != this)
+            if (task.zone != this) {
                 throw new Error('A task can only be run in the zone of creation! (Creation: ' +
                     (task.zone || NO_ZONE).name + '; Execution: ' + this.name + ')');
+            }
+            // https://github.com/angular/zone.js/issues/778, sometimes eventTask
+            // will run in notScheduled(canceled) state, we should not try to
+            // run such kind of task but just return
+            // we have to define an variable here, if not
+            // typescript compiler will complain below
+            var isNotScheduled = task.state === notScheduled;
+            if (isNotScheduled && task.type === eventTask) {
+                return;
+            }
             var reEntryGuard = task.state != running;
             reEntryGuard && task._transitionTo(running, scheduled);
             task.runCount++;
@@ -608,7 +618,9 @@ var Zone$1 = (function (global) {
         onUnhandledError: noop,
         microtaskDrainDone: noop,
         scheduleMicroTask: scheduleMicroTask,
-        showUncaughtError: function () { return !Zone[__symbol__('ignoreConsoleErrorUncaughtError')]; }
+        showUncaughtError: function () { return !Zone[__symbol__('ignoreConsoleErrorUncaughtError')]; },
+        patchEventTargetMethods: function () { return false; },
+        patchOnProperties: noop
     };
     var _currentZoneFrame = { parent: null, zone: new Zone(null, null) };
     var _currentTask = null;
@@ -998,18 +1010,29 @@ function patchPrototype(prototype, fnNames) {
     }
 }
 var isWebWorker = (typeof WorkerGlobalScope !== 'undefined' && self instanceof WorkerGlobalScope);
-var isNode = (!('nw' in _global) && typeof process !== 'undefined' &&
-    {}.toString.call(process) === '[object process]');
+// Make sure to access `process` through `_global` so that WebPack does not accidently browserify
+// this code.
+var isNode = (!('nw' in _global) && typeof _global.process !== 'undefined' &&
+    {}.toString.call(_global.process) === '[object process]');
 var isBrowser = !isNode && !isWebWorker && !!(typeof window !== 'undefined' && window['HTMLElement']);
 // we are in electron of nw, so we are both browser and nodejs
-var isMix = typeof process !== 'undefined' &&
-    {}.toString.call(process) === '[object process]' && !isWebWorker &&
+// Make sure to access `process` through `_global` so that WebPack does not accidently browserify
+// this code.
+var isMix = typeof _global.process !== 'undefined' &&
+    {}.toString.call(_global.process) === '[object process]' && !isWebWorker &&
     !!(typeof window !== 'undefined' && window['HTMLElement']);
-function patchProperty(obj, prop) {
-    var desc = Object.getOwnPropertyDescriptor(obj, prop) || { enumerable: true, configurable: true };
-    // if the descriptor is not configurable
+function patchProperty(obj, prop, prototype) {
+    var desc = Object.getOwnPropertyDescriptor(obj, prop);
+    if (!desc && prototype) {
+        // when patch window object, use prototype to check prop exist or not
+        var prototypeDesc = Object.getOwnPropertyDescriptor(prototype, prop);
+        if (prototypeDesc) {
+            desc = { enumerable: true, configurable: true };
+        }
+    }
+    // if the descriptor not exists or is not configurable
     // just return
-    if (!desc.configurable) {
+    if (!desc || !desc.configurable) {
         return;
     }
     // A property descriptor cannot have getter/setter and be writable
@@ -1087,10 +1110,10 @@ function patchProperty(obj, prop) {
     };
     Object.defineProperty(obj, prop, desc);
 }
-function patchOnProperties(obj, properties) {
+function patchOnProperties(obj, properties, prototype) {
     if (properties) {
         for (var i = 0; i < properties.length; i++) {
-            patchProperty(obj, 'on' + properties[i]);
+            patchProperty(obj, 'on' + properties[i], prototype);
         }
     }
     else {
@@ -1101,7 +1124,7 @@ function patchOnProperties(obj, properties) {
             }
         }
         for (var j = 0; j < onProperties.length; j++) {
-            patchProperty(obj, onProperties[j]);
+            patchProperty(obj, onProperties[j], prototype);
         }
     }
 }
@@ -1436,8 +1459,6 @@ function findEventTask(target, evtName) {
 function attachOriginToPatched(patched, original) {
     patched[zoneSymbol('OriginalDelegate')] = original;
 }
-Zone[zoneSymbol('patchEventTargetMethods')] = patchEventTargetMethods;
-Zone[zoneSymbol('patchOnProperties')] = patchOnProperties;
 
 /**
  * @license
@@ -1751,8 +1772,215 @@ function apply(_global) {
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-var eventNames = 'copy cut paste abort blur focus canplay canplaythrough change click contextmenu dblclick drag dragend dragenter dragleave dragover dragstart drop durationchange emptied ended input invalid keydown keypress keyup load loadeddata loadedmetadata loadstart message mousedown mouseenter mouseleave mousemove mouseout mouseover mouseup pause play playing progress ratechange reset scroll seeked seeking select show stalled submit suspend timeupdate volumechange waiting mozfullscreenchange mozfullscreenerror mozpointerlockchange mozpointerlockerror error webglcontextrestored webglcontextlost webglcontextcreationerror'
-    .split(' ');
+var globalEventHandlersEventNames = [
+    'abort',
+    'animationcancel',
+    'animationend',
+    'animationiteration',
+    'auxclick',
+    'beforeinput',
+    'blur',
+    'cancel',
+    'canplay',
+    'canplaythrough',
+    'change',
+    'compositionstart',
+    'compositionupdate',
+    'compositionend',
+    'cuechange',
+    'click',
+    'close',
+    'contextmenu',
+    'curechange',
+    'dblclick',
+    'drag',
+    'dragend',
+    'dragenter',
+    'dragexit',
+    'dragleave',
+    'dragover',
+    'drop',
+    'durationchange',
+    'emptied',
+    'ended',
+    'error',
+    'focus',
+    'focusin',
+    'focusout',
+    'gotpointercapture',
+    'input',
+    'invalid',
+    'keydown',
+    'keypress',
+    'keyup',
+    'load',
+    'loadstart',
+    'loadeddata',
+    'loadedmetadata',
+    'lostpointercapture',
+    'mousedown',
+    'mouseenter',
+    'mouseleave',
+    'mousemove',
+    'mouseout',
+    'mouseover',
+    'mouseup',
+    'mousewheel',
+    'pause',
+    'play',
+    'playing',
+    'pointercancel',
+    'pointerdown',
+    'pointerenter',
+    'pointerleave',
+    'pointerlockchange',
+    'mozpointerlockchange',
+    'webkitpointerlockerchange',
+    'pointerlockerror',
+    'mozpointerlockerror',
+    'webkitpointerlockerror',
+    'pointermove',
+    'pointout',
+    'pointerover',
+    'pointerup',
+    'progress',
+    'ratechange',
+    'reset',
+    'resize',
+    'scroll',
+    'seeked',
+    'seeking',
+    'select',
+    'selectionchange',
+    'selectstart',
+    'show',
+    'sort',
+    'stalled',
+    'submit',
+    'suspend',
+    'timeupdate',
+    'volumechange',
+    'touchcancel',
+    'touchmove',
+    'touchstart',
+    'transitioncancel',
+    'transitionend',
+    'waiting',
+    'wheel'
+];
+var documentEventNames = [
+    'afterscriptexecute', 'beforescriptexecute', 'DOMContentLoaded', 'fullscreenchange',
+    'mozfullscreenchange', 'webkitfullscreenchange', 'msfullscreenchange', 'fullscreenerror',
+    'mozfullscreenerror', 'webkitfullscreenerror', 'msfullscreenerror', 'readystatechange'
+];
+var windowEventNames = [
+    'absolutedeviceorientation',
+    'afterinput',
+    'afterprint',
+    'appinstalled',
+    'beforeinstallprompt',
+    'beforeprint',
+    'beforeunload',
+    'devicelight',
+    'devicemotion',
+    'deviceorientation',
+    'deviceorientationabsolute',
+    'deviceproximity',
+    'hashchange',
+    'languagechange',
+    'message',
+    'mozbeforepaint',
+    'offline',
+    'online',
+    'paint',
+    'pageshow',
+    'pagehide',
+    'popstate',
+    'rejectionhandled',
+    'storage',
+    'unhandledrejection',
+    'unload',
+    'userproximity',
+    'vrdisplyconnected',
+    'vrdisplaydisconnected',
+    'vrdisplaypresentchange'
+];
+var htmlElementEventNames = [
+    'beforecopy', 'beforecut', 'beforepaste', 'copy', 'cut', 'paste', 'dragstart', 'loadend',
+    'animationstart', 'search', 'transitionrun', 'transitionstart', 'webkitanimationend',
+    'webkitanimationiteration', 'webkitanimationstart', 'webkittransitionend'
+];
+var mediaElementEventNames = ['encrypted', 'waitingforkey', 'msneedkey', 'mozinterruptbegin', 'mozinterruptend'];
+var ieElementEventNames = [
+    'activate',
+    'afterupdate',
+    'ariarequest',
+    'beforeactivate',
+    'beforedeactivate',
+    'beforeeditfocus',
+    'beforeupdate',
+    'cellchange',
+    'controlselect',
+    'dataavailable',
+    'datasetchanged',
+    'datasetcomplete',
+    'errorupdate',
+    'filterchange',
+    'layoutcomplete',
+    'losecapture',
+    'move',
+    'moveend',
+    'movestart',
+    'propertychange',
+    'resizeend',
+    'resizestart',
+    'rowenter',
+    'rowexit',
+    'rowsdelete',
+    'rowsinserted',
+    'command',
+    'compassneedscalibration',
+    'deactivate',
+    'help',
+    'mscontentzoom',
+    'msmanipulationstatechanged',
+    'msgesturechange',
+    'msgesturedoubletap',
+    'msgestureend',
+    'msgesturehold',
+    'msgesturestart',
+    'msgesturetap',
+    'msgotpointercapture',
+    'msinertiastart',
+    'mslostpointercapture',
+    'mspointercancel',
+    'mspointerdown',
+    'mspointerenter',
+    'mspointerhover',
+    'mspointerleave',
+    'mspointermove',
+    'mspointerout',
+    'mspointerover',
+    'mspointerup',
+    'pointerout',
+    'mssitemodejumplistitemremoved',
+    'msthumbnailclick',
+    'stop',
+    'storagecommit'
+];
+var webglEventNames = ['webglcontextrestored', 'webglcontextlost', 'webglcontextcreationerror'];
+var formEventNames = ['autocomplete', 'autocompleteerror'];
+var detailEventNames = ['toggle'];
+var frameEventNames = ['load'];
+var frameSetEventNames = ['blur', 'error', 'focus', 'load', 'resize', 'scroll'];
+var marqueeEventNames = ['bounce', 'finish', 'start'];
+var XMLHttpRequestEventNames = [
+    'loadstart', 'progress', 'abort', 'error', 'load', 'progress', 'timeout', 'loadend',
+    'readystatechange'
+];
+var IDBIndexEventNames = ['upgradeneeded', 'complete', 'abort', 'success', 'error', 'blocked', 'versionchange', 'close'];
+var websocketEventNames = ['close', 'error', 'open', 'message'];
+var eventNames = globalEventHandlersEventNames.concat(webglEventNames, formEventNames, detailEventNames, documentEventNames, windowEventNames, htmlElementEventNames, ieElementEventNames);
 function propertyDescriptorPatch(_global) {
     if (isNode && !isMix) {
         return;
@@ -1761,24 +1989,40 @@ function propertyDescriptorPatch(_global) {
     if (canPatchViaPropertyDescriptor()) {
         // for browsers that we can patch the descriptor:  Chrome & Firefox
         if (isBrowser) {
-            patchOnProperties(window, eventNames.concat(['resize']));
+            // in IE/Edge, onProp not exist in window object, but in WindowPrototype
+            // so we need to pass WindowPrototype to check onProp exist or not
+            patchOnProperties(window, eventNames, Object.getPrototypeOf(window));
             patchOnProperties(Document.prototype, eventNames);
             if (typeof window['SVGElement'] !== 'undefined') {
                 patchOnProperties(window['SVGElement'].prototype, eventNames);
             }
+            patchOnProperties(Element.prototype, eventNames);
             patchOnProperties(HTMLElement.prototype, eventNames);
+            patchOnProperties(HTMLMediaElement.prototype, mediaElementEventNames);
+            patchOnProperties(HTMLFrameSetElement.prototype, windowEventNames.concat(frameSetEventNames));
+            patchOnProperties(HTMLBodyElement.prototype, windowEventNames.concat(frameSetEventNames));
+            patchOnProperties(HTMLFrameElement.prototype, frameEventNames);
+            patchOnProperties(HTMLIFrameElement.prototype, frameEventNames);
+            var HTMLMarqueeElement_1 = window['HTMLMarqueeElement'];
+            if (HTMLMarqueeElement_1) {
+                patchOnProperties(HTMLMarqueeElement_1.prototype, marqueeEventNames);
+            }
         }
-        patchOnProperties(XMLHttpRequest.prototype, null);
+        patchOnProperties(XMLHttpRequest.prototype, XMLHttpRequestEventNames);
+        var XMLHttpRequestEventTarget = _global['XMLHttpRequestEventTarget'];
+        if (XMLHttpRequestEventTarget) {
+            patchOnProperties(XMLHttpRequestEventTarget && XMLHttpRequestEventTarget.prototype, XMLHttpRequestEventNames);
+        }
         if (typeof IDBIndex !== 'undefined') {
-            patchOnProperties(IDBIndex.prototype, null);
-            patchOnProperties(IDBRequest.prototype, null);
-            patchOnProperties(IDBOpenDBRequest.prototype, null);
-            patchOnProperties(IDBDatabase.prototype, null);
-            patchOnProperties(IDBTransaction.prototype, null);
-            patchOnProperties(IDBCursor.prototype, null);
+            patchOnProperties(IDBIndex.prototype, IDBIndexEventNames);
+            patchOnProperties(IDBRequest.prototype, IDBIndexEventNames);
+            patchOnProperties(IDBOpenDBRequest.prototype, IDBIndexEventNames);
+            patchOnProperties(IDBDatabase.prototype, IDBIndexEventNames);
+            patchOnProperties(IDBTransaction.prototype, IDBIndexEventNames);
+            patchOnProperties(IDBCursor.prototype, IDBIndexEventNames);
         }
         if (supportsWebSocket) {
-            patchOnProperties(WebSocket.prototype, null);
+            patchOnProperties(WebSocket.prototype, websocketEventNames);
         }
     }
     else {
@@ -2060,6 +2304,10 @@ Zone.__load_patch('PromiseRejectionEvent', function (global, Zone, api) {
         Zone[zoneSymbol('rejectionHandledHandler')] =
             findPromiseRejectionHandler('rejectionhandled');
     }
+});
+Zone.__load_patch('util', function (global, Zone, api) {
+    api.patchEventTargetMethods = patchEventTargetMethods;
+    api.patchOnProperties = patchOnProperties;
 });
 
 /**
