@@ -1,6 +1,6 @@
 {
     "name": "jsmusicdbnext-prebuilt",
     "description": "prebuilt stable versions of jsmusicdbnext",
-    "version": "1.2.3",
+    "version": "1.3.0",
     "dependencies": {}
 }
