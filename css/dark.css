@@ -423,3 +423,13 @@ canvas {
     color: black; }
   #title-bar-btns button:active, #title-bar-btns button:focus {
     outline: none; }
+
+#nowPlaying .control-wrapper-wrapper {
+  text-shadow: 0px 0px 1px black;
+  background: linear-gradient(to bottom, transparent 0%, black 100%); }
+
+#nowPlaying.small-art.no-focus .control-wrapper-wrapper {
+  background: linear-gradient(to bottom, transparent 90%, black 100%); }
+
+#nowPlaying .controls-wrapper h5 a {
+  color: white; }
