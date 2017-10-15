@@ -309,12 +309,19 @@ textarea.form-control:focus {
   .side-nav-xl .side-nav__content .search-bar .input-group-addon {
     color: white; }
 
-.list-group-item {
+.list-group-item,
+.container-longlist li {
   padding: 10px 5px;
-  border-bottom: 1px solid #2d2d2d; }
+  border-bottom: 1px solid #2d2d2d;
+  transition: 0.25s ease-in-out; }
 
-.list-group-item:hover {
-  background-color: #2d2d2d; }
+.list-group-item:last-child,
+.container-longlist li:last-child {
+  border-bottom: none; }
+
+.list-group-item:hover,
+.container-longlist li:hover {
+  background-color: #202020; }
 
 .list-group-item .glyph {
   vertical-align: top;
