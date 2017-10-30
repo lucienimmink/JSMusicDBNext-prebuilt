@@ -40,7 +40,7 @@ body {
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
-  background: black;
+  background: #111111;
   color: white;
   font-size: 17px;
   transition: color 0.15s ease-in, background-color 0.15s ease-in; }
@@ -58,7 +58,7 @@ body {
   width: 320px;
   margin: 0 auto;
   text-align: center;
-  background: black; }
+  background: #111111; }
   .preloader .progress-bar {
     height: 0;
     width: 180px;
@@ -199,7 +199,7 @@ a,
   left: 0;
   top: 50px;
   z-index: 1000;
-  background: black;
+  background: #111111;
   right: 0;
   bottom: 0;
   padding: 0;
@@ -264,17 +264,17 @@ a,
 input.form-control:focus,
 textarea.form-control:focus {
   color: white;
-  background: black; }
+  background: #111111; }
 
 .alert.alert-info {
   background-color: rgba(255, 255, 255, 0.2);
   color: white; }
 
 .menu-top {
-  background: #202020; }
+  background: #313131; }
   .menu-top form input {
     color: white;
-    background: black;
+    background: #111111;
     border: 1px solid white; }
 
 .side-nav-xl {
@@ -290,7 +290,7 @@ textarea.form-control:focus {
 
 .side-nav__container,
 .side-nav-xl {
-  background-color: #202020; }
+  background-color: #313131; }
   .side-nav__container .side-nav__content li a,
   .side-nav-xl .side-nav__content li a {
     color: white;
@@ -303,7 +303,7 @@ textarea.form-control:focus {
   .side-nav__container .side-nav__content .search-bar input,
   .side-nav-xl .side-nav__content .search-bar input {
     color: white;
-    background: black;
+    background: #111111;
     border: 1px solid white; }
   .side-nav__container .side-nav__content .search-bar .input-group-addon,
   .side-nav-xl .side-nav__content .search-bar .input-group-addon {
@@ -312,7 +312,7 @@ textarea.form-control:focus {
 .list-group-item,
 .container-longlist li {
   padding: 10px 5px;
-  border-bottom: 1px solid #2d2d2d;
+  border-bottom: 1px solid #3e3e3e;
   transition: 0.25s ease-in-out; }
 
 .list-group-item:last-child,
@@ -321,24 +321,24 @@ textarea.form-control:focus {
 
 .list-group-item:hover,
 .container-longlist li:hover {
-  background-color: #202020; }
+  background-color: #313131; }
 
 .list-group-item .glyph {
   vertical-align: top;
   margin-top: 5px; }
 
 .player {
-  background-color: #202020; }
+  background-color: #313131; }
 
 .volume-control {
-  background-color: black;
+  background-color: #111111;
   border: 1px solid #0078d7; }
 
 .header-seperator {
   overflow: hidden;
   border-bottom: 1px solid #0078d7;
   border-top: none;
-  background: black;
+  background: #111111;
   color: white;
   z-index: 2;
   padding-top: 6px; }
@@ -355,7 +355,7 @@ h4 .small {
   position: relative; }
   @media only screen and (min-width: 768px) {
     .jumbotron.theme-light {
-      background-color: #202020;
+      background-color: #313131;
       color: white;
       padding: 24px 0; } }
   .jumbotron.theme-light h3 {
@@ -371,12 +371,12 @@ h4 .small {
         text-decoration: none; } }
 
 #nowPlaying {
-  background: black; }
+  background: #111111; }
   #nowPlaying .top,
   #nowPlaying .bottom {
-    background: black; }
+    background: #111111; }
   #nowPlaying #position-indicator {
-    background: black; }
+    background: #111111; }
 
 @media only screen and (min-width: 1084px) {
   .main-content {
@@ -385,11 +385,11 @@ h4 .small {
 
 .tooltip .tooltip-inner {
   border-color: rgba(255, 255, 255, 0.6);
-  background-color: #202020;
+  background-color: #313131;
   color: white; }
 
 .actions {
-  background-color: black; }
+  background-color: #111111; }
 
 canvas {
   width: 900px;
@@ -441,16 +441,16 @@ canvas {
   font-size: 16px; }
   #title-bar-btns button:hover {
     background-color: rgba(255, 255, 255, 0.6);
-    color: black; }
+    color: #111111; }
   #title-bar-btns button:active, #title-bar-btns button:focus {
     outline: none; }
 
 #nowPlaying .control-wrapper-wrapper {
-  text-shadow: 0px 0px 1px black;
-  background: linear-gradient(to bottom, transparent 0%, black 100%); }
+  text-shadow: 0px 0px 1px #111111;
+  background: linear-gradient(to bottom, transparent 0%, #111111 100%); }
 
 #nowPlaying.small-art.no-focus .control-wrapper-wrapper {
-  background: linear-gradient(to bottom, transparent 90%, black 100%); }
+  background: linear-gradient(to bottom, transparent 90%, #111111 100%); }
 
 #nowPlaying .controls-wrapper h5 a {
   color: white; }
