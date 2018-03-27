@@ -8,10 +8,10 @@
       "updateMode": "prefetch",
       "urls": [
         "/index.html",
-        "/inline.7a67cd35bcc225086990.bundle.js",
-        "/main.3df4b8c7a284b24ab52a.bundle.js",
-        "/polyfills.aec40f99617178d89494.bundle.js",
-        "/styles.9addec3f310ca173223a.bundle.css"
+        "/inline.318b50c57b4eba3d437b.bundle.js",
+        "/main.857fa1df6eccfb48a160.bundle.js",
+        "/polyfills.44f11e82eab3e96f22c9.bundle.js",
+        "/styles.2adbcc1127a42aaf96c7.bundle.css"
       ],
       "patterns": []
     },
@@ -53,15 +53,15 @@
     }
   ],
   "hashTable": {
-    "/inline.7a67cd35bcc225086990.bundle.js": "f576d297f325afcee47b988b877ce161c9a6b304",
+    "/inline.318b50c57b4eba3d437b.bundle.js": "998c6060446975e566fd17509558ddc68d72eec3",
     "/global/css/dark.css": "8ac1e05bbe08cc64d58c5f18f3684a34049f19bc",
-    "/main.3df4b8c7a284b24ab52a.bundle.js": "bf43921d6a99a335263d5096beb7fd725e160bdd",
+    "/main.857fa1df6eccfb48a160.bundle.js": "99f5fefd04ded4dfd748a8ecea076932e37487a3",
     "/global/css/light.css": "da39a3ee5e6b4b0d3255bfef95601890afd80709",
-    "/polyfills.aec40f99617178d89494.bundle.js": "6ce2b4501dae2979bc56440d112f9c36c3b9aec2",
+    "/polyfills.44f11e82eab3e96f22c9.bundle.js": "67093cfb23d0e5508087c441eee9d64d34da989b",
     "/global/css/styles.css": "da39a3ee5e6b4b0d3255bfef95601890afd80709",
-    "/styles.9addec3f310ca173223a.bundle.css": "345738e7ea31613b5d8047e5140bd97b5efef1bd",
+    "/styles.2adbcc1127a42aaf96c7.bundle.css": "c91e5aa6d09c3d4bd3e411680ecb3a4dc4e9be39",
     "/global/images/icon-512-white.png": "a43eb7c1796d8cc4669b033d03d3cbb1bc721472",
-    "/index.html": "1e6e7e61f85c6d09423026d9208bb2daa873cc78",
+    "/index.html": "3ae32e28bcc525df85d243f1976b0c11510e7820",
     "/global/images/logo.png": "532f5f732f9278691b4d53486eb6362278035094",
     "/global/images/no-artist.png": "f176d7a4465773359e5fdc12abca2789d14d2b8c",
     "/global/images/no-cover.png": "2b1f1abd2fe91b74021f7818c18aab124372a576"
