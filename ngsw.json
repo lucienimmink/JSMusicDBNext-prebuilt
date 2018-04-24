@@ -34,9 +34,7 @@
   "dataGroups": [
     {
       "name": "music-file",
-      "patterns": [
-        "\\/data\\/node-music\\.json"
-      ],
+      "patterns": ["\\/data\\/node-music\\.json"],
       "strategy": "freshness",
       "maxAge": 0,
       "timeoutMs": 3000,
@@ -44,23 +42,26 @@
     },
     {
       "name": "images",
-      "patterns": [
-        "\\/data\\/image-proxy[^\\/]+"
-      ],
+      "patterns": ["\\/data\\/image-proxy[^\\/]+"],
       "strategy": "performance",
       "maxAge": 0,
       "version": 1
     }
   ],
   "hashTable": {
-    "/inline.318b50c57b4eba3d437b.bundle.js": "998c6060446975e566fd17509558ddc68d72eec3",
+    "/inline.318b50c57b4eba3d437b.bundle.js":
+      "998c6060446975e566fd17509558ddc68d72eec3",
     "/global/css/dark.css": "dcf49f660b8937b57ed569cd20fe7a50a4af8801",
-    "/main.298ac265bcf3a588f6dd.bundle.js": "a5c557e882add114a199bbfe2b61152059e49fd1",
+    "/main.298ac265bcf3a588f6dd.bundle.js":
+      "a5c557e882add114a199bbfe2b61152059e49fd1",
     "/global/css/light.css": "da39a3ee5e6b4b0d3255bfef95601890afd80709",
-    "/polyfills.cecfd6dd5f839bf9de74.bundle.js": "c1148f44fa133eda80b0e01971b037c2c81d1172",
+    "/polyfills.cecfd6dd5f839bf9de74.bundle.js":
+      "c1148f44fa133eda80b0e01971b037c2c81d1172",
     "/global/css/styles.css": "da39a3ee5e6b4b0d3255bfef95601890afd80709",
-    "/styles.d8c0f0671e196a411631.bundle.css": "b879cac87f0df6f7227583fed5da66df6cc852ee",
-    "/global/images/icon-512-white.png": "a43eb7c1796d8cc4669b033d03d3cbb1bc721472",
+    "/styles.d8c0f0671e196a411631.bundle.css":
+      "b879cac87f0df6f7227583fed5da66df6cc852ee",
+    "/global/images/icon-512-white.png":
+      "a43eb7c1796d8cc4669b033d03d3cbb1bc721472",
     "/index.html": "1313ab557b16b7d44fe4f5e941166404e65d6982",
     "/global/images/logo.png": "532f5f732f9278691b4d53486eb6362278035094",
     "/global/images/no-artist.png": "f176d7a4465773359e5fdc12abca2789d14d2b8c",
