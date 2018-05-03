@@ -9,9 +9,9 @@
       "urls": [
         "/index.html",
         "/inline.318b50c57b4eba3d437b.bundle.js",
-        "/main.f2cf54025c2e00e29463.bundle.js",
+        "/main.2ad3d59416eff48d8b90.bundle.js",
         "/polyfills.cecfd6dd5f839bf9de74.bundle.js",
-        "/styles.6197ce1a1dd81295effc.bundle.css"
+        "/styles.340697c35e7548259fc4.bundle.css"
       ],
       "patterns": []
     },
@@ -54,14 +54,14 @@
   ],
   "hashTable": {
     "/inline.318b50c57b4eba3d437b.bundle.js": "998c6060446975e566fd17509558ddc68d72eec3",
-    "/global/css/dark.css": "811e188c19a97837d787a193f1aa8332205a558b",
-    "/main.f2cf54025c2e00e29463.bundle.js": "b9e92c3cd8a8643e0614a6302e255315842cf390",
+    "/global/css/dark.css": "56db859aeff05918c318e718c30963985d6d5bd9",
+    "/main.2ad3d59416eff48d8b90.bundle.js": "a0e8212fc8c8b05580896b022a915fea2bd52a4a",
     "/global/css/light.css": "da39a3ee5e6b4b0d3255bfef95601890afd80709",
     "/polyfills.cecfd6dd5f839bf9de74.bundle.js": "c1148f44fa133eda80b0e01971b037c2c81d1172",
     "/global/css/styles.css": "da39a3ee5e6b4b0d3255bfef95601890afd80709",
-    "/styles.6197ce1a1dd81295effc.bundle.css": "cbf73daaad41a4d79d9b9c940856357d51e088d9",
+    "/styles.340697c35e7548259fc4.bundle.css": "a8cf06a42bacaa07b95e100f99f33bc38feb1878",
     "/global/images/icon-512-white.png": "a43eb7c1796d8cc4669b033d03d3cbb1bc721472",
-    "/index.html": "35d5b433311baadc91bc876bb0eeadc6dda37c8f",
+    "/index.html": "4d793a86c8dd1dad29ddfa616a9bb275711e5a51",
     "/global/images/logo.png": "532f5f732f9278691b4d53486eb6362278035094",
     "/global/images/no-artist.png": "f176d7a4465773359e5fdc12abca2789d14d2b8c",
     "/global/images/no-cover.png": "2b1f1abd2fe91b74021f7818c18aab124372a576"
