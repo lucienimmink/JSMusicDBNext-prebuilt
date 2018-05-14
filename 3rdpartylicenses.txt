@@ -1,4 +1,4 @@
-core-js@2.5.5
+core-js@2.5.6
 MIT
 Copyright (c) 2014-2018 Denis Pushkarev
 
@@ -272,7 +272,7 @@ Apache License
  See the License for the specific language governing permissions and
  limitations under the License.
 
-@angular/common@6.0.0
+@angular/common@6.0.1
 MIT
 MIT
 
