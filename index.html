@@ -4,9 +4,10 @@
   <base href=".">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#0078D7">
+  <meta name="Description" content="Web standards based music player">
   <link rel="manifest" href="manifest.json">
   <link rel="icon" type="image/png" sizes="1024x1024" href="/global/images/logo.png">
-<link rel="stylesheet" href="styles.ca243d843ec7ee02fee4.css"></head>
+<link rel="stylesheet" href="styles.f3c0b7799fa9a6cffcfa.css"></head>
 
 <body>
   <mdb-root>
@@ -14,6 +15,8 @@
       <div>
         <img src="global/images/logo.png" width="250" alt="Logo">
       </div>
+      <br>
+      <br>
       <div class="progress-bar">
         <div class="progress-circle"></div>
         <div class="progress-circle"></div>
@@ -27,5 +30,19 @@
     Unfortunately JavaScript is needed for this JavaScript based client webaudio based music database.
   </noscript>
 
+  <script>
+    var style = localStorage.getItem('style');
+    if (style && style === "dark") {
+      // already add the dark sheet
+      var link = document.createElement("link");
+      link.rel = "stylesheet";
+      link.type = "text/css"
+      link.href = "global/css/dark.css";
+      link.id = "customStylesheet";
+      document.querySelector("head").appendChild(link);
+      document.querySelector("img").src = "global/images/icon-512-white.png";
+    }
+  </script>
 
-<script type="text/javascript" src="runtime.6afe30102d8fe7337431.js"></script><script type="text/javascript" src="polyfills.e57d7f99374aede912a0.js"></script><script type="text/javascript" src="main.caed442c27bbb081d44f.js"></script></body></html>
+
+<script type="text/javascript" src="runtime.6afe30102d8fe7337431.js"></script><script type="text/javascript" src="polyfills.e57d7f99374aede912a0.js"></script><script type="text/javascript" src="main.d8ba7ca889a00f569feb.js"></script></body></html>
