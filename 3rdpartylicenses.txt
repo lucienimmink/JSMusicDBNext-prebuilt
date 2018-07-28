@@ -276,6 +276,6 @@ jsrsasign@8.0.12
 MIT
 MIT
 
-@angular/common@6.0.9
+@angular/common@6.1.0
 MIT
 MIT
