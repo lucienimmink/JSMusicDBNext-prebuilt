@@ -20,6 +20,7 @@
         "/global/css/light.css",
         "/global/css/styles.css",
         "/global/images/icon-512-white.png",
+        "/global/images/logo-180.png",
         "/global/images/logo.png",
         "/global/images/no-artist.png",
         "/global/images/no-cover.png"
@@ -53,10 +54,11 @@
     "/global/css/light.css": "da39a3ee5e6b4b0d3255bfef95601890afd80709",
     "/global/css/styles.css": "da39a3ee5e6b4b0d3255bfef95601890afd80709",
     "/global/images/icon-512-white.png": "a43eb7c1796d8cc4669b033d03d3cbb1bc721472",
+    "/global/images/logo-180.png": "1e46f59523aa022b770b5316fbcea0afa8054879",
     "/global/images/logo.png": "532f5f732f9278691b4d53486eb6362278035094",
     "/global/images/no-artist.png": "f176d7a4465773359e5fdc12abca2789d14d2b8c",
     "/global/images/no-cover.png": "2b1f1abd2fe91b74021f7818c18aab124372a576",
-    "/index.html": "c3f8ef668f258423c181cf1e1b207a60302c2298"
+    "/index.html": "2f03c00dd423d87a22999dc62933232e71bc416c"
   },
   "navigationUrls": [
     {
