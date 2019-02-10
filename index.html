@@ -1,54 +1,58 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>JSMusicDB Next</title>
+    <base href="." />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#0078D7" />
+    <meta name="Description" content="Web standards based music player" />
+    <link rel="manifest" href="manifest.webmanifest" />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="1024x1024"
+      href="/global/images/logo.png"
+    />
+    <link rel="apple-touch-icon" href="/global/images/logo-180.png" />
+    <link rel="prefetch" href="/global/css/light.css" as="style" />
+    <link rel="prefetch" href="/global/css/dark.css" as="style" />
+  <link rel="stylesheet" href="styles.49c32ba2895be2316db7.css" integrity="sha384-64jBfVsRyd0FINXfqqeVhmLRs4wy3xjPtGMoKv4dAOhgrJzUMxlIfT0KIJgI3mC/" crossorigin="anonymous"></head>
 
-<head>
-  <meta charset="utf-8">
-  <title>JSMusicDB Next</title>
-  <base href=".">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#0078D7">
-  <meta name="Description" content="Web standards based music player">
-  <link rel="manifest" href="manifest.webmanifest">
-  <link rel="icon" type="image/png" sizes="1024x1024" href="/global/images/logo.png">
-  <link rel="apple-touch-icon" href="/global/images/logo-180.png">
-  <link rel="prefetch" href="/global/css/light.css" as="style">
-  <link rel="prefetch" href="/global/css/dark.css" as="style">
-<link rel="stylesheet" href="styles.27d92687d94d4d724ccd.css" integrity="sha384-hK0JPAoL1LNq+QH2QdH0PK+27IrQBRU51vv7qakKpQyChKQseqJMArOOzJLW6fRM" crossorigin="anonymous"></head>
-
-<body>
-  <mdb-root>
-    <div class="preloader">
-      <div>
-        <img src="global/images/logo.png" width="250" alt="Logo">
+  <body>
+    <mdb-root>
+      <div class="preloader">
+        <div>
+          <img src="global/images/logo.png" width="250" alt="Logo" />
+        </div>
+        <br />
+        <br />
+        <div class="progress-bar">
+          <div class="progress-circle"></div>
+          <div class="progress-circle"></div>
+          <div class="progress-circle"></div>
+          <div class="progress-circle"></div>
+          <div class="progress-circle"></div>
+        </div>
       </div>
-      <br />
-      <br />
-      <div class="progress-bar">
-        <div class="progress-circle"></div>
-        <div class="progress-circle"></div>
-        <div class="progress-circle"></div>
-        <div class="progress-circle"></div>
-        <div class="progress-circle"></div>
-      </div>
-    </div>
-  </mdb-root>
-  <noscript>
-    Unfortunately JavaScript is needed for this JavaScript based client webaudio based music database.
-  </noscript>
+    </mdb-root>
+    <noscript>
+      Unfortunately JavaScript is needed for this JavaScript based client
+      webaudio based music database.
+    </noscript>
 
-  <script>
-    var style = localStorage.getItem('style');
-    if (style && style === "dark") {
-      // already add the dark sheet
-      var link = document.createElement("link");
-      link.rel = "stylesheet";
-      link.type = "text/css"
-      link.href = "global/css/dark.css";
-      link.id = "customStylesheet";
-      document.querySelector("head").appendChild(link);
-      document.querySelector("img").src = "global/images/icon-512-white.png";
-    }
-  </script>
-<script type="text/javascript" src="runtime.b2cd9a60f0c7b320f083.js" integrity="sha384-WCO1dM1VIjdz4wJR0FG7yGtGylSMdwCQDP5MoFjrc/u8970XcFh6zwXdjG76eCDS" crossorigin="anonymous"></script><script type="text/javascript" src="polyfills.1fe81d7a27190d6e11b1.js" integrity="sha384-D5NVrpiNgpj4RiTKFUk/gI3/AXNBOxbENCEvUN9hp2a1mayLxUkjAc3RSXkhbXUL" crossorigin="anonymous"></script><script type="text/javascript" src="main.72e5628b2eb9c1738a01.js" integrity="sha384-hQWpE1emYtc7h7tdpEpYY7zCvLLXu3JBjXWKVJcGSsDMJuR8RwL4FyDMUd27B5YF" crossorigin="anonymous"></script></body>
-
+    <script>
+      var style = localStorage.getItem("style");
+      if (style && style === "dark") {
+        // already add the dark sheet
+        var link = document.createElement("link");
+        link.rel = "stylesheet";
+        link.type = "text/css";
+        link.href = "global/css/dark.css";
+        link.id = "customStylesheet";
+        document.querySelector("head").appendChild(link);
+        document.querySelector("img").src = "global/images/icon-512-white.png";
+      }
+    </script>
+  <script type="text/javascript" src="runtime.b2cd9a60f0c7b320f083.js" integrity="sha384-WCO1dM1VIjdz4wJR0FG7yGtGylSMdwCQDP5MoFjrc/u8970XcFh6zwXdjG76eCDS" crossorigin="anonymous"></script><script type="text/javascript" src="polyfills.1fe81d7a27190d6e11b1.js" integrity="sha384-D5NVrpiNgpj4RiTKFUk/gI3/AXNBOxbENCEvUN9hp2a1mayLxUkjAc3RSXkhbXUL" crossorigin="anonymous"></script><script type="text/javascript" src="main.bfc6453a98869724ca3d.js" integrity="sha384-MQmu9NnCW2ZqaUxZpwqRRSZwp/kv7/7Tqro6A8+M6yUeG9yy8I+XEuWDCkh9vdME" crossorigin="anonymous"></script></body>
 </html>
