@@ -1,0 +1,12 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "org.arielext.hostedmusicdb",
+      "sha256_cert_fingerprints": [
+        "FB:B4:56:00:40:5C:05:CF:91:29:48:73:D0:90:EA:BF:7B:8C:A0:2B:B2:83:E0:1B:36:A0:2F:52:DF:F6:68:EE"
+      ]
+    }
+  }
+]
