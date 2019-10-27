@@ -2,5 +2,8 @@
   "name": "jsmusicdbnext-prebuilt",
   "description": "prebuilt stable versions of jsmusicdbnext",
   "version": "2.21.6",
-  "dependencies": {}
+  "dependencies": {},
+  "scripts": {
+    "postversion": "npm publish && git push && git push --tags"
+  }
 }
